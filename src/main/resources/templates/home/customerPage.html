@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
+<form action="/submit-customer" method="POST">
+  <label for="customer-name">Name:</label>
+  <input type="text" id="customer-name" name="customerName"><br><br>
 
+  <label for="customer-address">Address:</label>
+  <input type="text" id="customer-address" name="customerAddress"><br><br>
+
+  <label for="customer-zip">Zip code:</label>
+  <input type="text" id="customer-zip" name="customerZip"><br><br>
+
+  <label for="customer-phone">Phone number:</label>
+  <input type="text" id="customer-phone" name="customerPhone"><br><br>
+
+  <label for="customer-license">License number:</label>
+  <input type="text" id="customer-license" name="customerLicense"><br><br>
+
+  <label for="customer-date">Driver since date:</label>
+  <input type="date" id="customer-date" name="customerDate"><br><br>
+
+  <input type="submit" value="Next">
+</form>
 </body>
 </html>

@@ -5,8 +5,10 @@ import com.example.bilabonnement.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
-    @Service
+
+@Service
     public class CustomerService {
         @Autowired
         CustomerRepo customerRepo;
@@ -14,5 +16,9 @@ import org.springframework.stereotype.Service;
         public void createNewUser(Customer c) {
             customerRepo.newCustomer(c);
         }
+
+    public List<Customer> fetchWishList(){
+        return customerRepo.fetchWishList();
+    }
 
     }

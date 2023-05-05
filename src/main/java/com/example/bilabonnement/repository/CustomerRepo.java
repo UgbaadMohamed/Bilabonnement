@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CustomerRepo {
 
@@ -21,6 +23,11 @@ public class CustomerRepo {
                 c.getCustomer_phone_number(), c.getCustomer_license_number(), c.getCustomer_driver_since_date(), c.getCustomer_validation());
     }
 
+    public List<Customer> fetchWishList(){
+        String sql = "SELECT * FROM wishlist";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        return template.query(sql, rowMapper);
+    }
 
 
 
