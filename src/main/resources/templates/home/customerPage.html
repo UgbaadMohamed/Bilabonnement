@@ -5,26 +5,31 @@
   <title>Title</title>
 </head>
 <body>
-<form action="/submit-customer" method="POST">
-  <label for="customer-name">Name:</label>
-  <input type="text" id="customer-name" name="customerName"><br><br>
+<form>
 
-  <label for="customer-address">Address:</label>
-  <input type="text" id="customer-address" name="customerAddress"><br><br>
+  <label for="customer_first_name">Fornan:</label>
+  <input type="text" id="customer_first_name" name="customerName"><br><br>
 
-  <label for="customer-zip">Zip code:</label>
-  <input type="text" id="customer-zip" name="customerZip"><br><br>
+  <label for="customer_last_name">Efternavn:</label>
+  <input type="text" id="customer_last_name" name="customerAddress"><br><br>
 
-  <label for="customer-phone">Phone number:</label>
-  <input type="text" id="customer-phone" name="customerPhone"><br><br>
+  <label for="customer_address">Address:</label>
+  <input type="text" id="customer_address" name="customerAddress"><br><br>
 
-  <label for="customer-license">License number:</label>
-  <input type="text" id="customer-license" name="customerLicense"><br><br>
+  <label for="customer_zip">Post nummer:</label>
+  <input type="text" id="customer_zip" name="customerZip"><br><br>
 
-  <label for="customer-date">Driver since date:</label>
-  <input type="date" id="customer-date" name="customerDate"><br><br>
+  <label for="customer_phone">Telefon nummer:</label>
+  <input type="text" id="customer_phone" name="customerPhone"><br><br>
 
-  <input type="submit" value="Next">
+  <label for="customer_license">Kørekort nummer:</label >
+  <input type="text" id="customer_license" name="customerLicense" required><br><br>
+
+  <label for="customer_date">Alder:</label>
+  <input type="date" id="customer_date" name="customerDate"><br><br>
+
+  <a href="/CustomerPage">Næste</a>
 </form>
+
 </body>
 </html>

@@ -5,12 +5,13 @@ public class Customer {
     //Attributts
 
     private int customer_id;
-    private String customer_name;
+    private String customer_first_name;
+    private String customer_last_name;
     private String customer_address;
     private int customer_zip;
     private String customer_phone_number;
     private int customer_license_number;
-    private int customer_driver_since_date;
+    private int customer_age;
     private int customer_validation;
 
 
@@ -19,8 +20,12 @@ public class Customer {
         return customer_id;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public String getCustomer_first_name() {
+        return customer_first_name;
+    }
+
+    public String getCustomer_last_name() {
+        return customer_last_name;
     }
 
     public String getCustomer_address() {
@@ -39,8 +44,8 @@ public class Customer {
         return customer_license_number;
     }
 
-    public int getCustomer_driver_since_date() {
-        return customer_driver_since_date;
+    public int getCustomer_age() {
+        return customer_age;
     }
 
     public int getCustomer_validation() {
@@ -51,8 +56,12 @@ public class Customer {
         this.customer_id = customer_id;
     }
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
+    public void setCustomer_first_name(String customer_first_name) {
+        this.customer_first_name = customer_first_name;
+    }
+
+    public void setCustomer_last_name(String customer_last_name) {
+        this.customer_last_name = customer_last_name;
     }
 
     public void setCustomer_address(String customer_address) {
@@ -71,8 +80,8 @@ public class Customer {
         this.customer_license_number = customer_license_number;
     }
 
-    public void setCustomer_driver_since_date(int customer_driver_since_date) {
-        this.customer_driver_since_date = customer_driver_since_date;
+    public void setCustomer_age(int customer_age) {
+        this.customer_age = customer_age;
     }
 
     public void setCustomer_validation(int customer_validation) {

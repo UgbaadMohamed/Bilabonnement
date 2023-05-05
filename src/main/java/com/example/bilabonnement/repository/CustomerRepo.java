@@ -17,26 +17,21 @@ public class CustomerRepo {
     private JdbcTemplate template;
 
     public void newCustomer(Customer c) {
-        String sql = "INSERT INTO user (customer_id, customer_name, customer_adress, customer_zip, " +
-                "customer_phone_number, customer_license_number, customer_driver_since_date, customer_validation ) VALUES (?, ?, ?, ?, ?, ?)";
-        template.update(sql, c.getCustomer_id(), c.getCustomer_name(), c.getCustomer_address(), c.getCustomer_zip(),
-                c.getCustomer_phone_number(), c.getCustomer_license_number(), c.getCustomer_driver_since_date(), c.getCustomer_validation());
+        String sql = "INSERT INTO customer (customer_id, customer_first_name, customer_last_name, customer_address, customer_zip, " +
+                "customer_phone_number, customer_license_number, customer_age, customer_validation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, c.getCustomer_id(), c.getCustomer_first_name(), c.getCustomer_last_name(), c.getCustomer_address(), c.getCustomer_zip(),
+                c.getCustomer_phone_number(), c.getCustomer_license_number(), c.getCustomer_age(), c.getCustomer_validation());
     }
 
-    public List<Customer> fetchWishList(){
-        String sql = "SELECT * FROM wishlist";
+
+
+    public List<Customer> fetchCustomer(){
+        String sql = "SELECT * FROM customer";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql, rowMapper);
     }
 
-
-
-
-
-
-
-
-
+    /*
 
 
     public boolean validateLogin(String username, String user_password) {
@@ -49,15 +44,6 @@ public class CustomerRepo {
             return false;
         }
     }
+
+     */
 }
-/*
-customer_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-customer_name VARCHAR(100),
-customer_address VARCHAR(100) ,
-customer_zip INT,
-customer_phone VARCHAR(20) ,
-customer_license_number VARCHAR(20),
-customer_driver_since_date DATE,
-customer_validation TINYINT NOT NULL,
-car_id INT,
- */

@@ -17,8 +17,8 @@ import java.util.List;
             customerRepo.newCustomer(c);
         }
 
-    public List<Customer> fetchWishList(){
-        return customerRepo.fetchWishList();
+    public List<Customer> fetchCustomer(){
+        return customerRepo.fetchCustomer();
     }
 
     }
