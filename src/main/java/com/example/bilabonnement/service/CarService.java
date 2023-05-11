@@ -17,8 +17,17 @@ public class CarService {
         return carRepo.fetchCars();
     }
 
-
     public List<Car> viewCars(int car_id){
         return carRepo.viewCars(car_id);
     }
+
+    public void chooseRentingPeriod(Car car, String start_date, String end_date){
+        carRepo.chooseRentingPeriod(car, start_date,end_date);
+    }
+    public void location(Car car, String location){
+        carRepo.location(car, location);
+    }
+
+
+
 }
