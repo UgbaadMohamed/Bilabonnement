@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="car-container" style="display: flex; flex-wrap: wrap;">
+
+    <div th:each="car: ${cars}" class="car-box">
+
+        <div class="information">
+            <p th:text="${car.car_brand}"></p>
+            <p class="car_model" th:text="${car.car_model}"></p>
+            <p class="car_plate" th:text="${car.car_plate}"></p>
+            <p class="car_odometer" th:text="${car.car_odometer}"></p>
+            <p class="car_vin" th:text="${car.car_vin}"></p>
+            <span class="wishlist-count" th:text="${car.image}"></span>
+
+            <img th:src="@{'data:image/jpeg;base64,'+ #strings.encodeBase64(image)}"/>
+
+            <p class="car_vin" th:text="${car.subscription_price}"></p>
+        </div>
+
+
+    <a th:href="@{'/viewCar/'+${car.car_id}}">
+        <button class="view wishlist"><i class="fa-solid fa-eye"></i></button>
+    </a>
+
+    </div>
+    </div>
+
+</body>
+</html>
