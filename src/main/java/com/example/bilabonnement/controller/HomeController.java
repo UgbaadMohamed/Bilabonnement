@@ -63,9 +63,9 @@ public class HomeController {
         if (staffService.validateLogin(staff_member_username, staff_member_password)) {
             StaffMember staffMember = staffService.getStaffMember(staff_member_username, staff_member_password);
             model.addAttribute("staff_member", staffMember);
-            return "home/homePage";
+            return "home/stafftype";
         }
-        return "home/frontPage";
+        return "home/stafftype";
     }
     @GetMapping ("/creditValidation")
     public String creditValidation() {
