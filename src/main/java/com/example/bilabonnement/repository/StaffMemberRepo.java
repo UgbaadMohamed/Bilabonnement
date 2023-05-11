@@ -1,4 +1,4 @@
-package com.example.bilabonnement.repo;
+package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.StaffMember;
 import org.springframework.beans.factory.annotation.Autowired;

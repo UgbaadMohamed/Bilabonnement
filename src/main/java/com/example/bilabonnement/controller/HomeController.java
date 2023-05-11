@@ -7,24 +7,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.List;
 @Controller
 public class HomeController {
     @Autowired
     CarService carService;
+    @Autowired
+    StaffMemberService staffService;
+
     int car_id;
-    @GetMapping("/")
+    @GetMapping("//")
     public String homePage(Model model) {
         List<Car> cars = carService.fetchCars();
         model.addAttribute("cars", cars);
@@ -51,17 +49,6 @@ public class HomeController {
         carService.chooseRentingPeriod(car, car.getStart_date(), car.getEnd_date());
         return "redirect:/homePage";
     }
-
-
-
-
-
-
-
-}
-
-    @Autowired
-    StaffMemberService staffService;
     private int staff_id;
     @GetMapping("/")
     public String frontPage () {
@@ -99,11 +86,6 @@ public class HomeController {
 
         return "home/contract";
     }
-
-
-
-
-
 
 
 }

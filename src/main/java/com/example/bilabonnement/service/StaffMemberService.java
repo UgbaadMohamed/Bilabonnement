@@ -1,6 +1,6 @@
 package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.StaffMember;
-import com.example.bilabonnement.repo.StaffMemberRepo;
+import com.example.bilabonnement.repository.StaffMemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
