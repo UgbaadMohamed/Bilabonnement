@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <form method="post" th:action="@{/creditvalidation-form}" onsubmit="return validateForm()">
+        <p>Hvad er kundens måndelige indtægt?</p>
+        <label><input type="radio" name="q1" value="under_femogtyve" required> Under 25.000</label>
+        <label><input type="radio" name="q1" value="under_femogfyrre"> Mellem 25.000 - 45.000</label>
+        <label><input type="radio" name="q1" value="over_femogfyrre"> Over 45.000</label>
+
+        <p>Er kunden registret i RKI?</p>
+        <label><input type="radio" name="q2" value="ja" required> Ja</label>
+        <label><input type="radio" name="q2" value="nej"> Nej</label>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var q1 = document.getElementsByName("q1");
+            var q2 = document.getElementsByName("q2");
+            if (q1[0].checked || q2[0].checked) {
+                alert("Kunden er ikke kreditvalid");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
