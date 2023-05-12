@@ -1,5 +1,9 @@
 package com.example.bilabonnement.controller;
+import com.example.bilabonnement.model.ConditionReport;
+import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.model.StaffMember;
+import com.example.bilabonnement.service.ConditionReportService;
+import com.example.bilabonnement.service.ContractService;
 import com.example.bilabonnement.service.StaffMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
+import java.util.Objects;
+
 @Controller
 public class HomeController {
     @Autowired
     CarService carService;
     @Autowired
     StaffMemberService staffService;
+    @Autowired
+    ConditionReportService conditionReportService;
+    @Autowired
+    ContractService contractService;
 
     int car_id;
     @GetMapping("//")
@@ -50,14 +60,22 @@ public class HomeController {
         return "redirect:/homePage";
     }
     private int staff_id;
+
     @GetMapping("/")
-    public String frontPage () {
-        return "home/creditDocumentation";
+    public String frontPage(){
+        return "home/conditionReportDocumentation";
+    }
+    @PostMapping("/conditionReport/{contract_id}")
+    public String conditionReport(Model model, @RequestParam("contract_id") int contract_id) {
+        //List<Contract> contracts = contractService.fetchContracts();
+        model.addAttribute("contract", contractService.findContractById(contract_id));
+        return "home/conditionReport";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("staff_member_username") String staff_member_username, @RequestParam("staff_member_password")
-    String staff_member_password, Model model) {
+    public String login(@RequestParam("staff_member_username") String staff_member_username,
+                        @RequestParam("staff_member_password")
+                        String staff_member_password, Model model) {
         //model.addAttribute("staff_member", staffService.validateLogin(staff_member_username, staff_member_password));
 
         if (staffService.validateLogin(staff_member_username, staff_member_password)) {
@@ -65,7 +83,10 @@ public class HomeController {
             model.addAttribute("staff_member", staffMember);
             return "home/stafftype";
         }
-        return "home/stafftype";
+     else {
+        model.addAttribute("error", "Forkert username eller password.");
+        return "home/frontPage";
+    }
     }
     @GetMapping ("/creditValidation")
     public String creditValidation() {
@@ -83,10 +104,28 @@ public class HomeController {
     }
     @PostMapping("/creditvalidation-form")
     public String creditvalidationForm() {
-
         return "home/contract";
     }
+    @GetMapping("/sendConditionReport/{contract_id}")
+    public String sendConditionReport(@PathVariable("contract_id") int contract_id, Model model) {
+        model.addAttribute("contract_id", contract_id);
+        return "home/sendConditionReport";
+    }
 
+    @PostMapping("/saveConditionReport")
+    public String saveConditionReport(@ModelAttribute ConditionReport conditionReport){
+        String odometerOverLimit = String.valueOf(conditionReport.getOdometer_over_limit());
+        if (odometerOverLimit == null || odometerOverLimit.isEmpty()) {
+            conditionReport.setOdometer_over_limit(0);
+        }
+        conditionReportService.reportConditionReport(conditionReport);
+        return "home/frontPage";
+    }
+
+    /*@PostMapping("/sendConditionReport")
+    public String sendConditionReport() {
+        return "home/sendConditionReport";
+    } <input type="hidden" name="contract_id" th:value="${contract_id}">*/
 
 }
 
