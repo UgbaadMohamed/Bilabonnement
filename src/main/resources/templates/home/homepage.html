@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+    <link rel="stylesheet" type="text/css" href="homePage.css">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+</head
+>
+
 <body>
 <div class="car-container" style="display: flex; flex-wrap: wrap;">
 
     <div th:each="car: ${cars}" class="car-box">
 
-        <div class="information">
-            <p th:text="${car.car_brand}"></p>
-            <p class="car_model" th:text="${car.car_model}"></p>
-            <p class="car_plate" th:text="${car.car_plate}"></p>
-            <p class="car_odometer" th:text="${car.car_odometer}"></p>
-            <p class="car_vin" th:text="${car.car_vin}"></p>
-            <span class="wishlist-count" th:text="${car.image}"></span>
+        <div class="car">
+            <p class="brand"th:text="${car.car_brand}"></p>
+            <p class="model" th:text="${car.car_model}"></p>
+            <p class="location" th:text="${car.car_location}"></p>
+           <!-- <span class="image" th:text="${car.image}"></span>-->
+            <img th:src="${car.image} "class="image"/>
+          <!--  <img th:src="@{'data:image/jpeg;base64,'+ #strings.encodeBase64(image)}" class="image"/-->
 
-            <img th:src="@{'data:image/jpeg;base64,'+ #strings.encodeBase64(image)}"/>
-
-            <p class="car_vin" th:text="${car.subscription_price}"></p>
+            <p class="subscription"th:text="${car.subscription_price}"></p>
         </div>
 
-
     <a th:href="@{'/viewCar/'+${car.car_id}}">
-        <button class="view wishlist"><i class="fa-solid fa-eye"></i></button>
+        <button class="view-car"></i></button>
     </a>
 
     </div>

@@ -8,20 +8,20 @@ public class Car {
     private String  car_plate;
     private double car_odometer;
     private int car_vin;
-    private byte[] image;
+    private String image;
    private int subscription_price;
 
    private String start_date;
 
     private String  end_date;
 
-    private int car_location;
+    private String car_location;
 
     public Car(){
 
     }
 
-    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, byte[] image, int subscription_price, String start_date, String end_date, int car_location) {
+    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, String image, int subscription_price, String start_date, String end_date, String car_location) {
         this.car_id = car_id;
         this.car_brand = car_brand;
         this.car_model = car_model;
@@ -35,11 +35,11 @@ public class Car {
         this.car_location = car_location;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -117,11 +117,11 @@ public class Car {
         this.end_date = end_date;
     }
 
-    public int getCar_location() {
+    public String getCar_location() {
         return car_location;
     }
 
-    public void setCar_location(int car_location) {
+    public void setCar_location(String car_location) {
         this.car_location = car_location;
     }
 }

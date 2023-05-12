@@ -19,17 +19,17 @@ JdbcTemplate template;
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
          List<Car> cars = template.query(sql, rowMapper);
         //Iterate over each car object and load image from database that = car_id
-        for (Car car: cars) {
+    /*    for (Car car: cars) {
             int id = car.getCar_id();
-            String sql2 = "SELECT image FROM car WHERE car_id= ?";
-          byte[] image = template.queryForObject(sql2,byte[].class, id);
+            String sql2 = "SELECT image FROM car WHERE car_id=?";
+            byte[] image = template.queryForObject(sql2,byte[].class, id);
           car.setImage(image);
-        }
+        }*/
         return cars;
     }
 
     public List<Car> viewCars(int car_id) {
-        String sql = "SELECT * From car";
+        String sql = "SELECT * From car where car_id=?";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         return template.query(sql, rowMapper, car_id);
     }
