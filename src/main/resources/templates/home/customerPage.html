@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-<form>
 
-  <label for="customer_first_name">Fornan:</label>
-  <input type="text" id="customer_first_name" name="customerName"><br><br>
+<h1>Kunde Liste</h1>
 
-  <label for="customer_last_name">Efternavn:</label>
-  <input type="text" id="customer_last_name" name="customerAddress"><br><br>
-
-  <label for="customer_address">Address:</label>
-  <input type="text" id="customer_address" name="customerAddress"><br><br>
-
-  <label for="customer_zip">Post nummer:</label>
-  <input type="text" id="customer_zip" name="customerZip"><br><br>
-
-  <label for="customer_phone">Telefon nummer:</label>
-  <input type="text" id="customer_phone" name="customerPhone"><br><br>
-
-  <label for="customer_license">Kørekort nummer:</label >
-  <input type="text" id="customer_license" name="customerLicense" required><br><br>
-
-  <label for="customer_date">Alder:</label>
-  <input type="date" id="customer_date" name="customerDate"><br><br>
-
-  <a href="/CustomerPage">Næste</a>
-</form>
+<table>
+    <thead>
+    <tr>
+        <th>Kunde ID</th>
+        <th>Fornavn</th>
+        <th>Efternavn</th>
+        <th>Adresse</th>
+        <th>Post nummer</th>
+        <th>Telefon nummer</th>
+        <th>Kørekort nummer</th>
+        <th>Alder</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.customer_id}"></td>
+        <td th:text="${customer.customer_first_name}"></td>
+        <td th:text="${customer.customer_last_name}"></td>
+        <td th:text="${customer.customer_address}"></td>
+        <td th:text="${customer.customer_zip}"></td>
+        <td th:text="${customer.customer_phone_number}"></td>
+        <td th:text="${customer.customer_license_number}"></td>
+        <td th:text="${customer.customer_age}"></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

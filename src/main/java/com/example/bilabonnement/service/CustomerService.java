@@ -13,12 +13,14 @@ import java.util.List;
         @Autowired
         CustomerRepo customerRepo;
 
-        public void createNewUser(Customer c) {
-            customerRepo.newCustomer(c);
-        }
 
-    public List<Customer> fetchCustomer(){
-        return customerRepo.fetchCustomer();
+    public List<Customer>fetchAllCustomer(){
+        return customerRepo.fetchAllCustomer();
     }
 
+    public void createCustomer(Customer c){
+        customerRepo.createCustomer(c);
     }
+
+   }
+

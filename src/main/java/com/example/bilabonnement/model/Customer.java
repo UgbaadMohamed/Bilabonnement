@@ -2,7 +2,6 @@ package com.example.bilabonnement.model;
 
 public class Customer {
 
-    //Attributts
 
     private int customer_id;
     private String customer_first_name;
@@ -10,11 +9,29 @@ public class Customer {
     private String customer_address;
     private int customer_zip;
     private String customer_phone_number;
-    private int customer_license_number;
+    private String customer_license_number;
     private int customer_age;
     private int customer_validation;
 
+    public Customer(){
 
+    }
+
+
+
+    public Customer(int customer_id, String customer_first_name, String customer_last_name, String customer_address,
+                    int customer_zip, String customer_phone_number, String customer_license_number, int customer_age,
+                    int customer_validation) {
+        this.customer_id = customer_id;
+        this.customer_first_name = customer_first_name;
+        this.customer_last_name = customer_last_name;
+        this.customer_address = customer_address;
+        this.customer_zip = customer_zip;
+        this.customer_phone_number = customer_phone_number;
+        this.customer_license_number = customer_license_number;
+        this.customer_age = customer_age;
+        this.customer_validation = customer_validation;
+    }
 
     public int getCustomer_id() {
         return customer_id;
@@ -40,7 +57,7 @@ public class Customer {
         return customer_phone_number;
     }
 
-    public int getCustomer_license_number() {
+    public String getCustomer_license_number() {
         return customer_license_number;
     }
 
@@ -76,7 +93,7 @@ public class Customer {
         this.customer_phone_number = customer_phone_number;
     }
 
-    public void setCustomer_license_number(int customer_license_number) {
+    public void setCustomer_license_number(String customer_license_number) {
         this.customer_license_number = customer_license_number;
     }
 
@@ -88,4 +105,3 @@ public class Customer {
         this.customer_validation = customer_validation;
     }
 }
-
