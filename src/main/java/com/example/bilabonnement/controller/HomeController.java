@@ -2,6 +2,7 @@ package com.example.bilabonnement.controller;
 import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,15 +63,19 @@ public class HomeController {
     }
 
     @GetMapping("/review")
-    public String review(@RequestParam("contract_id") int contract_id, Model model){
-        if (reviewService.checkIfReviewed(contract_id)){
-            return "home/reviewDenied";
-        } else {
-
-            Contract contract = contractService.findContractById(contract_id);
-            model.addAttribute("contract", contract);
-            //contract id kommer med til review
-            return "home/review";
+    public String review(@RequestParam("contract_id") int contract_id, Model model) {
+        try {
+            if (reviewService.checkIfAlreadyReviewed(contract_id)) {
+                return "home/reviewDenied";
+            }
+            else {
+                Contract contract = contractService.findContractById(contract_id);
+                model.addAttribute("contract", contract);
+                //contract id kommer med til review, til senere brug
+                return "home/review";
+            }
+        } catch (EmptyResultDataAccessException e) { //inputvalidering, hvis kontrakten ikke findes
+                return "home/reviewDenied";
         }
     }
 

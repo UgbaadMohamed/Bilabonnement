@@ -21,21 +21,18 @@ public class ReviewRepo {
                 review.getBuying_customer(), review.getContract_id());
     }
 
-    public Boolean checkIfReviewed(int contract_id)
+    public Boolean checkIfAlreadyReviewed(int contract_id)
     {
         String sql = "SELECT contract_id FROM review WHERE contract_id = ?";
         RowMapper<Review> rowMapper = new BeanPropertyRowMapper<>(Review.class);
-        try
-        {
+        try {
             Review review = template.queryForObject(sql, rowMapper, contract_id);
-            if (review == null)
-            {
+            if (review == null) {
                 return false;
             }
             else
                 return true;
-        } catch (EmptyResultDataAccessException e)
-        {
+        } catch (EmptyResultDataAccessException e) {
             return false;
         }
     }
