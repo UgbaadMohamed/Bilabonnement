@@ -69,6 +69,7 @@ public class HomeController {
 
             Contract contract = contractService.findContractById(contract_id);
             model.addAttribute("contract", contract);
+            //contract id kommer med til review
             return "home/review";
         }
     }
@@ -79,6 +80,8 @@ public class HomeController {
         reviewService.addReview(review);
 
         if (review.getBuying_customer() == 1) {
+            //contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
+            //pågældende bil (gennem en join)
             Car car = carService.findCarByContractId(review.getContract_id());
             model.addAttribute("car", car);
             return "home/carSale";
