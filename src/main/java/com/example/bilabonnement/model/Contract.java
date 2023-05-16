@@ -60,4 +60,16 @@ public class Contract {
     public void setContract_start_km(int contract_start_km) {
         this.contract_start_km = contract_start_km;
     }
+
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "contract_id=" + contract_id +
+                ", contract_start_date='" + contract_start_date + '\'' +
+                ", contract_end_date='" + contract_end_date + '\'' +
+                ", contract_maximum_km=" + contract_maximum_km +
+                ", contract_start_km=" + contract_start_km +
+                '}';
+    }
 }

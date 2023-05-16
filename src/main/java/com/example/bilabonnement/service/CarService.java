@@ -22,10 +22,14 @@ public class CarService {
     }
 
 
-    public void location(Car car, String location){
-        carRepo.location(car, location);
+    public void location(String car_location, int car_id){
+        carRepo.location( car_location, car_id);
+}
+
+    public Car findPersonById(int id){
+        return carRepo.findPersonById(id);
     }
-
-
-
+       /* public void location(Car car){
+            carRepo.location(car.getCar_id(),car.getCar_location());
+    }*/
 }

@@ -3,17 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/contract.css">
 </head>
 <body>
-<Form action="/availabilityCar" method="post">
-<label for="end_date">Item Name:</label>
-<input type="text" name="end_date" id="end_date" required/>
+<div class="contractform" style="display: flex; flex-wrap: wrap;">
 
-<label for="start_date">Item Name:</label>
-<input type="text" name="start_date" id="start_date" required/>
+    <form action="/contractinfo" method="post">
 
-<label for="car_location">Item Name:</label>
-<input type="text" name="car_location" id="car_location" required/>
 
+
+
+    <label for="contract_start_date">Start Date :</label>
+    <input type="text" name="contract_start_date" id="contract_start_date" required/>
+
+    <label for="contract_end_date">End date:</label>
+         <input type="text" name="contract_end_date" id="contract_end_date" required/>
+
+        <label for="contract_maximum_km">Max KM Name:</label>
+        <input type="text" name="contract_maximum_km" id="contract_maximum_km" required/>
+
+        <label for="contract_start_km">Start KM:</label>
+        <input type="text" name="contract_start_km" id="contract_start_km" required/>
+
+        <input type="hidden" name="contract_id" th:value="${contracts.contract_id}">
+
+        <button type="submit" value="Save changes" style="background-color: #4CAF50" >
+            </button>
+        </form>
+</div>
 </body>
 </html>

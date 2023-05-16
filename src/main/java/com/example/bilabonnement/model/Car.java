@@ -10,18 +10,13 @@ public class Car {
     private int car_vin;
     private String image;
    private int subscription_price;
-
-   private String start_date;
-
-    private String  end_date;
-
     private String car_location;
 
     public Car(){
 
     }
 
-    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, String image, int subscription_price, String start_date, String end_date, String car_location) {
+    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, String image, int subscription_price, String car_location) {
         this.car_id = car_id;
         this.car_brand = car_brand;
         this.car_model = car_model;
@@ -30,8 +25,6 @@ public class Car {
         this.car_vin = car_vin;
         this.image = image;
         this.subscription_price = subscription_price;
-        this.start_date = start_date;
-        this.end_date = end_date;
         this.car_location = car_location;
     }
 
@@ -99,22 +92,6 @@ public class Car {
 
     public void setCar_vin(int car_vin) {
         this.car_vin = car_vin;
-    }
-
-    public String getStart_date() {
-        return start_date;
-    }
-
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
-    }
-
-    public String getEnd_date() {
-        return end_date;
-    }
-
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
     }
 
     public String getCar_location() {

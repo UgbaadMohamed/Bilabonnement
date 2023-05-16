@@ -3,23 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/carinformation.css">
+    <link rel="stylesheet" type="text/css" href="/carinformation.css">
+
 </head>
 <body>
 
 <div class="information" style="display: flex; flex-wrap: wrap;">
     <div th:each="car: ${cars}">
-        <p class="car_odometer" th:text="${car.car_odometer}"></p>
-        <p class="car_plate" th:text="${car.car_plate}"></p>
-        <p class="car_vin" th:text="${car.car_vin}"></p>
-        <p class="brand" th:text="${car.car_brand}"></p>
-        <p class="model" th:text="${car.car_model}"></p>
-        <p class="subscription" th:text="${car.subscription_price}"></p>
-        <img th:src="${car.image}" id="carImg"/>
-    </div>
-</div>
-<!--  <img th:src="@{'data:image/jpeg;base64,'+ #strings.encodeBase64(image)}"/> -->
 
+        <h1 class="model" th:text="'Model: ' +${car.car_model}"></h1>
+
+        <input class="model" text="brand" th:value=" 'Brand: '+ ${car.car_brand}" readonly>
+
+        <input class="car_odometer" th:value="'Nuværende kilometer: '+ ${car.car_odometer}"readonly>
+
+        <input class="car_plate" th:value="'Nummerplade: '+ ${car.car_plate}"readonly>
+
+        <input class="car_vin" th:value="'Steelnummer: '+${car.car_vin}"readonly>
+
+        <input class="subscription" th:value="'Månedligt abonnement: '+${car.subscription_price} +'kr'"readonly>
+    </div>
+<div>
+        <form action="/pickLocation" method="post">
+        <label for="car_location" style="color:cornflowerblue; :font-size:160%;"> See pickup locations:</label>
+        <select id="car_location"  name="car_location"  required>
+        <option value="køge"> Køge   </option>
+            <option value="Nørrebro"> Nørrebro    </option>
+            <option value="valby"> Valby    </option>
+            <option value="Østerbro"> Østerbro    </option>
+            <option value="Dragør"> Dragør    </option>
+            <option value="Kongens Nytorv"> Kongens Nytorv    </option>
+            <input type="hidden" name="car_id" th:value="${car.car_id}">
+            <input type="submit">
+        </select>
+
+        <img th:src="${car.image}" id="carImg"/>
+
+        </Form>
+    </div>
 </div>
 </body>
 </html>
