@@ -81,7 +81,6 @@ public class HomeController {
 
     @PostMapping("/reviewSubmitted")
     public String submitReview(Review review, Model model) {
-
         reviewService.addReview(review);
 
         if (review.getBuying_customer() == 1) {
@@ -129,7 +128,7 @@ public class HomeController {
             return "home/creditValidation";
     }
 
-    @PostMapping("/receivedDocuments")
+    @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
                               @RequestParam("q2") String q2) {
         if (q1.equals("ja") && q2.equals("ja")) {
@@ -151,7 +150,7 @@ public class HomeController {
     }
 
     @PostMapping("/saveConditionReport")
-    public String saveConditionReport(@ModelAttribute ConditionReport conditionReport){
+    public String saveConditionReport(@ModelAttribute ConditionReport conditionReport) {
         conditionReportService.saveConditionReport(conditionReport);
         return "home/frontPage";
     }
