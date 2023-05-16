@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 @Repository
@@ -43,10 +45,27 @@ JdbcTemplate template;
         return car;
     }
     public void location(String car_location, int car_id) {
+        System.out.println(car_id);
         String sql = "UPDATE car SET car_location = ? Where car_id = ?";
         template.update(sql, car_location, car_id);
     }
 
+
+    public List<Car> searchSpecificCar(String car_model){
+        String sql= "SELECT * FROM car WHERE car_model = ?";
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        return template.query(sql, rowMapper, car_model);
+    }
+
+
+
+
+   /* @PostMapping("/pickLocation")
+    public String pickLocation(@ModelAttribute Car car) {
+        System.out.println(car.getCar_location());
+        carService.location(car.getCar_location(),car.getCar_id(), car);
+        return "redirect:/";
+    }*/
 
 
 

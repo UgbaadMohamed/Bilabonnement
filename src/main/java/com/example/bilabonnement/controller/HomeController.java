@@ -8,17 +8,17 @@ import com.sun.source.tree.ReturnTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
 public class HomeController {
     @Autowired
     CarService carService;
+
+    @Autowired
     ContractService contractService;
+
     int car_id;
 
     @GetMapping("/")
@@ -40,9 +40,11 @@ public class HomeController {
         return "home/carinformation";
     }
 
-    @PostMapping("/pickLocation")
-    public String pickLocation(@ModelAttribute Car car) {
-        carService.location(car.getCar_location(), car.getCar_id());
+    @PostMapping("/pickLocation/{car_id}")
+    public String pickLocation(@ModelAttribute Car car,@PathVariable("car_id") int car_id) {
+        System.out.println(car);
+        System.out.println(car_id);
+        carService.location(car.getCar_location(), car_id);
         return "redirect:/";
     }
 
@@ -55,32 +57,47 @@ public class HomeController {
     }
 
 
-    @GetMapping("/viewContract/{contract_id}")
+  /*  @GetMapping("/viewContract/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
         List<Contract> contracts =contractService.viewContract(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
         return "home/contract";
-    }
-
-
+    }*/
 
 
     @GetMapping("/contract/{car_id}")
     public String contract(@PathVariable("car_id") int car_id, Model model) {
-        model.addAttribute("car", car_id);
+
+        model.addAttribute("car_id", car_id);
         return "home/contract";
     }
 
-    @PostMapping("/contractinfo")
-    public String contractinfo(@ModelAttribute Contract contract) {
+
+    @PostMapping("/contractinfo/{car_id}")
+    public String contractinfo(@ModelAttribute Contract contract,@PathVariable("car_id") int car_id) {
         System.out.println(contract);
-        contractService.contractInfo(contract);
-        return "home/homePage";
+        //contract kommer ikke med
+        contractService.contractInfo(contract,car_id);
+        return "home/homepage";
+    }
+
+    @GetMapping("/searchForCar")
+    public String searchForCar(@RequestParam("car_model") String car_model, Model model) {
+        List<Car> cars= carService.searchSpecificCar(car_model);
+        model.addAttribute("cars", cars);
+        return "home/carinformation";
     }
 
 
 
+
+   /* @GetMapping("/searchForCar")
+    public String searchForCar(@RequestParam("car_model") String car_model, @RequestParam("car_brand") String car_brand, Model model) {
+        List<Car> cars= carService.searchSpecificCar(car_model, car_brand);
+        model.addAttribute("cars", cars);
+        return "home/carinformation";
+    }*/
 
 
 

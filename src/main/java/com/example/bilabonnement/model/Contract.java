@@ -3,6 +3,8 @@ package com.example.bilabonnement.model;
 public class Contract {
         private int contract_id;
 
+        private int car_id;
+
     private String contract_start_date;
     private String contract_end_date;
     private int contract_maximum_km;
@@ -13,12 +15,21 @@ public class Contract {
     public Contract(){
     }
 
-    public Contract(int contract_id, String contract_start_date, String contract_end_date, int contract_maximum_km, int contract_start_km) {
+    public Contract(int contract_id, String contract_start_date, String contract_end_date, int contract_maximum_km, int contract_start_km, int car_id) {
         this.contract_id = contract_id;
         this.contract_start_date = contract_start_date;
         this.contract_end_date = contract_end_date;
         this.contract_maximum_km = contract_maximum_km;
         this.contract_start_km = contract_start_km;
+        this.car_id=car_id;
+    }
+
+    public int getCar_id() {
+        return car_id;
+    }
+
+    public void setCar_id(int car_id) {
+        this.car_id = car_id;
     }
 
     public int getContract_id() {
