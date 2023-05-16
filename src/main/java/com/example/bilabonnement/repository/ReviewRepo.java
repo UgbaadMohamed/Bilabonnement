@@ -15,7 +15,7 @@ public class ReviewRepo {
     private JdbcTemplate template;
 
     public void addReview(Review review) {
-        String sql = "INSERT INTO review (review_id, rating, staying_customer, buying_customer, contract_id )" +
+        String sql = "INSERT INTO review (review_id, rating, staying_customer, buying_customer, contract_id)" +
                 " VALUES (?, ?, ?, ?, ?)";
         template.update(sql, review.getReview_id(), review.getRating(), review.getStaying_customer(),
                 review.getBuying_customer(), review.getContract_id());

@@ -5,16 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Bil salg</h1>
-<p>Her er beløbet på bilen </p>
+<h1>Bilsalg</h1>
 
-<!-- <label>Car id?</label>
-    <input type="number" name="car_id" id="car_id" placeholder="Indtast car id"> -->
-<form action="/priceConverter" method="post">
-<p class="car_price" th:text="${car.car_price}"></p>
+<form th:action="@{/priceConverter}" method="post">
 
-<button type="submit" value="eu">Euro</button>
-<button type="submit" value="dkk">DKK</button>
+<p>Prisen på bilen:</p>
+    <p class="car_price" th:text="${car.car_price}"></p>
+
+<button type="submit" name="currency" value="eu">Euro</button>
+<button type="submit" name="currency" value="dkk">DKK</button>
+
+    <input type="hidden" name="car_id" th:value="${car.car_id}">
+
 </form>
 
 </body>

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.context.request.WebRequest;
 
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class HomeController {
         carService.chooseRentingPeriod(car, car.getStart_date(), car.getEnd_date());
         return "redirect:/homePage";
     }
-    private int staff_id;
+    //private int staff_id;
 
     @GetMapping("/")
     public String frontPage(){
@@ -74,30 +73,31 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/reviewSubmitted")
-    public String reviewSubmitted(Review review, Model model) {
+    @PostMapping("/reviewSubmitted")
+    public String submitReview(Review review, Model model) {
+
         reviewService.addReview(review);
-        if (review.getBuying_customer() == 1){
+
+        if (review.getBuying_customer() == 1) {
             Car car = carService.findCarByContractId(review.getContract_id());
             model.addAttribute("car", car);
             return "home/carSale";
+
         } else
-        return "home/frontPage";
+            return "home/frontPage";
     }
 
-    /*@PostMapping("/priceConverter")
-    public String C2F(WebRequest webRequest, @ModelAttribute Calculator temp, Model model) {
-        String btn = webRequest.getParameter("type");
-        if (btn.equals("C2F")) {
-            temp.setFahrenheit(temp.getTemperature() * 9 / 5 + 32);
-            model.addAttribute("res", temp.getFahrenheit());
+    @PostMapping("/priceConverter")
+    public String priceConverter(Car car, Model model, @RequestParam("currency") String currency) {
+        car = carService.findCarByContractId(car.getCar_id());
+        model.addAttribute("car", car);
 
-        } else if (btn.equals("F2C")){
-            temp.setCelsius(temp.getTemperature()- 32 * 5/9);
-            model.addAttribute("res", temp.getCelsius());
+        if (currency.equals("eu")) {
+            car.setCar_price(car.getCar_price() * 0.1343);
         }
-        return "home/index";
-    }*/
+
+        return "home/carSale";
+    }
 
     @PostMapping("/login")
     public String login(@RequestParam("staff_member_username") String staff_member_username,
@@ -115,7 +115,8 @@ public class HomeController {
         return "home/frontPage";
     }
     }
-    /*@GetMapping ("/creditValidation")
+
+    @GetMapping ("/creditValidation")
     public String creditValidation() {
             return "home/creditValidation";
     }
@@ -129,6 +130,7 @@ public class HomeController {
             return "home/creditDocumentation";
         }
     }
+
     @PostMapping("/creditvalidation-form")
     public String creditvalidationForm() {
         return "home/contract";
@@ -140,17 +142,11 @@ public class HomeController {
         return "home/conditionReport";
     }
 
-
-
     @PostMapping("/saveConditionReport")
     public String saveConditionReport(@ModelAttribute ConditionReport conditionReport){
         conditionReportService.saveConditionReport(conditionReport);
         return "home/frontPage";
     }
-
-
-
-     */
 
 }
 

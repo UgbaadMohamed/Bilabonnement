@@ -16,7 +16,7 @@ public class Car {
     private String  end_date;
 
     private String car_location;
-    private int car_price;
+    private double car_price;
 
     public Car(){
 
@@ -129,12 +129,16 @@ public class Car {
         this.car_location = car_location;
     }
 
-    public int getCar_price()
+    public double getCar_price()
     {
+        //sørger for, at der kun er 2 cifre efter kommaet
+        String formattedPrice = String.format("%.2f", car_price);
+        formattedPrice = formattedPrice.replace(",", ".");
+        car_price = Double.parseDouble(formattedPrice);
         return car_price;
     }
 
-    public void setCar_price(int car_price)
+    public void setCar_price(double car_price)
     {
         this.car_price = car_price;
     }

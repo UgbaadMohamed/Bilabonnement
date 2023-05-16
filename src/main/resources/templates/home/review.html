@@ -9,8 +9,11 @@
 <body>
 
 <h1>Kundens anmeldelse af vores udlejningsservice</h1>
+
 <p>Hvad synes kunden om udlejningsservicen?</p>
-<form action="/reviewSubmitted" method="get">
+
+<form action="/reviewSubmitted" method="post">
+
 <div class="rating">
     <input type="radio" id="star1" name="rating" value="1" required/>
     <label for="star1" title="En stjerne"></label>
@@ -38,10 +41,8 @@
   <label><input type="radio" name="buying_customer" value="1" required> Ja</label>
   <label><input type="radio" name="buying_customer" value="0"> Nej</label> <br><br>
 
-   <!-- <label>Car id?</label>
-    <input type="number" name="car_id" id="car_id" placeholder="Indtast car id"> -->
-
     <button type="submit">Indsend</button>
+
     <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
 
 </form>
