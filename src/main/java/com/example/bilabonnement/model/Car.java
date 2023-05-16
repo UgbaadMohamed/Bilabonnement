@@ -9,9 +9,9 @@ public class Car {
     private double car_odometer;
     private int car_vin;
     private byte[] image;
-   private int subscription_price;
+    private int subscription_price;
 
-   private String start_date;
+    private String start_date;
 
     private String  end_date;
 
@@ -21,7 +21,9 @@ public class Car {
 
     }
 
-    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, byte[] image, int subscription_price, String start_date, String end_date, int car_location) {
+    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer,
+               int car_vin, byte[] image, int subscription_price, String start_date,
+               String end_date, int car_location) {
         this.car_id = car_id;
         this.car_brand = car_brand;
         this.car_model = car_model;

@@ -8,7 +8,7 @@
 </style>
 </head>
 <body>
-<form method="post" th:action="@{/process-form}" onsubmit="return validateForm()">
+<form method="post" th:action="@{/receivedDocuments}" onsubmit="return validateForm()">
     <p>Har du modtaget kundens lønsedler?</p>
     <label><input type="radio" name="q1" value="ja" required> Ja</label>
     <label><input type="radio" name="q1" value="nej"> Nej</label>
@@ -17,16 +17,14 @@
     <label><input type="radio" name="q2" value="ja" required> Ja</label>
     <label><input type="radio" name="q2" value="nej"> Nej</label>
 
-    <button type="submit">Submit</button>
-
+    <button type="submit">Næste</button>
 </form>
 
 <script>
-
     function validateForm() {
         //'ja' har værdien 0, mens 'nej' har værdien 1.
-        // Hvis 1 er cheked på midste en af dem, vil der komme en javascript alert. den returne'false'
-        // da den ikke kan komme ud af fuktionen før den returner true, altså begge er 'ja'!
+        // Hvis 1 er checked på mindst en af dem, vil der komme en javascript alert. den returnere 'false'
+        // da den ikke kan komme ud af funktionen før den returnerer true, altså begge er 'ja'!
         var q1 = document.getElementsByName("q1");
         var q2 = document.getElementsByName("q2");
         if (q1[1].checked || q2[1].checked) {

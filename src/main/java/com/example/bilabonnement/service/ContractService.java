@@ -14,9 +14,9 @@ public class ContractService
     @Autowired
     ContractRepo contractRepo;
 
-    public List<Contract> fetchContracts(){
+    /*public List<Contract> fetchContracts(){
         return contractRepo.fetchContracts();
-    }
+    }*/
 
     public Contract findContractById(int contract_id){
         return contractRepo.findContractById(contract_id);

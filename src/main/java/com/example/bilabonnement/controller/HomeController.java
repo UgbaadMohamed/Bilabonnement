@@ -1,6 +1,5 @@
 package com.example.bilabonnement.controller;
 import com.example.bilabonnement.model.ConditionReport;
-import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.model.StaffMember;
 import com.example.bilabonnement.service.ConditionReportService;
 import com.example.bilabonnement.service.ContractService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -40,7 +38,7 @@ public class HomeController {
     }
 
     @GetMapping("/viewCar/{car_id}")
-    public String viewCar(@PathVariable("car_id") int car_id,Model model) {
+    public String viewCar(@PathVariable("car_id") int car_id, Model model) {
         List<Car> cars =carService.viewCars(car_id);
         model.addAttribute("cars", cars);
         System.out.println(cars);
@@ -65,12 +63,6 @@ public class HomeController {
     public String frontPage(){
         return "home/conditionReportDocumentation";
     }
-    @PostMapping("/conditionReport/{contract_id}")
-    public String conditionReport(Model model, @RequestParam("contract_id") int contract_id) {
-        //List<Contract> contracts = contractService.fetchContracts();
-        model.addAttribute("contract", contractService.findContractById(contract_id));
-        return "home/conditionReport";
-    }
 
     @PostMapping("/login")
     public String login(@RequestParam("staff_member_username") String staff_member_username,
@@ -93,8 +85,8 @@ public class HomeController {
             return "home/creditValidation";
     }
 
-    @PostMapping("/process-form")
-    public String processForm(@RequestParam("q1") String q1,
+    @PostMapping("/receivedDocuments")
+    public String receivedDocuments(@RequestParam("q1") String q1,
                               @RequestParam("q2") String q2) {
         if (q1.equals("ja") && q2.equals("ja")) {
             return "redirect:/creditValidation";
@@ -106,19 +98,22 @@ public class HomeController {
     public String creditvalidationForm() {
         return "home/contract";
     }
-    @GetMapping("/sendConditionReport/{contract_id}")
+
+    @PostMapping("/conditionReport")
+    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model) {
+        model.addAttribute("contract", contractService.findContractById(contract_id));
+        return "home/conditionReport";
+    }
+
+    /*@GetMapping("/sendConditionReport/{contract_id}")
     public String sendConditionReport(@PathVariable("contract_id") int contract_id, Model model) {
         model.addAttribute("contract_id", contract_id);
         return "home/sendConditionReport";
-    }
+    }*/
 
     @PostMapping("/saveConditionReport")
     public String saveConditionReport(@ModelAttribute ConditionReport conditionReport){
-        String odometerOverLimit = String.valueOf(conditionReport.getOdometer_over_limit());
-        if (odometerOverLimit == null || odometerOverLimit.isEmpty()) {
-            conditionReport.setOdometer_over_limit(0);
-        }
-        conditionReportService.reportConditionReport(conditionReport);
+        conditionReportService.saveConditionReport(conditionReport);
         return "home/frontPage";
     }
 

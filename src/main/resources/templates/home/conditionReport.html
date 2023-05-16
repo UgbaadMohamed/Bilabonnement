@@ -28,10 +28,10 @@
 
         <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
         <button type="submit">Næste</button>
-
     </form>
 
     <script>
+        //sørger for at hvis nej bliver krydset af, så bliver odometer_over_limit gemt som 0 i databasen uanset hvad!
         function validateForm() {
             var q2 = document.getElementsByName("q2");
             var odometer = document.getElementById("odometer_over_limit");

@@ -8,15 +8,15 @@
     </style>
 </head>
 <body>
-<form action="/conditionReport/{contract_id}" method="post" onsubmit=" return validateForm()">
+<form action="/conditionReport" method="post" onsubmit=" return validateForm()">
+    <label for="contract_id">Hvad er kundens kontrakt id?</label>
+    <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt ID">
+
     <p>Har du modtaget tilstandsrapporten fra FDM?</p>
     <label><input type="radio" name="q1" value="ja" required> Ja</label>
     <label><input type="radio" name="q1" value="nej"> Nej</label>
 
-    <label for="contract_id">Hvad er kundens kontrakt id?</label>
-    <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt id">
     <button type="submit">Næste</button>
-
 </form>
 
 <script>
