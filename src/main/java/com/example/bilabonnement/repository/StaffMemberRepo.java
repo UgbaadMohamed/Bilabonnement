@@ -15,10 +15,12 @@ public class StaffMemberRepo {
     private JdbcTemplate template;
 
     public boolean validateLogin(String staff_member_username, String staff_member_password) {
-        String sql = "SELECT staff_member_username, member_type_id, staff_member_password FROM staff_member WHERE staff_member_username = ? AND staff_member_password = ?";
+        String sql = "SELECT staff_member_username, member_type_id, staff_member_password FROM staff_member " +
+                "WHERE staff_member_username = ? AND staff_member_password = ?";
         RowMapper<StaffMember> rowMapper = new BeanPropertyRowMapper<>(StaffMember.class);
         try {
-            StaffMember staffMember = template.queryForObject(sql, rowMapper, staff_member_username, staff_member_password);
+            StaffMember staffMember = template.queryForObject(sql, rowMapper, staff_member_username,
+                    staff_member_password);
             return staffMember != null;
         } catch (EmptyResultDataAccessException e) {
             return false;

@@ -28,6 +28,8 @@ public class CarService {
         carRepo.location(car, location);
     }
 
-
+    public Car findCarByContractId(int contract_id){
+        return carRepo.findCarByContractId(contract_id);
+    }
 
 }

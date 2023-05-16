@@ -21,11 +21,21 @@ JdbcTemplate template;
         //Iterate over each car object and load image from database that = car_id
         for (Car car: cars) {
             int id = car.getCar_id();
-            String sql2 = "SELECT image FROM car WHERE car_id= ?";
+            String sql2 = "SELECT image FROM car WHERE car_id = ?";
           byte[] image = template.queryForObject(sql2,byte[].class, id);
           car.setImage(image);
         }
         return cars;
+    }
+
+    public Car findCarByContractId(int contract_id){
+        String sql = "SELECT car.car_id, car_brand, car_model, car_plate, car_odometer, " +
+                "car_vin, car_location, car_price FROM car JOIN contract ON car.car_id = contract.car_id" +
+                " WHERE contract_id = ?";
+
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        Car car = template.queryForObject(sql, rowMapper, contract_id);
+        return car;
     }
 
     public List<Car> viewCars(int car_id) {
@@ -42,10 +52,5 @@ JdbcTemplate template;
         String sql = "UPDATE car SET location =?";
         template.update(sql, location, car.getCar_id());
     }
-
-
-
-
-
 
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Bil salg</h1>
+<p>Her er beløbet på bilen </p>
+
+<!-- <label>Car id?</label>
+    <input type="number" name="car_id" id="car_id" placeholder="Indtast car id"> -->
+<form action="/priceConverter" method="post">
+<p class="car_price" th:text="${car.car_price}"></p>
+
+<button type="submit" value="eu">Euro</button>
+<button type="submit" value="dkk">DKK</button>
+</form>
+
+</body>
+</html>

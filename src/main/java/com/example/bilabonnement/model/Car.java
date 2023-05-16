@@ -15,7 +15,8 @@ public class Car {
 
     private String  end_date;
 
-    private int car_location;
+    private String car_location;
+    private int car_price;
 
     public Car(){
 
@@ -23,7 +24,7 @@ public class Car {
 
     public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer,
                int car_vin, byte[] image, int subscription_price, String start_date,
-               String end_date, int car_location) {
+               String end_date, String car_location, int car_price) {
         this.car_id = car_id;
         this.car_brand = car_brand;
         this.car_model = car_model;
@@ -35,6 +36,7 @@ public class Car {
         this.start_date = start_date;
         this.end_date = end_date;
         this.car_location = car_location;
+        this.car_price = car_price;
     }
 
     public byte[] getImage() {
@@ -119,11 +121,21 @@ public class Car {
         this.end_date = end_date;
     }
 
-    public int getCar_location() {
+    public String getCar_location() {
         return car_location;
     }
 
-    public void setCar_location(int car_location) {
+    public void setCar_location(String car_location) {
         this.car_location = car_location;
+    }
+
+    public int getCar_price()
+    {
+        return car_price;
+    }
+
+    public void setCar_price(int car_price)
+    {
+        this.car_price = car_price;
     }
 }

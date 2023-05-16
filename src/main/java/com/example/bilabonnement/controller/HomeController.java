@@ -1,19 +1,15 @@
 package com.example.bilabonnement.controller;
-import com.example.bilabonnement.model.ConditionReport;
-import com.example.bilabonnement.model.StaffMember;
-import com.example.bilabonnement.service.ConditionReportService;
-import com.example.bilabonnement.service.ContractService;
-import com.example.bilabonnement.service.StaffMemberService;
+import com.example.bilabonnement.model.*;
+import com.example.bilabonnement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.service.CarService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.context.request.WebRequest;
 
 
 import java.util.List;
@@ -28,6 +24,8 @@ public class HomeController {
     ConditionReportService conditionReportService;
     @Autowired
     ContractService contractService;
+    @Autowired
+    ReviewService reviewService;
 
     int car_id;
     @GetMapping("//")
@@ -61,8 +59,45 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage(){
-        return "home/conditionReportDocumentation";
+        return "home/findReviewTarget";
     }
+
+    @GetMapping("/review")
+    public String review(@RequestParam("contract_id") int contract_id, Model model){
+        if (reviewService.checkIfReviewed(contract_id)){
+            return "home/reviewDenied";
+        } else {
+
+            Contract contract = contractService.findContractById(contract_id);
+            model.addAttribute("contract", contract);
+            return "home/review";
+        }
+    }
+
+    @GetMapping("/reviewSubmitted")
+    public String reviewSubmitted(Review review, Model model) {
+        reviewService.addReview(review);
+        if (review.getBuying_customer() == 1){
+            Car car = carService.findCarByContractId(review.getContract_id());
+            model.addAttribute("car", car);
+            return "home/carSale";
+        } else
+        return "home/frontPage";
+    }
+
+    /*@PostMapping("/priceConverter")
+    public String C2F(WebRequest webRequest, @ModelAttribute Calculator temp, Model model) {
+        String btn = webRequest.getParameter("type");
+        if (btn.equals("C2F")) {
+            temp.setFahrenheit(temp.getTemperature() * 9 / 5 + 32);
+            model.addAttribute("res", temp.getFahrenheit());
+
+        } else if (btn.equals("F2C")){
+            temp.setCelsius(temp.getTemperature()- 32 * 5/9);
+            model.addAttribute("res", temp.getCelsius());
+        }
+        return "home/index";
+    }*/
 
     @PostMapping("/login")
     public String login(@RequestParam("staff_member_username") String staff_member_username,
@@ -80,7 +115,7 @@ public class HomeController {
         return "home/frontPage";
     }
     }
-    @GetMapping ("/creditValidation")
+    /*@GetMapping ("/creditValidation")
     public String creditValidation() {
             return "home/creditValidation";
     }
@@ -105,11 +140,7 @@ public class HomeController {
         return "home/conditionReport";
     }
 
-    /*@GetMapping("/sendConditionReport/{contract_id}")
-    public String sendConditionReport(@PathVariable("contract_id") int contract_id, Model model) {
-        model.addAttribute("contract_id", contract_id);
-        return "home/sendConditionReport";
-    }*/
+
 
     @PostMapping("/saveConditionReport")
     public String saveConditionReport(@ModelAttribute ConditionReport conditionReport){
@@ -117,10 +148,9 @@ public class HomeController {
         return "home/frontPage";
     }
 
-    /*@PostMapping("/sendConditionReport")
-    public String sendConditionReport() {
-        return "home/sendConditionReport";
-    } <input type="hidden" name="contract_id" th:value="${contract_id}">*/
+
+
+     */
 
 }
 
