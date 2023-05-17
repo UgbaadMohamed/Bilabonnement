@@ -28,14 +28,19 @@
 
 </form>
 
-<form th:action="@{/soldCar}" method="post">
+<form th:action="@{/sellCar}" method="post">
 
-    <button>Køb bil</button>
+    <button>Bekræft køb</button>
 
     <input type="hidden" name="review_id" th:value="${review.contract_id}">
     <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
     <input type="hidden" name="car_id" th:value="${car.car_id}">
 
+</form>
+
+<form action="/" method="get">
+
+    <button>Annuller køb</button>
 </form>
 
 </body>

@@ -31,7 +31,16 @@
     </td>
     <td>
 
-        <button>Slet</button>
+        <form th:action="@{/sellCar}" method="post">
+
+            <button>Marker som solgt</button>
+
+            <input type="hidden" name="review_id" th:value="${review.contract_id}">
+            <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+            <input type="hidden" name="car_id" th:value="${car.car_id}">
+
+        </form>
+
     </td>
 </tr>
 
