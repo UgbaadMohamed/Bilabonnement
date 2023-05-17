@@ -70,7 +70,7 @@ JdbcTemplate template;
         template.update(deleteReviewSql, review.getContract_id());
 
         String deleteContract ="DELETE FROM contract WHERE contract_id = ?";
-        template.update(deleteContract,contract.getContract_id());
+        template.update(deleteContract, contract.getContract_id());
 
         String sql = "DELETE FROM car WHERE car_id = ?";
         return template.update(sql, car.getCar_id()) > 0;

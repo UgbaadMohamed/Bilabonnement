@@ -5,17 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 <h1>Bilsalg</h1>
 
 <form th:action="@{/priceConverter}" method="post">
 
-<p>Prisen på bilen:</p>
+    <p>Prisen på bilen:</p>
     <p class="car_price" th:text="${car.car_price}"></p>
 
-<button type="submit" name="currency" value="eu">Euro</button>
-<button type="submit" name="currency" value="dkk">DKK</button>
+    <button type="submit" name="currency" value="eu">Euro</button>
+    <button type="submit" name="currency" value="dkk">DKK</button>
 
+    <input type="hidden" name="review_id" th:value="${review.contract_id}">
+    <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
     <input type="hidden" name="car_id" th:value="${car.car_id}">
+
 </form>
 
 <form th:action="@{/soldCar}" method="post">
@@ -27,6 +37,10 @@
     <input type="hidden" name="car_id" th:value="${car.car_id}">
 
 </form>
+
+</body>
+</html>
+
 
 </body>
 </html>

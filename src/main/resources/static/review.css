@@ -25,3 +25,7 @@
 .rating label:hover ~ label:before {
     content: "\2605"; /* Filled star symbol */
 }
+
+.review{
+    margin-top: 20%;
+}

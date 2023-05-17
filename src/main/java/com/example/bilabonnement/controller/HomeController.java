@@ -91,7 +91,7 @@ public class HomeController {
 
             /* review og contract skal med til carSale som hidden values, i tilfælde af at bilen bliver solgt,
             for så kan de bruges til at slette bilen i databasen, da bilen ikke kan blive slettet uden også at
-            slette dens child rows (contract og review) */
+            slette dens child rows først (contract og review) */
             model.addAttribute("review", review);
             Contract contract = contractService.findContractById(review.getContract_id());
             model.addAttribute("contract", contract);
@@ -124,7 +124,7 @@ public class HomeController {
         return "home/carSale";
     }
 
-    @PostMapping("soldCar")
+    @PostMapping("/soldCar")
     public String sellCar(Review review, Contract contract, Car car) {
         carService.sellCar(review, contract, car);
 

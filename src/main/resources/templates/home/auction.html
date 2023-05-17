@@ -8,6 +8,17 @@
 <h1>Biler i auktion</h1>
 
 
+<table>
+    <thead>
+    <tr>
+        <th>Car ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
 <tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
     <td>
         <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
@@ -18,6 +29,16 @@
     <td>
         <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
     </td>
+    <td>
+
+        <a th:href="@{'/soldCar/'+${item.item_id}}">
+            <button class="btn-deleteItem" id="btn-deleteWishlist"><i class="fa-solid fa-trash-can"></i></button>
+        </a>
+    </td>
+</tr>
+
+    </tbody>
+</table>
 
 </body>
 </html>
