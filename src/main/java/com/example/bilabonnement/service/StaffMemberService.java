@@ -17,8 +17,8 @@ public class StaffMemberService {
         return staffMemberRepo.getMemberType(staff_member_username,staff_member_password);
     }
 
-    public StaffMember getStaffMember(String staff_member_username, String staff_member_password)
+    public StaffMember findStaffMember(String staff_member_username, String staff_member_password)
     {
-        return staffMemberRepo.getStaffMember(staff_member_username,staff_member_password);
+        return staffMemberRepo.findStaffMember(staff_member_username,staff_member_password);
     }
 }

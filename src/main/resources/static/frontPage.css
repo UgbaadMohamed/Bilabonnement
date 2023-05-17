@@ -1,0 +1,59 @@
+
+
+#menuHeader {
+    background-color: #ffffff;
+    font-family: ".SF NS Display", sans-serif;
+    position: fixed;
+    font-weight: bold;
+    color: #3d3a3a;
+    padding: 30px;
+    font-size: 35px;
+    padding: 30px 1200px;
+    z-index: 10;
+    width: 100%;
+    left: -1170px;
+    top: 0;
+    border: 2px solid #3e3838;
+}
+
+body {
+    font-family: Lato, sans-serif;
+    line-height: 0.5;
+    background: white;
+}
+
+.background-video{
+    position: fixed;
+    filter:brightness(0.4);
+    left: 0;
+}
+
+#login-button {
+    z-index: 20;
+    position: fixed;
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 20px;
+    background-color: #707079;
+    border: 2px solid rgb(206 189 189);
+    color: #1a1818;
+    right: 35px;
+    top: 25px;
+}
+#login-button:hover {
+    color:#404047;
+    background-color: #bbb4b4;
+    border: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+

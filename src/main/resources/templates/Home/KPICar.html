@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="KPI.css">
+</head>
+<body>
+<h1>KPI UDTRÆK OVER BILER</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Udlejet biler</th>
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${totalRentedCars}">
+        <td></td>
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Biler på lager</th>
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${totalavailabelCars}">
+        <td></td>
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nærmeste leasing afslutninger</th>
+        <th>Leasing slut dato</th>
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+
+    <tbody>
+    <tr th:each="contract : ${findRentalEndDate}">
+        <td th:text="${contract.contract_end_date}"></td>
+    </tr>
+    <tr th:each="car : ${orderByRentalEndDate}">
+        <td> </td>
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+</table>
+
+
+
+
+
+</body>
+</html>

@@ -3,20 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/home.css">
+    <link rel="stylesheet" type="text/css" href="/creditValidation.css">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+</head>
 
-    <form method="post" th:action="@{/creditvalidation-form}" onsubmit="return validateForm()">
-        <p>Hvad er kundens måndelige indtægt?</p>
+<div id="menuHeader">
+    Bilabonnement.dk
+</div>
+<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
+<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
+<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
+<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
+
+
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
+    </a>
+</div>
+
+<div class="home-foto">
+</div>
+<nav>
+    <ul>
+    </ul>
+</nav>
+<div class="creditvalidation-foto">
+</div>
+<div class="creditValidation-box">
+    <div id="creditDocumentationForm">
+<form method="post" th:action="@{/creditvalidation-form}" onsubmit="return validateForm()">
+        <header id="cd-header">Kreditvalidering (2 ud af 2)</header>
+        <br><br><br>
+        <p>Hvad er kundens gennemsnitlige måndelige indtægt?</p>
         <label><input type="radio" name="q1" value="under_femogtyve" required> Under 25.000</label>
         <label><input type="radio" name="q1" value="under_femogfyrre"> Mellem 25.000 - 45.000</label>
         <label><input type="radio" name="q1" value="over_femogfyrre"> Over 45.000</label>
-
+        <br><br><br><br><br><br><br><br><br><br><br><br>
         <p>Er kunden registret i RKI?</p>
         <label><input type="radio" name="q2" value="ja" required> Ja</label>
         <label><input type="radio" name="q2" value="nej"> Nej</label>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit-btn">SEND</button>
     </form>
-
+    </div>
+</div>
     <script>
         function validateForm() {
             var q1 = document.getElementsByName("q1");

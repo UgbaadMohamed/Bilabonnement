@@ -3,24 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-
-</style>
+    <link rel="stylesheet" type="text/css" href="/home.css">
+    <link rel="stylesheet" type="text/css" href="/creditValidation.css">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
 </head>
 <body>
+<div id="menuHeader">
+    Bilabonnement.dk
+</div>
+<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
+<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
+<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
+<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
+
+
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
+    </a>
+</div>
+
+<div class="home-foto">
+</div>
+<nav>
+    <ul>
+    </ul>
+</nav>
+<div class="creditvalidation-foto">
+</div>
+
+<div class="creditValidation-box">
+<div id="creditDocumentationForm">
 <form method="post" th:action="@{/process-form}" onsubmit="return validateForm()">
-    <p>Har du modtaget kundens lønsedler?</p>
+    <header id="cd-header">Kreditvalidering (1 ud af 2)</header>
+    <br><br><br>
+    <p>Har du modtaget kundens lønsedler for de sidste 3 måneder?</p>
     <label><input type="radio" name="q1" value="ja" required> Ja</label>
     <label><input type="radio" name="q1" value="nej"> Nej</label>
-
+<br><br><br><br><br><br><br><br><br><br><br><br>
     <p>Har du modtaget kundens RKI papirer?</p>
     <label><input type="radio" name="q2" value="ja" required> Ja</label>
     <label><input type="radio" name="q2" value="nej"> Nej</label>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="submit-btn">NÆSTE</button>
 
 </form>
 
+</div>
+</div>
 <script>
 
     function validateForm() {
