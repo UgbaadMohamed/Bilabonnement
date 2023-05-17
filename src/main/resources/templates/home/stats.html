@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="circle">
+        <div th:each="subscriptionPrice: ${subscriptionPrice}">
+        <p class="subscriptionPrice"th:text="${subscriptionPrice.subscription_price}"></p>
+        </div>
+    </div>
+
+</body>
+</html>

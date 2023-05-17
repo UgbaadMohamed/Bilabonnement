@@ -22,7 +22,7 @@
         <input type="text" placeholder="Search on car..." name="car_model" required>
         <button type="submit" id="search-submit"> <i class="fa fa-search"></i></button>
     </form>
-     
+
 </div>
 <div id="positionForlogout">
     <a href="/" class="logout-button">
@@ -42,18 +42,21 @@
             <p class="brand"th:text="${car.car_brand}"></p>
             <p class="model" th:text="${car.car_model}"></p>
 
+
             <img th:src="${car.image} "class="image"/>
 
             <p class="subscription"th:text="${car.subscription_price}"></p>
         </div>
 
-        <!--     <a th:href="@{'/viewCar/'+${car.car_id}}">
+          <a th:href="@{'/viewCar/'+${car.car_id}}">
             <button class="view-car"></i></button>
-        </a>-->
-               <a th:href="@{'/contract/'+${car.car_id}}">
-                 <button class="contract"></i></button>
-                 </a>
-
+        </a>
+        <!--  th:href="@{'/contract/'+${car.car_id}}">
+                      <button class="contract"></i></button>
+                      </a>
+             <a th:href="@{'/stats'}">
+                 <button class="total"></i></button>
+             </a>-->
     </div>
 </div>
 </body>

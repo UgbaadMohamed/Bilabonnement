@@ -20,6 +20,11 @@ JdbcTemplate template;
         String sql = "SELECT * From car";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
          List<Car> cars = template.query(sql, rowMapper);
+        for (Car c : cars) {
+            String sql2 = "Select SUM(subscription_price) FROM car";
+            int count = template.queryForObject(sql2, Integer.class);
+            c.setSubscription_price(count);
+        }
         return cars;
     }
 
@@ -28,8 +33,18 @@ JdbcTemplate template;
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         return template.query(sql, rowMapper, car_id);
     }
+   /* public List<Car> totalPayment(Car car ){
+        String sql= "Select SUM(subscription_price) FROM car";
+        car.setSubscription_price(sql);
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        for (Car c : cars) {
+            String sql2 = "Select SUM(subscription_price) FROM car";
+            int count = template.queryForObject(sql2, Integer.class);
+            car.setSubscription_price(count);
+        }
 
-
+        return template.query(sql, rowMapper);
+    }*/
 
 
     public void chooseRentingPeriod(Car car, String start_date, String end_date) {

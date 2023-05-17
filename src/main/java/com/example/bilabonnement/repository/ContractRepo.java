@@ -1,6 +1,4 @@
 package com.example.bilabonnement.repository;
-
-import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -42,11 +40,6 @@ public class ContractRepo {
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         Contract contract = template.queryForObject(sql, rowMapper, contract_id);
         return contract;
-
-
-
-
-
     }
 
 

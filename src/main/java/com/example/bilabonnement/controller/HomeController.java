@@ -89,6 +89,27 @@ public class HomeController {
         return "home/carinformation";
     }
 
+   @GetMapping("/stats")
+    public String totalPayment(Model model) {
+       List<Car> subscriptionPrice = carService.fetchCars();
+        model.addAttribute("subscriptionPrice", subscriptionPrice);
+        return "home/stats";
+    }
+
+
+
+
+
+
+
+
+  /*  @GetMapping("/stats{subscription_price}")
+    public String totalPayment(@RequestParam ("subscription_price") int subscription_price, Model model) {
+        List<Car> subscriptionPrice= carService.totalPayment(subscription_price);
+        System.out.println(subscription_price);
+        model.addAttribute("subscriptionPrice", subscriptionPrice);
+        return "home/stats";
+    }*/
 
 
 

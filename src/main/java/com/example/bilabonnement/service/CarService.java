@@ -21,6 +21,10 @@ public class CarService {
         return carRepo.viewCars(car_id);
     }
 
+    /* public List<Car>  totalPayment(){
+        return carRepo.totalPayment();
+    }
+
 
     /*public void location(int car_id, Car car){
         carRepo.location(car_id, car);
@@ -37,6 +41,11 @@ public class CarService {
        public List<Car> searchSpecificCar(String car_model){
            return carRepo.searchSpecificCar(car_model);
        }
+
+
+
+
+
 
 
 }
