@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Biler i auktion</h1>
+
+
+<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
+    <td>
+        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
+    </td>
+    <td>
+            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
+        </td>
+    <td>
+        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
+    </td>
+
+</body>
+</html>

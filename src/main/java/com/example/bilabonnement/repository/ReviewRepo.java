@@ -1,5 +1,6 @@
 package com.example.bilabonnement.repository;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,8 +22,7 @@ public class ReviewRepo {
                 review.getBuying_customer(), review.getContract_id());
     }
 
-    public Boolean checkIfAlreadyReviewed(int contract_id)
-    {
+    public Boolean checkIfAlreadyReviewed(int contract_id) {
         String sql = "SELECT contract_id FROM review WHERE contract_id = ?";
         RowMapper<Review> rowMapper = new BeanPropertyRowMapper<>(Review.class);
         try {
@@ -35,6 +35,14 @@ public class ReviewRepo {
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+    }
+
+    public Review findReviewByContractId(int contract_id) {
+        String sql = "SELECT review_id FROM review WHERE contract_id = ?";
+        RowMapper<Review> rowMapper = new BeanPropertyRowMapper<>(Review.class);
+
+        Review review = template.queryForObject(sql, rowMapper, contract_id);
+        return review;
     }
 }
 

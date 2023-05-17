@@ -1,6 +1,8 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.Contract;
+import com.example.bilabonnement.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,8 +51,28 @@ JdbcTemplate template;
         template.update(sql, start_date, end_date, car.getCar_id()) ;
     }
     public void location(Car car, String location) {
-        String sql = "UPDATE car SET location =?";
+        String sql = "UPDATE car SET location = ?";
         template.update(sql, location, car.getCar_id());
     }
 
+    public List<Car> fetchCarsInAuction() {
+        String sql = "SELECT car.car_id, car_brand, car_model FROM car JOIN contract ON car.car_id = contract.car_id" +
+                " JOIN review ON contract.contract_id = review.contract_id WHERE buying_customer = ?";
+
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        List<Car> carsInAuction = template.query(sql, rowMapper, 0);
+
+        return carsInAuction;
+    }
+
+    public Boolean sellCar(Review review, Contract contract, Car car) {
+        String deleteReviewSql = "DELETE FROM review WHERE contract_id = ?";
+        template.update(deleteReviewSql, review.getContract_id());
+
+        String deleteContract ="DELETE FROM contract WHERE contract_id = ?";
+        template.update(deleteContract,contract.getContract_id());
+
+        String sql = "DELETE FROM car WHERE car_id = ?";
+        return template.update(sql, car.getCar_id()) > 0;
+    }
 }

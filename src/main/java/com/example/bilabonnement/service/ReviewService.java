@@ -17,4 +17,8 @@ public class ReviewService {
     public Boolean checkIfAlreadyReviewed(int contract_id){
         return reviewRepo.checkIfAlreadyReviewed(contract_id);
     }
+
+    public Review findReviewByContractId(int contract_id){
+        return reviewRepo.findReviewByContractId(contract_id);
+    }
 }

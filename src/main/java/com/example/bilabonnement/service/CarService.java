@@ -1,8 +1,9 @@
 package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.Contract;
+import com.example.bilabonnement.model.Review;
 import com.example.bilabonnement.repository.CarRepo;
-import jdk.javadoc.doclet.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,19 @@ public class CarService {
 
     public Car findCarByContractId(int contract_id){
         return carRepo.findCarByContractId(contract_id);
+    }
+
+    public void convertPrice(Car car, String currency) {
+        if (currency.equals("eu")) {
+            car.setCar_price(car.getCar_price() * 0.1343);
+        }
+    }
+
+    public List<Car> fetchCarsInAuction() {
+        return carRepo.fetchCarsInAuction();
+    }
+    public Boolean sellCar(Review review, Contract contract, Car car){
+        return carRepo.sellCar(review, contract, car);
     }
 
 }

@@ -40,14 +40,14 @@ public class HomeController {
         List<Car> cars =carService.viewCars(car_id);
         model.addAttribute("cars", cars);
         System.out.println(cars);
-        return "home/carinformation";
+        return "carInformation";
     }
 
 
     @GetMapping("/availability/{car_id}")
     public String addItem(@PathVariable("car_id") int car_id, Model model) {
         model.addAttribute("car_id", car_id);
-        return "home/carinformation";
+        return "carInformation";
     }
 
     @PostMapping("/availabilityCar")
@@ -84,26 +84,51 @@ public class HomeController {
         reviewService.addReview(review);
 
         if (review.getBuying_customer() == 1) {
-            //contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
-            //pågældende bil (gennem en join)
+            /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
+            pågældende bil (gennem en join) */
             Car car = carService.findCarByContractId(review.getContract_id());
             model.addAttribute("car", car);
-            return "home/carSale";
 
+            /* review og contract skal med til carSale som hidden values, i tilfælde af at bilen bliver solgt,
+            for så kan de bruges til at slette bilen i databasen, da bilen ikke kan blive slettet uden også at
+            slette dens child rows (contract og review) */
+            model.addAttribute("review", review);
+            Contract contract = contractService.findContractById(review.getContract_id());
+            model.addAttribute("contract", contract);
+            return "home/carSale";
         } else
-            return "home/frontPage";
+            return "redirect:/auction";
+    }
+
+    @GetMapping("/auction")
+    public String auction(Model model) {
+        List<Car> carsInAuction = carService.fetchCarsInAuction();
+        model.addAttribute("cars_in_auction", carsInAuction);
+        return "home/auction";
     }
 
     @PostMapping("/priceConverter")
-    public String priceConverter(Car car, Model model, @RequestParam("currency") String currency) {
+    public String convertPrice(Car car, Model model, @RequestParam("currency") String currency, Review review,
+                               Contract contract) {
         car = carService.findCarByContractId(car.getCar_id());
         model.addAttribute("car", car);
+        carService.convertPrice(car, currency);
 
-        if (currency.equals("eu")) {
-            car.setCar_price(car.getCar_price() * 0.1343);
-        }
+        // Retrieve review and contract objects from the model
+        review = (Review) model.getAttribute("review");
+        contract = (Contract) model.getAttribute("contract");
+
+        model.addAttribute("review", review);
+        model.addAttribute("contract", contract);
 
         return "home/carSale";
+    }
+
+    @PostMapping("soldCar")
+    public String sellCar(Review review, Contract contract, Car car) {
+        carService.sellCar(review, contract, car);
+
+        return "home/conditionReportDocumentation";
     }
 
     @PostMapping("/login")
@@ -115,12 +140,12 @@ public class HomeController {
         if (staffService.validateLogin(staff_member_username, staff_member_password)) {
             StaffMember staffMember = staffService.getStaffMember(staff_member_username, staff_member_password);
             model.addAttribute("staff_member", staffMember);
-            return "home/stafftype";
+            return "staffType";
         }
      else {
         model.addAttribute("error", "Forkert username eller password.");
         return "home/frontPage";
-    }
+        }
     }
 
     @GetMapping ("/creditValidation")
