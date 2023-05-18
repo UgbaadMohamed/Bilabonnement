@@ -34,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage() {
-        return "home/KPI";
+        return "home/allStaffMembers";
     }
 
     @GetMapping("/loginPage")
@@ -50,7 +50,7 @@ public class HomeController {
             StaffMember staffMember = staffService.findStaffMember(staff_member_username,
                     staff_member_password);
             model.addAttribute("staff_member", staffMember);
-            return "home/homePage";
+            return "home/staffType";
         }
         return "home/loginPage";
     }
@@ -108,6 +108,13 @@ public class HomeController {
              paymentService.finalizeWithPatyment(payment);
              return "home/payment";
          }
+
+    @GetMapping("/allStaffMembers")
+    public String allStaffMembers(Model model) {
+        List<StaffMember> staffMemberList = staffService.allStaffMembers();
+        model.addAttribute("allStaff",staffMemberList);
+        return "home/allStaffMembers";
+    }
 
 
 

@@ -62,11 +62,6 @@ body {
     z-index: 10;
 }
 
-#Leasing-botton {
-    top: -40px;
-    left: 404px;
-    padding: 35px 40px;
-}
 
 #Skade-botton {
     top: 0;
@@ -78,6 +73,11 @@ body {
     top: -40px;
     left: 753px;
     padding: 35px 30px;
+}
+#Leasing-botton {
+    top: -40px;
+    left: 404px;
+    padding: 35px 40px;
 }
 
 #Ekstra-botton {
@@ -93,3 +93,71 @@ body {
     right: 40px;
     z-index: 10;
 }
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: white; /* Set the background color to white */
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: black; /* Set the font color to black */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: black; /* Set the font color to black */
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+    background-color: #96959c; /* Set the background color on hover */
+    color: white; /* Set the font color on hover */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+

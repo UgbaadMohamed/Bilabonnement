@@ -1,5 +1,6 @@
 package com.example.bilabonnement.repo;
 
+import com.example.bilabonnement.model.Payment;
 import com.example.bilabonnement.model.StaffMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -7,6 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class StaffMemberRepo {
@@ -44,4 +47,13 @@ public class StaffMemberRepo {
                 staff_member_username, staff_member_password);
         return staffMember.getMember_type_id();
     }
+
+
+    public List<StaffMember> allStaffMembers() {
+        String sql = "SELECT staff_member_first_name, staff_member_last_name FROM staff_member;";
+        RowMapper<StaffMember> rowMapper = new BeanPropertyRowMapper<>(StaffMember.class);
+        List<StaffMember> staffMemberList = template.query(sql, rowMapper);
+        return staffMemberList;
+    }
+
 }

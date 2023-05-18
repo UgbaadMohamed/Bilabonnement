@@ -30,5 +30,13 @@
     <button disabled> condition reporter </button >
 </div>
 
+<div th:if="${staff_member.member_type_id == 4}">
+    <button> Leder </button>
+</div>
+
+<div th:unless="${staff_member.member_type_id == 4}">
+    <button disabled> Leder </button >
+</div>
+
 </body>
 </html>
