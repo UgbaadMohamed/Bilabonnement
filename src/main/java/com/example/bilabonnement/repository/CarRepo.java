@@ -65,14 +65,18 @@ JdbcTemplate template;
         return carsInAuction;
     }
 
-    public Boolean sellCar(Review review, Contract contract, Car car) {
-        String deleteReviewSql = "DELETE FROM review WHERE contract_id = ?";
-        template.update(deleteReviewSql, review.getContract_id());
+    public Boolean sellCar(Car car) {
+        //review har ikke et car_id, men det har et contract_id, og contract har et car_id,
+        // og på den måde kan bruger vi subquery  man finde det review som har et kontrakt id - som har det car_id
+        // det eneste der har et car ID er CONTRACT
+        String deleteReviewSql = "DELETE FROM review WHERE contract_id IN " +
+                                        "(SELECT contract_id FROM contract WHERE car_id = ?)";
+        template.update(deleteReviewSql, car.getCar_id());
 
-        String deleteContract ="DELETE FROM contract WHERE contract_id = ?";
-        template.update(deleteContract, contract.getContract_id());
+        String deleteContractSql = "DELETE FROM contract WHERE car_id = ?";
+        template.update(deleteContractSql, car.getCar_id());
 
-        String sql = "DELETE FROM car WHERE car_id = ?";
-        return template.update(sql, car.getCar_id()) > 0;
+        String deleteCarSql = "DELETE FROM car WHERE car_id = ?";
+        return template.update(deleteCarSql, car.getCar_id()) > 0;
     }
 }

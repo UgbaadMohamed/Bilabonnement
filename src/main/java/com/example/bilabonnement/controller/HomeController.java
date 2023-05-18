@@ -88,6 +88,8 @@ public class HomeController {
     @PostMapping("/reviewSubmitted")
     public String submitReview(Review review, Model model) {
         reviewService.addReview(review);
+        //deklaration
+        List<Car> carsInAuction;
 
         /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
             pågældende bil (gennem en join) */
@@ -95,14 +97,12 @@ public class HomeController {
         model.addAttribute("car", car);
 
             /* review og contract skal med til carSale og auction som hidden values, i tilfælde af at bilen bliver solgt,
-            for så kan de bruges til at slette bilen i databasen, da bilen ikke kan blive slettet uden også at
-            slette dens child rows først (contract og review) */
-        model.addAttribute("review", review);
-        Contract contract = contractService.findContractById(review.getContract_id());
-        model.addAttribute("contract", contract);
+            for så kan de bruges til at slette bilen i databasen, */
+        //model.addAttribute("review", review);
+        //Contract contract = contractService.findContractById(review.getContract_id());
+        //model.addAttribute("contract", contract);
 
-        //deklaration
-        List<Car> carsInAuction;
+
 
         if (review.getBuying_customer() == 1)
             return "home/carSale";
@@ -112,12 +112,12 @@ public class HomeController {
             return "home/auction";
     }
 
-    /*@GetMapping("/auction")
+    @GetMapping("/auction")
     public String auction(Model model) {
         List<Car> carsInAuction = carService.fetchCarsInAuction();
         model.addAttribute("cars_in_auction", carsInAuction);
         return "home/auction";
-    }*/
+    }
 
     @PostMapping("/priceConverter")
     public String convertPrice(Car car, Model model, @RequestParam("currency") String currency, Review review,
@@ -137,8 +137,8 @@ public class HomeController {
     }
 
     @PostMapping("/sellCar")
-    public String sellCar(Review review, Contract contract, Car car) {
-        carService.sellCar(review, contract, car);
+    public String sellCar(Car car) {
+        carService.sellCar(car);
 
         return "home/conditionReportDocumentation";
     }

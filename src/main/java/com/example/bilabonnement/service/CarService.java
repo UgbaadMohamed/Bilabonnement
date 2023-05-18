@@ -42,8 +42,8 @@ public class CarService {
     public List<Car> fetchCarsInAuction() {
         return carRepo.fetchCarsInAuction();
     }
-    public Boolean sellCar(Review review, Contract contract, Car car){
-        return carRepo.sellCar(review, contract, car);
+    public Boolean sellCar(Car car){
+        return carRepo.sellCar(car);
     }
 
 }
