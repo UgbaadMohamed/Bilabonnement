@@ -11,14 +11,14 @@
   <button> registering </button>
 </div>
 
-<div th:unless="${staff_member.member_type_id == 1}">
+<div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
     <button disabled> registering </button >
 </div>
 <div th:if="${staff_member.member_type_id == 2}">
     <button> økonomi </button>
 </div>
 
-<div th:unless="${staff_member.member_type_id == 2}">
+<div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4 }">
     <button disabled> økonomi </button >
 </div>
 
@@ -26,7 +26,7 @@
     <button> condition reporter </button>
 </div>
 
-<div th:unless="${staff_member.member_type_id == 3}">
+<div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
     <button disabled> condition reporter </button >
 </div>
 

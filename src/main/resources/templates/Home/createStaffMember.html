@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div id="inner">
+    <h1> Opret medarbejder</h1>
+    <form action="/addStaffMember" method="post" th:object="${staffMember}">
+        <p1>Fornavn:</p1>
+        <input type="text" name="staff_member_first_name" class="input-box" placeholder="Fornavn " required><br><br>
+        <p1>Efternavn:</p1>
+        <input type="text" name="staff_member_last_name" class="input-box" placeholder="Efternavn" required><br><br>
+        <p1>Email:</p1>
+        <input type="text" name="staff_member_username" class="input-box" placeholder="Email" required><br><br>
+        <p1>Opret kode:</p1>
+        <input type="password" name="staff_member_password" class="input-box" placeholder="Kode " required><br><br>
+        <p1>Medarbejderens ansættelsestilling:</p1>
+        <label><input type="radio" name="member_type_id" value="1" required> Databehandler</label>
+        <label><input type="radio" name="member_type_id" value="2"> Bogholder</label>
+        <label><input type="radio" name="member_type_id" value="3"> Tilstandsrapportør</label>
+
+        <button type="submit" class="submit-btn">Opret medarbejder</button><br><br>
+    </form>
+</div>
+
+</body>
+</html>

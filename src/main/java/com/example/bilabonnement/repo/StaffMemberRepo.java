@@ -56,4 +56,11 @@ public class StaffMemberRepo {
         return staffMemberList;
     }
 
+
+    public void createStaff(StaffMember s) {
+        String sql = "INSERT INTO staff_member (staff_member_first_name, staff_member_last_name, staff_member_username, staff_member_password, member_type_id) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        template.update(sql,s.getStaff_member_first_name(),s.getStaff_member_last_name(),s.getStaff_member_username(),s.getStaff_member_password(),s.getMember_type_id());
+    }
+
 }

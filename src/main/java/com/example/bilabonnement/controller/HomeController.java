@@ -7,8 +7,6 @@ import com.example.bilabonnement.service.KPIService;
 import com.example.bilabonnement.service.PaymentService;
 import com.example.bilabonnement.service.StaffMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,7 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    StaffMemberService staffService;
+    StaffMemberService staffMemberService;
 
     @Autowired
     KPIService kpiService;
@@ -34,7 +32,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage() {
-        return "home/allStaffMembers";
+        return "home/background";
     }
 
     @GetMapping("/loginPage")
@@ -46,8 +44,8 @@ public class HomeController {
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
                             @RequestParam("staff_member_password")
                             String staff_member_password, Model model) {
-        if (staffService.validateLogin(staff_member_username, staff_member_password)) {
-            StaffMember staffMember = staffService.findStaffMember(staff_member_username,
+        if (staffMemberService.validateLogin(staff_member_username, staff_member_password)) {
+            StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
                     staff_member_password);
             model.addAttribute("staff_member", staffMember);
             return "home/staffType";
@@ -95,6 +93,20 @@ public class HomeController {
         model.addAttribute("notPayed",notPayed);
         return "home/stats";
     }
+    @GetMapping("/conditionReportDocumentation")
+    public String conditionReportDocumentation() {
+        return "home/conditionReportDocumentation";
+    }
+
+
+
+
+
+
+    @GetMapping("/creditDocumentation")
+    public String creditDocumentation() {
+        return "home/creditDocumentation";
+    }
 
 
 
@@ -111,12 +123,34 @@ public class HomeController {
 
     @GetMapping("/allStaffMembers")
     public String allStaffMembers(Model model) {
-        List<StaffMember> staffMemberList = staffService.allStaffMembers();
+        List<StaffMember> staffMemberList = staffMemberService.allStaffMembers();
         model.addAttribute("allStaff",staffMemberList);
         return "home/allStaffMembers";
     }
 
 
+    @PostMapping("/addStaffMember")
+    public String createCustomer(@ModelAttribute StaffMember s) {
+        staffMemberService.createStaff(s);
+        return "home/createStaffMember";
+    }
+    @GetMapping("/createStaffMember")
+    public String createCustomer() {
+        return "home/createStaffMember";
+    }
+
+
+
+
+
+
+
+    /*
+        @GetMapping("/KPICar")
+    public String totalRentedCars (Model model) {
+        List<Car> totalRentedCarsList = kpiService.totalRentedCars();
+        model.addAttribute("totalRentedCars", totalRentedCarsList);
+     */
 
 }
 

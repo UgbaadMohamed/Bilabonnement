@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PERSONALE</title>
+  <meta charset="UTF-8">
+  <title>PERSONALE</title>
 </head>
 <body>
-
 <table>
   <thead>
   <tr>
@@ -13,19 +12,12 @@
     <th>Medarbejder efternavn</th>
   </tr>
   </thead>
-
-  <table>
-    <tbody>
-    <tr th:each="staffMember : ${allStaff}">
-      <td th:text="${staffMember.staff_member_first_name}"></td>
-      <td th:text="${staffMember.staff_member_last_name}"></td>
-    </tr>
-    </tbody>
-  </table>
-
-
-
+  <tbody>
+  <tr th:each="staffMember : ${allStaff}">
+    <td th:text="${staffMember.staff_member_first_name}"></td>
+    <td th:text="${staffMember.staff_member_last_name}"></td>
+  </tr>
+  </tbody>
 </table>
-
 </body>
 </html>

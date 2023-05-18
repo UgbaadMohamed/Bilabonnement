@@ -31,4 +31,8 @@ public class StaffMemberService {
         return staffMemberRepo.allStaffMembers();
     }
 
+    public void createStaff(StaffMember s) {
+        staffMemberRepo.createStaff(s);
+    }
+
 }
