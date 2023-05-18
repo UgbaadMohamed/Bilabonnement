@@ -60,7 +60,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage(){
-        return "home/findReviewTarget";
+        return "home/header";
+    }
+
+    @GetMapping("/findReviewTarget")
+    public String findReviewTarget() {
+            return "home/findReviewTarget";
     }
 
     @GetMapping("/review")
@@ -155,6 +160,11 @@ public class HomeController {
         }
     }
 
+    @GetMapping("/creditDocumentation")
+    public String creditDocumentation() {
+        return "home/creditDocumentation";
+    }
+
     @GetMapping ("/creditValidation")
     public String creditValidation() {
             return "home/creditValidation";
@@ -173,6 +183,11 @@ public class HomeController {
     @PostMapping("/creditvalidation-form")
     public String creditvalidationForm() {
         return "home/contract";
+    }
+
+    @GetMapping("/conditionReportDocumentation")
+    public String conditionReportDocumentation() {
+        return "home/conditionReportDocumentation";
     }
 
     @PostMapping("/conditionReport")
