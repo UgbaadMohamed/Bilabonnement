@@ -8,8 +8,15 @@
 
     <div class="circle">
         <div th:each="subscriptionPrice: ${subscriptionPrice}">
-        <p class="subscriptionPrice"th:text="${subscriptionPrice.subscription_price}"></p>
+        <p class="subscriptionPrice"th:text="${subscriptionPrice.totalPrice}"></p>
         </div>
+
+        <div th:each="subscriptionPrice: ${subscriptionPrice}">
+            <p class="subscriptionPrice"th:text="${subscriptionPrice.totalPrice}"></p>
+        </div>
+
+
+
     </div>
 
 </body>

@@ -20,8 +20,8 @@ public class ContractRepo {
         template.update(sql,contract.getContract_start_date(), contract.getContract_end_date(), contract.getContract_maximum_km(), contract.getContract_start_km(),car_id);
     }
 
-    public List<Contract> viewContract(int contract_id){
-        String sql= "SELECT * FROM contract WHERE contract_id=";
+    public List<Contract> viewLeasedCars(int contract_id){
+        String sql= "SELECT car_model, car_brand, image, car_vin FROM contract WHERE contract_id=";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper, contract_id);
     }

@@ -12,6 +12,8 @@ public class Car {
    private int subscription_price;
     private String car_location;
 
+    private int totalPrice;
+
     public Car(){
 
     }
@@ -26,6 +28,15 @@ public class Car {
         this.image = image;
         this.subscription_price = subscription_price;
         this.car_location = car_location;
+    }
+
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalprice) {
+        this.totalPrice = totalprice;
     }
 
     public String getImage() {
@@ -101,4 +112,17 @@ public class Car {
     public void setCar_location(String car_location) {
         this.car_location = car_location;
     }
+
+
+    public int getTotalDamagePrice() {
+        return totalDamagePrice;
+    }
+
+    public void setTotalDamagePrice(int totalDamagePrice) {
+        this.totalDamagePrice = totalDamagePrice;
+    }
+
+    int totalDamagePrice;
+
+
 }

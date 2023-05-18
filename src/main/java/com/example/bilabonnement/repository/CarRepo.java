@@ -22,8 +22,8 @@ JdbcTemplate template;
          List<Car> cars = template.query(sql, rowMapper);
         for (Car c : cars) {
             String sql2 = "Select SUM(subscription_price) FROM car";
-            int count = template.queryForObject(sql2, Integer.class);
-            c.setSubscription_price(count);
+            int total = template.queryForObject(sql2, Integer.class);
+            c.setTotalPrice(total);
         }
         return cars;
     }
@@ -33,6 +33,18 @@ JdbcTemplate template;
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         return template.query(sql, rowMapper, car_id);
     }
+
+
+
+    public void totalDamagePrice(Car car) {
+            String sql = "Select SUM(damage_price) FROM damage_level";
+           // int total = template.query(sql, Integer.class);
+            //car.setTotalDamagePrice(total);
+    }
+
+
+
+
    /* public List<Car> totalPayment(Car car ){
         String sql= "Select SUM(subscription_price) FROM car";
         car.setSubscription_price(sql);
@@ -71,17 +83,6 @@ JdbcTemplate template;
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         return template.query(sql, rowMapper, car_model);
     }
-
-
-
-
-   /* @PostMapping("/pickLocation")
-    public String pickLocation(@ModelAttribute Car car) {
-        System.out.println(car.getCar_location());
-        carService.location(car.getCar_location(),car.getCar_id(), car);
-        return "redirect:/";
-    }*/
-
 
 
 

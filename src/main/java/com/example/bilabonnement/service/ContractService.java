@@ -18,8 +18,8 @@ public class ContractService {
         contractRepo.contractInfo(contract,car_id);
     }
 
-    public List<Contract> viewContract(int contract_id){
-        return contractRepo.viewContract(contract_id);
+    public List<Contract> viewLeasedCars(int contract_id){
+        return contractRepo.viewLeasedCars(contract_id);
     }
 
     public Contract findContractId(int contract_id){

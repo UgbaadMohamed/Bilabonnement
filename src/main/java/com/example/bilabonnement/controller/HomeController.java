@@ -57,13 +57,13 @@ public class HomeController {
     }
 
 
-  /*  @GetMapping("/viewContract/{contract_id}")
+   @GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
-        List<Contract> contracts =contractService.viewContract(contract_id);
+        List<Contract> contracts =contractService.viewLeasedCars(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
         return "home/contract";
-    }*/
+    }
 
 
     @GetMapping("/contract/{car_id}")

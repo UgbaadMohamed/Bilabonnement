@@ -35,7 +35,7 @@
 <div class="information" style="display: flex; flex-wrap: wrap;">
     <div th:each="car: ${cars}">
 
-        <h1 class="model" th:text="'Model: ' +${car[0].car_model}"></h1>
+        <h1 class="model" th:text="'Model: ' +${car.car_model}"></h1>
 
         <input class="model" text="brand" th:value=" 'Brand: '+ ${car.car_brand}" readonly>
 
@@ -60,8 +60,6 @@
         </select>
             <button type="submit"  > </button>
             <img th:src="${car.image}" id="carImg"/>
-
-
         </Form>
     </div>
 </div>
