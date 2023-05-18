@@ -44,21 +44,6 @@ JdbcTemplate template;
 
 
 
-
-   /* public List<Car> totalPayment(Car car ){
-        String sql= "Select SUM(subscription_price) FROM car";
-        car.setSubscription_price(sql);
-        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        for (Car c : cars) {
-            String sql2 = "Select SUM(subscription_price) FROM car";
-            int count = template.queryForObject(sql2, Integer.class);
-            car.setSubscription_price(count);
-        }
-
-        return template.query(sql, rowMapper);
-    }*/
-
-
     public void chooseRentingPeriod(Car car, String start_date, String end_date) {
         String sql = "UPDATE car SET start_date =?, end_date =? WHERE car_id =?";
         template.update(sql, start_date, end_date, car.getCar_id()) ;
@@ -78,13 +63,11 @@ JdbcTemplate template;
     }
 
 
-    public List<Car> searchSpecificCar(String car_model){
-        String sql= "SELECT * FROM car WHERE car_model = ?";
+    public List<Car> searchSpecificCar(String car_brand){
+       String sql = "SELECT * FROM car WHERE car_brand = ?";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        return template.query(sql, rowMapper, car_model);
+        return template.query(sql, rowMapper, car_brand);
     }
-
-
 
 
 }

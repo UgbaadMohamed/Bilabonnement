@@ -38,8 +38,8 @@ public class CarService {
        /* public void location(Car car){
             carRepo.location(car.getCar_id(),car.getCar_location());
     }*/
-       public List<Car> searchSpecificCar(String car_model){
-           return carRepo.searchSpecificCar(car_model);
+       public List<Car> searchSpecificCar(String car_brand){
+           return carRepo.searchSpecificCar(car_brand);
        }
 
 

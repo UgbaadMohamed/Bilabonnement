@@ -68,7 +68,6 @@ public class HomeController {
 
     @GetMapping("/contract/{car_id}")
     public String contract(@PathVariable("car_id") int car_id, Model model) {
-
         model.addAttribute("car_id", car_id);
         return "home/contract";
     }
@@ -82,12 +81,14 @@ public class HomeController {
         return "home/homepage";
     }
 
-    @GetMapping("/searchForCar")
-    public String searchForCar(@RequestParam("car_model") String car_model, Model model) {
-        List<Car> cars= carService.searchSpecificCar(car_model);
+    @GetMapping("/search")
+    public String searchForCar(@RequestParam("car_brand") String car_brand, Model model) {
+        List<Car> cars= carService.searchSpecificCar(car_brand);
+        System.out.println(cars);
         model.addAttribute("cars", cars);
-        return "home/carinformation";
+        return "home/search";
     }
+
 
    @GetMapping("/stats")
     public String totalPayment(Model model) {
