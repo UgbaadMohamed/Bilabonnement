@@ -11,12 +11,11 @@ public class Customer {
     private String customer_phone_number;
     private String customer_license_number;
     private int customer_age;
-    private int customer_validation;
+    private int customer_creditworthy;
 
     public Customer(){
 
     }
-
 
 
     public Customer(int customer_id, String customer_first_name, String customer_last_name, String customer_address,
@@ -30,7 +29,7 @@ public class Customer {
         this.customer_phone_number = customer_phone_number;
         this.customer_license_number = customer_license_number;
         this.customer_age = customer_age;
-        this.customer_validation = customer_validation;
+        this.customer_creditworthy = customer_validation;
     }
 
     public int getCustomer_id() {
@@ -65,8 +64,8 @@ public class Customer {
         return customer_age;
     }
 
-    public int getCustomer_validation() {
-        return customer_validation;
+    public int getCustomer_creditworthy() {
+        return customer_creditworthy;
     }
 
     public void setCustomer_id(int customer_id) {
@@ -101,7 +100,7 @@ public class Customer {
         this.customer_age = customer_age;
     }
 
-    public void setCustomer_validation(int customer_validation) {
-        this.customer_validation = customer_validation;
+    public void setCustomer_creditworthy(int customer_creditworthy) {
+        this.customer_creditworthy = customer_creditworthy;
     }
 }

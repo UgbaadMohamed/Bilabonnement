@@ -17,21 +17,27 @@ public class HomeController {
         CustomerService customerService;
 
         @GetMapping("/")
-        public String customerForm(Model model) {
-            List<Customer> customerList = customerService.fetchAllCustomer();
-            model.addAttribute("customers", customerList);
+        public String customerForm() {
             return "home/customerForm";
-        }
-        @GetMapping("/customerPage")
-        public String customerPage(){
-            return "home/customerPage";
         }
 
         @PostMapping("/createCustomer")
         public String createCustomer(@ModelAttribute Customer customer) {
             customerService.createCustomer(customer);
+            return "redirect:/customerPage";
+        }
+
+        @GetMapping("/customerPage")
+        public String customerPage(Model model){
+            List<Customer> customerList = customerService.fetchAllCustomer();
+            model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
+
+
+
+
+
 
 
     }

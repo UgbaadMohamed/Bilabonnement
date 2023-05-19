@@ -1,0 +1,97 @@
+
+.home-foto{
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url("backkground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+}
+
+
+#menuHeader {
+    background-color: #ffffff;
+    font-family: ".SF NS Display", sans-serif;
+    position: fixed;
+    font-weight: bold;
+    color: #000000;
+    padding: 30px;
+    font-size: 35px;
+    padding: 30px 1200px;
+    z-index: 10;
+    width: 100%;
+    left: -1170px;
+    top: 0;
+    border: 2px solid #3e3838;
+}
+
+body {
+    font-family: Lato, sans-serif;
+    line-height: 0.5;
+    background: white;
+
+
+}
+
+#Leasing-botton:hover,#Skade-botton:hover,#KPI-botton:hover,#Ekstra-botton:hover{
+    background-color: #96959c;
+    transition: all 0.2s ease-in-out;
+}
+
+#Leasing-botton,
+#Skade-botton,
+#KPI-botton,
+#Ekstra-botton {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 24px;
+    border: 1px solid #000000;
+    border-radius: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    cursor: pointer;
+    position: fixed;
+    z-index: 10;
+}
+
+#Leasing-botton {
+    top: -40px;
+    left: 404px;
+    padding: 35px 40px;
+}
+
+#Skade-botton {
+    top: 0;
+    left: 539px;
+    padding: 35px 30px;
+}
+
+#KPI-botton {
+    top: -40px;
+    left: 753px;
+    padding: 35px 30px;
+}
+
+#Ekstra-botton {
+    top: 0;
+    left: 841px;
+    padding: 35px 30px;
+}
+
+#positionForlogout{
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 10;
+}
