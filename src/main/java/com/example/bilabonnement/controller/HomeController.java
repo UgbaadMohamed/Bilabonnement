@@ -338,7 +338,7 @@ public class HomeController {
         return "home/background";
     }
 
-}
+
 
 
         @GetMapping("/customerPage")
