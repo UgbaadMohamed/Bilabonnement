@@ -16,19 +16,6 @@ public class CarRepo {
 @Autowired
 JdbcTemplate template;
 
-    public List<Car> fetchCars(){
-        String sql = "SELECT * From car";
-        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-         List<Car> cars = template.query(sql, rowMapper);
-        //Iterate over each car object and load image from database that = car_id
-        for (Car car: cars) {
-            int id = car.getCar_id();
-            String sql2 = "SELECT image FROM car WHERE car_id = ?";
-          byte[] image = template.queryForObject(sql2,byte[].class, id);
-          car.setImage(image);
-        }
-        return cars;
-    }
 
     public Car findCarByContractId(int contract_id){
         String sql = "SELECT car.car_id, car_brand, car_model, car_plate, car_odometer, " +

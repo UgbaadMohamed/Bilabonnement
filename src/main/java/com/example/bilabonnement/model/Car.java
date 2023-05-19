@@ -8,28 +8,25 @@ public class Car {
     private String  car_plate;
     private double car_odometer;
     private int car_vin;
-<<<<<<< HEAD
+
     private String image;
     private int subscription_price;
     private String car_location;
-=======
-    private byte[] image;
-    private int subscription_price;
+
+
 
     private String start_date;
 
     private String  end_date;
 
-    private String car_location;
-    private double car_price;
->>>>>>> origin/master
 
+    private double car_price;
     public Car(){
 
     }
 
     public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer,
-               int car_vin, byte[] image, int subscription_price, String start_date,
+               int car_vin, int subscription_price, String start_date,
                String end_date, String car_location, int car_price) {
         this.car_id = car_id;
         this.car_brand = car_brand;
@@ -37,7 +34,7 @@ public class Car {
         this.car_plate = car_plate;
         this.car_odometer = car_odometer;
         this.car_vin = car_vin;
-        this.image = image;
+
         this.subscription_price = subscription_price;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -45,13 +42,9 @@ public class Car {
         this.car_price = car_price;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+
+
 
     public int getSubscription_price() {
         return subscription_price;

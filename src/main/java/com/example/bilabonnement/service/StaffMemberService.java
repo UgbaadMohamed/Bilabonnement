@@ -1,17 +1,16 @@
 package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.StaffMember;
-import com.example.bilabonnement.repository.StaffMemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class StaffMemberService {
-    @Autowired
-    StaffMemberRepo staffMemberRepo;
+
+        @Autowired
+        com.example.bilabonnement.repo.StaffMemberRepo staffMemberRepo;
+
 
     public Boolean validateLogin(String staff_member_username, String staff_member_password) {
         return staffMemberRepo.validateLogin(staff_member_username, staff_member_password);

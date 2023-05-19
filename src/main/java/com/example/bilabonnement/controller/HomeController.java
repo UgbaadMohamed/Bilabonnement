@@ -37,10 +37,6 @@ public class HomeController {
     @Autowired
     PaymentService paymentService;
 
-
-    private int staff_id;
-
-    StaffMemberService staffService;
     @Autowired
     ConditionReportService conditionReportService;
     @Autowired
@@ -49,12 +45,6 @@ public class HomeController {
     ReviewService reviewService;
 
     int car_id;
-    @GetMapping("//")
-    public String homePage(Model model) {
-        List<Car> cars = carService.fetchCars();
-        model.addAttribute("cars", cars);
-        return "home/homePage";
-    }
 
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model) {
@@ -87,6 +77,7 @@ public class HomeController {
     public String loginPage() {
         return "home/loginPage";
 
+    }
 
     @GetMapping("/findReviewTarget")
     public String findReviewTarget() {
@@ -174,7 +165,6 @@ public class HomeController {
         return "home/loginPage";
     }
 
-    @GetMapping("/creditValidation")
 
     @GetMapping("/creditDocumentation")
     public String creditDocumentation() {
@@ -229,12 +219,8 @@ public class HomeController {
 
 
 
-//hej
 
-    @GetMapping("/creditDocumentation")
-    public String creditDocumentation() {
-        return "home/creditDocumentation";
-    }
+
 
 
 
@@ -258,10 +244,6 @@ public class HomeController {
         return "home/allStaffMembers";
     }
 
-    @GetMapping("/conditionReportDocumentation")
-    public String conditionReportDocumentation() {
-        return "home/conditionReportDocumentation";
-    }
 
     @PostMapping("/addStaffMember")
     public String createCustomer(@ModelAttribute StaffMember s) {
