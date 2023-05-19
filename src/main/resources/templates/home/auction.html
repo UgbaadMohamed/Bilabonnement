@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Biler i auktion</h1>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Car ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
+    <td>
+        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
+    </td>
+    <td>
+            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
+        </td>
+    <td>
+        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
+    </td>
+    <td>
+
+        <form th:action="@{/sellCar}" method="post">
+
+            <button>Marker som solgt</button>
+
+            <input type="hidden" name="car_id" th:value="${car_in_auction.car_id}">
+
+        </form>
+
+    </td>
+</tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

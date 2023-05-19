@@ -8,15 +8,29 @@ public class Car {
     private String  car_plate;
     private double car_odometer;
     private int car_vin;
+<<<<<<< HEAD
     private String image;
     private int subscription_price;
     private String car_location;
+=======
+    private byte[] image;
+    private int subscription_price;
+
+    private String start_date;
+
+    private String  end_date;
+
+    private String car_location;
+    private double car_price;
+>>>>>>> origin/master
 
     public Car(){
 
     }
 
-    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer, int car_vin, String image, int subscription_price, String car_location) {
+    public Car(int car_id, String car_brand, String car_model, String car_plate, double car_odometer,
+               int car_vin, byte[] image, int subscription_price, String start_date,
+               String end_date, String car_location, int car_price) {
         this.car_id = car_id;
         this.car_brand = car_brand;
         this.car_model = car_model;
@@ -25,14 +39,17 @@ public class Car {
         this.car_vin = car_vin;
         this.image = image;
         this.subscription_price = subscription_price;
+        this.start_date = start_date;
+        this.end_date = end_date;
         this.car_location = car_location;
+        this.car_price = car_price;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -94,11 +111,41 @@ public class Car {
         this.car_vin = car_vin;
     }
 
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
     public String getCar_location() {
         return car_location;
     }
 
     public void setCar_location(String car_location) {
         this.car_location = car_location;
+    }
+
+    public double getCar_price()
+    {
+        //sørger for, at der kun er 2 cifre efter kommaet
+        String formattedPrice = String.format("%.2f", car_price);
+        formattedPrice = formattedPrice.replace(",", ".");
+        car_price = Double.parseDouble(formattedPrice);
+        return car_price;
+    }
+
+    public void setCar_price(double car_price)
+    {
+        this.car_price = car_price;
     }
 }

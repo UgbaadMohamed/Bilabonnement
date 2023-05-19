@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    </style>
+</head>
+<body>
+<form action="/conditionReport" method="post" onsubmit=" return validateForm()">
+    <label for="contract_id">Hvad er kundens kontrakt id?</label>
+    <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt ID">
+
+    <p>Har du modtaget tilstandsrapporten fra FDM?</p>
+    <label><input type="radio" name="q1" value="ja" required> Ja</label>
+    <label><input type="radio" name="q1" value="nej"> Nej</label>
+
+    <button type="submit">Næste</button>
+</form>
+
+<script>
+
+    function validateForm() {
+        var q1 = document.getElementsByName("q1");
+        if (q1[1].checked) {
+            alert("Du kan ikke fortsætte til tilstandsrapportering, medmindre du har modtaget rapporten fra FDM.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</body>
+</html>

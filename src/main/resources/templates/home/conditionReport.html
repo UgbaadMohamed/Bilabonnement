@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <form action="/saveConditionReport" method="post" onsubmit="return validateForm()" >
+        <label>Hvilken tilstand er bilen i?</label>
+
+        <label for="damage_level_id_1">Ingen fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_1" value="1" required >
+
+        <label for="damage_level_id_2">Mindre fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_2"value="2" >
+
+        <label for="damage_level_id_3">Moderate fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_3"value="3">
+
+        <label for="damage_level_id_4">Totalskadet</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_4"value="4">
+
+        <p>Har bilen kørt mere end de aftalte km, og hvis ja, hvor mange km?</p>
+        <label><input type="radio" name="q2" value="ja" required> Ja</label>
+        <label><input type="radio" name="q2" value="nej"> Nej</label>
+
+        <label for ="odometer_over_limit">Hvor mange overkørte kilometer?</label>
+        <input type="number" name="odometer_over_limit" id="odometer_over_limit" placeholder="Indtast km">
+
+        <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+        <button type="submit">Næste</button>
+    </form>
+
+    <script>
+        //sørger for at hvis nej bliver krydset af, så bliver odometer_over_limit gemt som 0 i databasen uanset hvad!
+        function validateForm() {
+            var q2 = document.getElementsByName("q2");
+            var odometer = document.getElementById("odometer_over_limit");
+            if (q2[1].checked) {
+                odometer.value = 0;
+                odometer.readOnly = true;
+            }
+            return true;
+        }
+    </script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>

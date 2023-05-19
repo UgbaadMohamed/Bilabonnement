@@ -1,0 +1,31 @@
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+
+.rating label:before {
+    content: "\2605"; /* Star symbol */
+}
+
+.rating input[type="radio"]:checked ~ label {
+    color: gold;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: gold;
+}
+
+.rating label:hover:before,
+.rating label:hover ~ label:before {
+    content: "\2605"; /* Filled star symbol */
+}
+
+.review{
+    margin-top: 20%;
+}
