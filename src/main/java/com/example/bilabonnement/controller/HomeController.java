@@ -60,7 +60,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage(){
-        return "home/header";
+        return "home/frontPage";
     }
 
     @GetMapping("/findReviewTarget")
@@ -95,14 +95,6 @@ public class HomeController {
             pågældende bil (gennem en join) */
         Car car = carService.findCarByContractId(review.getContract_id());
         model.addAttribute("car", car);
-
-            /* review og contract skal med til carSale og auction som hidden values, i tilfælde af at bilen bliver solgt,
-            for så kan de bruges til at slette bilen i databasen, */
-        //model.addAttribute("review", review);
-        //Contract contract = contractService.findContractById(review.getContract_id());
-        //model.addAttribute("contract", contract);
-
-
 
         if (review.getBuying_customer() == 1)
             return "home/carSale";
