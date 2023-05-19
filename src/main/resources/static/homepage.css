@@ -14,8 +14,8 @@
 /* Style for each car on display */
 .car-box {
     /* Set width and height */
-    width: 300px;
-    height: 200px;
+    width: 420px;
+    height: 350px;
     top: 60px;
     /* Add margin to create some space between cards */
     margin: 20px;
@@ -28,8 +28,74 @@
     cursor: pointer;
     z-index: 1;
     position: relative;
+    background-color: #b7afaf;
+    background-image: linear-gradient(180deg, #ffffff, #aa9999, #c0c0c7 100%);
+    /* border-radius: 20px; */
+    box-shadow:0px 0px 10px 0px rgb(0 0 0 / 75%);
+
+}
+.sky-card {
+    background-color: #6f4a8e;
+    background-image: linear-gradient(180deg, #bb9efc, #e8c6e4, #decff6 100%);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .car-box:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.model{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.brand{
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.location{
+
+}
+
+.subscription{
+    font-size: 30px;
+    /* font-weight: bold; */
+    top: -10px;
+    margin-top: -340px;
+    margin-left: 310px;
+}
+
+.image {
+    width: 418px;
+    height: 243px;
+    object-fit: cover;
+    top: -15px;
+    margin-left: 0px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+}
+.view-car{
+    height: 350px;
+    width: 390px;
+    top: 2px;
+    background: transparent;
+    margin-left: 1px;
+    border: none;
+    position: absolute;
+    z-index: 2;
+
 }

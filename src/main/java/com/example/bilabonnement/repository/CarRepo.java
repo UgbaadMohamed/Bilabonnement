@@ -8,39 +8,77 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+
 @Repository
 public class CarRepo {
 
-@Autowired
-JdbcTemplate template;
+    @Autowired
+    JdbcTemplate template;
 
 
-    public Car findCarByContractId(int contract_id){
-        String sql = "SELECT car.car_id, car_brand, car_model, car_plate, car_odometer, " +
-                "car_vin, car_location, car_price FROM car JOIN contract ON car.car_id = contract.car_id" +
-                " WHERE contract_id = ?";
-
+    public List<Car>fetchCars() {
+        String sql = "SELECT * From car";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        Car car = template.queryForObject(sql, rowMapper, contract_id);
-        return car;
+        List<Car> cars = template.query(sql, rowMapper);
+        return cars;
+    }
+
+    public int totalMonthlyPrice() {
+        String sql2 = "Select SUM(subscription_price) FROM car";
+        int total = template.queryForObject(sql2, Integer.class);
+
+        return total;
     }
 
     public List<Car> viewCars(int car_id) {
-        String sql = "SELECT * From car";
+        String sql = "SELECT * From car where car_id=?";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         return template.query(sql, rowMapper, car_id);
     }
 
-    public void chooseRentingPeriod(Car car, String start_date, String end_date) {
-        String sql = "UPDATE car SET start_date =?, end_date =? WHERE car_id =?";
-        template.update(sql, start_date, end_date, car.getCar_id()) ;
+
+    public void totalDamagePrice(Car car) {
+        String sql = "Select SUM(damage_price) FROM damage_level";
+       //  int total = template.query(sql, Integer.class);
+        //car.setTotalDamagePrice(total);
     }
-    public void location(Car car, String location) {
-        String sql = "UPDATE car SET location = ?";
-        template.update(sql, location, car.getCar_id());
+
+    public Car findCarById(int car_id) {
+        String sql = "SELECT * FROM car WHERE car_id = ?";
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        Car car = template.queryForObject(sql, rowMapper, car_id);
+        return car;
     }
+
+    public void location(String car_location, int car_id) {
+        System.out.println(car_id);
+        String sql = "UPDATE car SET car_location = ? Where car_id = ?";
+        template.update(sql, car_location, car_id);
+    }
+
+
+    public List<Car> searchSpecificCar(String car_brand) {
+        String sql = "SELECT * FROM car WHERE car_brand = ?";
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        return template.query(sql, rowMapper, car_brand);
+    }
+
+
+    public Car findCarByContractCarId(int contract_id) {
+        String sql = "SELECT car.car_id, car_brand, car_model, car_plate, car_odometer, " +
+                "car_vin, car_location, car_price FROM car JOIN contract ON car.car_id = contract.car_id" +
+                " WHERE contract_id = ?";
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        Car car = template.queryForObject(sql, rowMapper, contract_id);
+        return car;
+
+    }
+
+
 
     public List<Car> fetchCarsInAuction() {
         String sql = "SELECT car.car_id, car_brand, car_model FROM car JOIN contract ON car.car_id = contract.car_id" +
@@ -48,9 +86,9 @@ JdbcTemplate template;
 
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         List<Car> carsInAuction = template.query(sql, rowMapper, 0);
-
         return carsInAuction;
     }
+
 
     public Boolean sellCar(Car car) {
         //review har ikke et car_id, men det har et contract_id, og contract har et car_id,

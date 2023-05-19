@@ -4,6 +4,7 @@
     font-family: sans-serif;
     margin-top: 0px;
     background-image: url("n.png");
+    background-image: url("backkground.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -62,6 +63,11 @@ body {
     z-index: 10;
 }
 
+#Leasing-botton {
+    top: -40px;
+    left: 404px;
+    padding: 35px 40px;
+}
 
 #Skade-botton {
     top: 0;
