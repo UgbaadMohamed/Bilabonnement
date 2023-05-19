@@ -22,9 +22,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-
+import java.util.List;
 @Controller
 public class HomeController {
+
+        @Autowired
+        CustomerService customerService;
+
+        @GetMapping("/")
+        public String customerForm() {
+            return "home/customerForm";
+        }
+
+        @PostMapping("/createCustomer")
+        public String createCustomer(@ModelAttribute Customer customer) {
+            customerService.createCustomer(customer);
+            return "redirect:/customerPage";
+        }
     @Autowired
     CarService carService;
 
@@ -325,4 +339,22 @@ public class HomeController {
     }
 
 }
+
+
+        @GetMapping("/customerPage")
+        public String customerPage(Model model){
+            List<Customer> customerList = customerService.fetchAllCustomer();
+            model.addAttribute("customers", customerList);
+            return "home/customerPage";
+        }
+
+
+
+
+
+
+
+    }
+
+
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="customerPage.css">
+</head>
+<body>
+    <div id="inner">
+        <h1> Kunde regristration!</h1>
+        <form action="/createCustomer" method="post" th:object="${customers}">
+            <input type="text" name="customer_first_name" class="input-box" placeholder="Fornavn " required><br><br>
+            <input type="text" name="customer_last_name" class="input-box" placeholder="Efternavn" required><br><br>
+            <input type="text" name="customer_address" class="input-box" placeholder="Address" required><br><br>
+            <input type="number" name="customer_zip" class="input-box" placeholder="Postnummer" required><br><br>
+            <input type="number" name="customer_phone_number" class="input-box" placeholder="Telefon nummer" required><br><br>
+            <input type="number" name="customer_license_number" class="input-box" placeholder="Kørekort nummer" required><br><br>
+            <input type="number" name="customer_age" class="input-box" placeholder="Alder" required><br><br>
+
+            <button type="submit" class="submit-btn">Opret en kunde</button><br><br>
+        </form>
+    </div>
+
+</body>
+</html>
