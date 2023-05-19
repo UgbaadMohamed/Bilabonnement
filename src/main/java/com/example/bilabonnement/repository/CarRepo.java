@@ -67,7 +67,7 @@ JdbcTemplate template;
 
     public Boolean sellCar(Car car) {
         //review har ikke et car_id, men det har et contract_id, og contract har et car_id,
-        // og på den måde kan bruger vi subquery  man finde det review som har et kontrakt id - som har det car_id
+        // og på den måde bruger vi subquery til at finde det review som har et kontrakt id - som har det car_id
         // det eneste der har et car ID er CONTRACT
         String deleteReviewSql = "DELETE FROM review WHERE contract_id IN " +
                                         "(SELECT contract_id FROM contract WHERE car_id = ?)";
