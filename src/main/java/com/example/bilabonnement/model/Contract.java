@@ -7,7 +7,7 @@ public class Contract {
     private String contract_end_date;
     private int contract_maximum_km;
     private int contract_start_km;
-
+    private int totalPriceForMonthlyPayment;
     public Contract(){
     }
 
@@ -18,6 +18,14 @@ public class Contract {
         this.contract_maximum_km = contract_maximum_km;
         this.contract_start_km = contract_start_km;
         this.car_id=car_id;
+    }
+
+    public int getTotalPriceForMonthlyPayment() {
+        return totalPriceForMonthlyPayment;
+    }
+
+    public void setTotalPriceForMonthlyPayment(int totalPriceForMonthlyPayment) {
+        this.totalPriceForMonthlyPayment = totalPriceForMonthlyPayment;
     }
 
     public int getCar_id() {

@@ -22,9 +22,15 @@
         <label for="contract_start_km">Start KM:</label>
         <input type="text" name="contract_start_km" id="contract_start_km" required/>
 
-        <button type="submit" value="Save changes" style="background-color: #4CAF50" >
-            </button>
-        </form>
+     <button type="submit" value="Save changes" style="background-color: #4CAF50" >
+        </button>
+    </form>
+
+
+        p> TOTAL PRICE : <span th:text="${con.totalPriceForMonthlyPayment}"/> </p>
+    <div id=>
+       <br><input type="submit" name="type" value="price" Style ="Color: lawngreen"><br/>
+</div>
 </div>
 </body>
 </html>

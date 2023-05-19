@@ -1,4 +1,5 @@
 package com.example.bilabonnement.repository;
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -42,6 +43,33 @@ public class ContractRepo {
         return contract;
     }
 
+    public int totalPriceForMonthlyPayment(int car_id, Contract c){
+            String sql2 ="SELECT subscription_price, \n" +
+                    "      PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1 AS selected_months,\n" +
+                    "       (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1) * subscription_price AS total_price\n" +
+                    "FROM contract JOIN car c ON c.car_id= contract_id WHERE car_id = ?";
+            int sum= template.queryForObject(sql2, Integer.class, car_id);
 
+            c.setTotalPriceForMonthlyPayment(sum);
+            return c.getTotalPriceForMonthlyPayment();
+        }
 
     }
+
+    /*   public void totalPriceForMonthlyPayment(int car_id){
+        String sql = "SELECT * From Contract";
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        List<Contract> con = template.query(sql, rowMapper);
+        for (Contract c: con) {
+            String sql2 ="SELECT subscription_price, \n" +
+                    "      PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1 AS selected_months,\n" +
+                    "       (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1) * subscription_price AS total_price\n" +
+                    "FROM contract JOIN car c ON c.car_id= contract_id WHERE car_id = ?";
+            int sum= template.queryForObject(sql2, Integer.class, car_id);
+            c.setTotalPriceForMonthlyPayment(sum);
+        }
+
+
+    }*/
+
+

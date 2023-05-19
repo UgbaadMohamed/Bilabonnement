@@ -25,8 +25,9 @@ public class ContractService {
     public Contract findContractId(int contract_id){
         return contractRepo.findContractId(contract_id);
     }
-    public Contract findContractById(int contract_id){
-        return contractRepo.findContractId(contract_id);
+    public int totalPriceForMonthlyPayment(int car_id, Contract contract){
+
+        return contractRepo.totalPriceForMonthlyPayment(car_id, contract);
     }
 
 

@@ -21,8 +21,8 @@ public class CarService {
         return carRepo.viewCars(car_id);
     }
 
-    /* public List<Car>  totalPayment(){
-        return carRepo.totalPayment();
+     public int totalMonthlyPrice(){
+        return carRepo.totalMonthlyPrice();
     }
 
 

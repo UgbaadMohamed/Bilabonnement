@@ -21,11 +21,11 @@ public class HomeController {
 
     int car_id;
 
-    @GetMapping("/")
+    @GetMapping("/homepage")
     public String homePage(Model model) {
         List<Car> cars = carService.fetchCars();
         model.addAttribute("cars", cars);
-        return "home/homePage";
+        return "home/homepage";
     }
 
 
@@ -42,10 +42,8 @@ public class HomeController {
 
     @PostMapping("/pickLocation/{car_id}")
     public String pickLocation(@ModelAttribute Car car,@PathVariable("car_id") int car_id) {
-        System.out.println(car);
-        System.out.println(car_id);
         carService.location(car.getCar_location(), car_id);
-        return "redirect:/";
+        return "home/homepage";
     }
 
     @GetMapping("/viewCar/{car_id}")
@@ -72,13 +70,11 @@ public class HomeController {
         return "home/contract";
     }
 
-
     @PostMapping("/contractinfo/{car_id}")
     public String contractinfo(@ModelAttribute Contract contract,@PathVariable("car_id") int car_id) {
         System.out.println(contract);
-        //contract kommer ikke med
         contractService.contractInfo(contract,car_id);
-        return "home/homepage";
+        return "home/contract";
     }
 
     @GetMapping("/search")
@@ -92,35 +88,18 @@ public class HomeController {
 
    @GetMapping("/stats")
     public String totalPayment(Model model) {
-       List<Car> subscriptionPrice = carService.fetchCars();
-        model.addAttribute("subscriptionPrice", subscriptionPrice);
+     int total= carService.totalMonthlyPrice();
+        model.addAttribute("subscriptionPrice", total);
         return "home/stats";
     }
 
 
-
-
-
-
-
-
-  /*  @GetMapping("/stats{subscription_price}")
-    public String totalPayment(@RequestParam ("subscription_price") int subscription_price, Model model) {
-        List<Car> subscriptionPrice= carService.totalPayment(subscription_price);
-        System.out.println(subscription_price);
-        model.addAttribute("subscriptionPrice", subscriptionPrice);
-        return "home/stats";
-    }*/
-
-
-
-   /* @GetMapping("/searchForCar")
-    public String searchForCar(@RequestParam("car_model") String car_model, @RequestParam("car_brand") String car_brand, Model model) {
-        List<Car> cars= carService.searchSpecificCar(car_model, car_brand);
-        model.addAttribute("cars", cars);
-        return "home/carinformation";
-    }*/
-
+    @GetMapping("/totalPriceForMonthlyPayment")
+    public String totalPayment(@PathVariable("car_id") int car_id,Contract con, Model model) {
+       int sum = contractService.totalPriceForMonthlyPayment(car_id, con) ;
+        model.addAttribute("con", sum);
+        return "home/contract";
+    }
 
 
 

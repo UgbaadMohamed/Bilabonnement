@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/homePage.css">
+    <link rel="stylesheet" type="text/css" href="/homepage.css">
     <link rel="stylesheet" type="text/css" href="/home.css">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
 </head>
@@ -45,9 +45,9 @@
 
             <p class="subscription"th:text="${car.subscription_price}"></p>
         </div>
-        <!--    <a th:href="@{'/viewCar/'+${car.car_id}}">
+          <!--a th:href="@{'/viewCar/'+${car.car_id}}">
          <button class="view-car"></i></button>
-     </a>*/-->
+     </a-->
         <a th:href="@{'/contract/'+${car.car_id}}">
                    <button class="contract"></i></button>
                    </a>
