@@ -5,19 +5,53 @@ body {
     padding: 0;
 }
 
+.home-foto{
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url("d.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    filter: blur(0.6) brightness(0.5);
+}
+
 .navbar {
     background-color: white;
-    border: 2px solid black;
+    border: 2px solid #80a8ce;
 }
 
 #menuHeader {
     background-color: #ffffff;
     font-family: ".SF NS Display", sans-serif;
     font-weight: bold;
-    color: #000000;
-    padding: 15px;
-    display: flex;
+    padding: 40px;
     align-items: center;
+    background-image: url(logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 30px 0;
+    position: -ms-device-fixed;
+}
+
+#positionForlogout{
+    position: absolute;
+    top: 36px;
+    right: 55px;
+}
+
+#logout-style {
+    color: #1a1818;
+
+}
+#logout-style:hover{
+    color: #8fbbde;
 }
 
 #logo {
@@ -38,13 +72,7 @@ body {
     margin: 0 5px; /* Add margin between nav items */
 }
 
-.nav-item a {
-    font-size: 16px;
-    color: black;
-    text-decoration: none;
-    padding: 14px 16px;
-    border: 2px solid black; /* Add border around each nav item */
-}
+
 
 .vertical-line {
     border-left: 2px solid black;
@@ -57,7 +85,6 @@ body {
 }
 
 .dropdown .dropbtn {
-    border: 2px solid black; /* Add border around the dropdown button */
     outline: none;
     padding: 14px 16px;
     background-color: inherit;
@@ -69,7 +96,7 @@ body {
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-    background-color: #96959c;
+    background-color: #73a2c2;
     color: white;
 }
 
@@ -78,11 +105,31 @@ body {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: #73a2c2;
     z-index: 1;
-    top: 100%; /* Drop down below the dropdown button */
-    left: 0; /* Align with the dropdown button */
 }
+
+#dropdown-1-placement {
+    top: 2px;
+    right: -655px;
+}
+#dropdown-2-placement {
+    top: 2px;
+    right: -785px;
+}
+#dropdown-3-placement {
+    top: 2px;
+    right: -1070px;
+}
+#dropdown-4-placement {
+    top: 2px;
+    right: -965px;
+}
+#dropdown-5-placement {
+    top: 2px;
+    right: -1260px;
+}
+
 
 .dropdown:hover .dropdown-content {
     display: block; /* Show the dropdown content when hovering over the dropdown button */
@@ -97,6 +144,65 @@ body {
 }
 
 .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: #8fbbde;
 }
+
+
+
+#Leasing-botton,
+#Skade-botton,
+#KPI-botton,
+#After-botton,#Staff-botton {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 24px;
+    border: 1px solid #80a8ce;
+    border-radius: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    cursor: pointer;
+    position: fixed;
+    z-index: 35;
+}
+
+
+#Skade-botton {
+    top: 1px;
+    left: 616px;
+    padding: 31px 30px;
+}
+
+#KPI-botton {
+    left: 841px;
+    padding: 31px 31px;
+    top: 1px;
+}
+#Leasing-botton {
+    left: 500px;
+    padding: 31px 25px;
+    top: 1px;
+}
+
+#After-botton {
+    top: 1px;
+    left: 925px;
+    padding: 31px 30px;
+}
+
+#Staff-botton {
+    top: 1px;
+    left: 1120px;
+    padding: 31px 50px;
+}
+
+#Leasing-botton:hover,#Skade-botton:hover,#KPI-botton:hover,#After-botton:hover,#Staff-botton:hover{
+    background-color: #8fbbde;
+    transition: all 0.2s ease-in-out;
+}
+
+
 

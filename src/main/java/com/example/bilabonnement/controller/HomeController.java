@@ -32,13 +32,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String frontPage() {
-        return "home/background";
+        return "home/frontPage";
     }
 
     @GetMapping("/loginPage")
     public String loginPage() {
         return "home/loginPage";
     }
+
 
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,

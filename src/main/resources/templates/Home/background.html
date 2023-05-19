@@ -3,51 +3,57 @@
 <head>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
   <link rel="stylesheet" type="text/css" href="header.css">
 
 </head>
 <body>
+<div id="positionForlogout">
+  <a href="/frontPage" class="logout-button">
+    <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+  </a>
+</div>
 
 <div class="navbar">
-  <div id="menuHeader">
+  <div id="menuHeader" onclick="window.location.href='/creditDocumentation'">
     <div class="nav-item">
-      <a id="logo" href="#home">Bilabonnement.dk</a>
+      <a href="/creditDocumentation" id="logo"></a>
     </div>
-    <div class="vertical-line"></div>
+  </div>
     <div class="links">
       <div class="dropdown nav-item">
-        <button class="dropbtn"> Leasing
+        <button class="dropbtn" id="Leasing-botton"> Leasing
 
         </button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" id="dropdown-1-placement">
           <a href="#home">Ledige biler</a>
           <a href="/creditDocumentation">Kreditvalidering</a>
 
         </div>
       </div>
       <div class="dropdown nav-item">
-        <button class="dropbtn">Skade og Udbedring
+        <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
 
         </button>
-        <div class="dropdown-content">
-          <a href="/conditionReportDocumentation">Opret tilstandsrapport</a>
+        <div class="dropdown-content" id="dropdown-2-placement">
+          <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
         </div>
       </div>
 
       <div class="dropdown nav-item">
-        <button class="dropbtn">Efterbehandling
+        <button class="dropbtn" id="After-botton" >Efterbehandling
 
         </button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" id="dropdown-3-placement">
           <a href="/findReviewTarget">Kundeanmeldelse</a>
           <a href="#">Auktion </a>
 
         </div>
       </div>
       <div class="dropdown nav-item">
-        <button class="dropbtn">KPI
+        <button class="dropbtn" id="KPI-botton">KPI
         </button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" id="dropdown-4-placement">
 
           <a href="/KPICar">KPI over biler</a>
           <a href="#">KPI over økonomi</a>
@@ -55,22 +61,22 @@
       </div>
 
         <div class="dropdown nav-item">
-          <button class="dropbtn">Personale
+          <button class="dropbtn" id="Staff-botton" >Personale
           </button>
-          <div class="dropdown-content">
+          <div class="dropdown-content" id="dropdown-5-placement">
             <a href="/createStaffMember">Opret ny medarbejder</a>
             <a href="/allStaffMembers">Alle medarbejdere</a>
-
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
 </div>
+
+<div class="home-foto">
+</div>
+
+
 
 
 </body>
