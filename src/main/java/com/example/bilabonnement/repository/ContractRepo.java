@@ -17,14 +17,14 @@ public class ContractRepo {
     JdbcTemplate template;
 
     public void makeContract(Contract contract, int car_id, int customer_id) {
-        String sql = "INSERT INTO contract (contract_start_date, contract_end_date, contract_maximum_km, " +
-                "contract_start_km, car_id, customer_id) Values (?, ?, ?, ?, ?, ?)";
-        template.update(sql,contract.getContract_start_date(), contract.getContract_end_date(),
-                contract.getContract_maximum_km(), contract.getContract_start_km(), car_id, customer_id);
+        String sql = "INSERT INTO contract (customer_id, car_id, contract_start_date, contract_end_date," +
+                " contract_maximum_km, contract_start_km) VALUES (?, ?, ?, ?, ?, ?)";
+        template.update(sql, customer_id, car_id, contract.getContract_start_date(), contract.getContract_end_date(),
+                contract.getContract_maximum_km(), contract.getContract_start_km());
     }
 
     public List<Contract> viewLeasedCars(int contract_id){
-        String sql= "SELECT car_model, car_brand, image, car_vin FROM contract WHERE contract_id=";
+        String sql= "SELECT car_model, car_brand, image, car_vin FROM contract WHERE contract_id = ?";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper, contract_id);
     }

@@ -26,9 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class HomeController {
 
-        @Autowired
-        CustomerService customerService;
-
+    @Autowired
+    CustomerService customerService;
 
     @Autowired
     CarService carService;
@@ -91,26 +90,36 @@ public class HomeController {
     }
 
     @PostMapping("/createCustomer")
-    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model ) {
+    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
         customerService.createCustomer(customer);
         model.addAttribute("car", car);
+        model.addAttribute("customer",
+
+                //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
+                // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
+                // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
+                // og ikke vil kunne anvendes til videre brug. men ved
+                // brug af license kan vi finde den pågældende customer,
+                // tilføje den til den nye model.addAttribute og anvende den til videre brug
+                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
         return "home/creditDocumentation";
     }
 
 
-    @GetMapping("/creditDocumentation/{car_id}")
+    /*@GetMapping("/creditDocumentation/{car_id}")
     public String creditDocumentation(@PathVariable("car_id") int car_id, Model model ) {
-        //model.addAttribute("customer", customerService.findCustomerById(customer_id));
+        model.addAttribute("customer", customerService.findCustomerById(customer_id));
         model.addAttribute("car", carService.findCarById(car_id));
         return "home/creditDocumentation";
-    }
+    }*/
+    //tror ik bruges
 
     @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
                                     @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
                                     customer,
                                     Model model) {
-    model.addAttribute("customer", customer);
+        model.addAttribute("customer", customer);
         model.addAttribute("car", car);
         if (q1.equals("ja") && q2.equals("ja")) {
             return "home/creditValidation";
@@ -119,12 +128,12 @@ public class HomeController {
         }
     }
 
-    @GetMapping ("/creditValidation")
+    /*@GetMapping ("/creditValidation")
     public String creditValidation(@ModelAttribute Car car,@ModelAttribute Customer customer, Model model ) {
         model.addAttribute("customer", customer);
         model.addAttribute("car", car);
         return "home/creditValidation";
-    }
+    }*/
 
     @PostMapping("/creditValidationSuccess")
     public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
@@ -150,7 +159,8 @@ public class HomeController {
     }
 
     @PostMapping("/contractinfo")
-    public String contractinfo(@ModelAttribute Contract contract, @ModelAttribute Car car,  @ModelAttribute Customer customer, Model model ) {
+    public String contractinfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
+                               @ModelAttribute Customer customer) {
         System.out.println(contract);
         contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
         return "home/homepage";
@@ -344,28 +354,17 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/background")
     public String background() {
         return "home/background";
     }
 
-
-
-
-        @GetMapping("/customerPage")
-        public String customerPage(Model model){
-            List<Customer> customerList = customerService.fetchAllCustomer();
-            model.addAttribute("customers", customerList);
+    @GetMapping("/customerPage")
+    public String customerPage(Model model) {
+        List<Customer> customerList = customerService.fetchAllCustomer();
+        model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
-
-
-
-
-
-
-
     }
 
 

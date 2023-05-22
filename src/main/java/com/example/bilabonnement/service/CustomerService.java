@@ -29,5 +29,8 @@ import java.util.List;
         return customerRepo.findCustomerById(customer_id);
     }
 
+    public Customer findCustomerByLicense(String license){
+        return customerRepo.findCustomerByLicence(license);
+    }
    }
 
