@@ -58,9 +58,12 @@
             <option value="Dragør"> Dragør    </option>
             <option value="Kongens Nytorv"> Kongens Nytorv    </option>
         </select>
-            <button type="submit"  > </button>
+            <input type="submit"/>
+            <a th:href="@{'/customerForm/'+${car.car_id}}">
+                <button class="customer-form"></i></button>
+            </a>
             <img th:src="${car.image}" id="carImg"/>
-        </Form>
+        </form>
     </div>
 </div>
 </body>

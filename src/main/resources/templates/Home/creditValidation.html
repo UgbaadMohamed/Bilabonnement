@@ -33,7 +33,7 @@
 </div>
 <div class="creditValidation-box">
     <div id="creditDocumentationForm">
-<form method="post" th:action="@{/creditvalidation-form}" onsubmit="return validateForm()">
+<form method="post" th:action="@{/creditValidationSuccess}" onsubmit="return validateForm()">
         <header id="cd-header">Kreditvalidering (2 ud af 2)</header>
         <br><br><br>
         <p>Hvad er kundens gennemsnitlige måndelige indtægt?</p>
@@ -44,7 +44,8 @@
         <p>Er kunden registret i RKI?</p>
         <label><input type="radio" name="q2" value="ja" required> Ja</label>
         <label><input type="radio" name="q2" value="nej"> Nej</label>
-
+    <input type="hidden" name="car_id" th:value="${car.car_id}">
+    <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
         <button type="submit" class="submit-btn">SEND</button>
     </form>
     </div>

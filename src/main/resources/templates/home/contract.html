@@ -8,7 +8,7 @@
 <body>
 <div class="contractform" style="display: flex; flex-wrap: wrap;">
 
-    <form th:action="@{/contractinfo/{car_id}(car_id=${car_id})}" method="post">
+    <form th:action="@{/contractinfo}" method="post">
 
     <label for="contract_start_date">Start Date :</label>
     <input type="text" name="contract_start_date" id="contract_start_date" required/>
@@ -16,20 +16,20 @@
     <label for="contract_end_date">End date:</label>
          <input type="text" name="contract_end_date" id="contract_end_date" required/>
 
-        <label for="contract_maximum_km">Max KM Name:</label>
+        <label for="contract_maximum_km">Max KM:</label>
         <input type="text" name="contract_maximum_km" id="contract_maximum_km" required/>
 
         <label for="contract_start_km">Start KM:</label>
         <input type="text" name="contract_start_km" id="contract_start_km" required/>
 
+        <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
+        <input type="hidden" name="car_id" th:value="${car.car_id}">
+
      <button type="submit" value="Save changes" style="background-color: #4CAF50" >
         </button>
     </form>
 
-        p> TOTAL PRICE : <span th:text="${con.totalPriceForMonthlyPayment}"/> </p>
-    <div id=>
-       <br><input type="submit" name="type" value="price" Style ="Color: lawngreen"><br/>
-</div>
+       <!--p> TOTAL PRICE : <span th:text="${contract.totalPriceForPayment}"/> </p-->
 </div>
 </body>
 </html>

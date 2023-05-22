@@ -22,23 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import java.util.List;
+
 @Controller
 public class HomeController {
 
         @Autowired
         CustomerService customerService;
 
-        @GetMapping("/")
-        public String customerForm() {
-            return "home/customerForm";
-        }
 
-        @PostMapping("/createCustomer")
-        public String createCustomer(@ModelAttribute Customer customer) {
-            customerService.createCustomer(customer);
-            return "redirect:/customerPage";
-        }
     @Autowired
     CarService carService;
 
@@ -62,11 +53,11 @@ public class HomeController {
 
     int car_id;
 
-    @GetMapping("/homepage")
+    @GetMapping("/homePage")
     public String homePage(Model model) {
         List<Car> cars = carService.fetchCars();
         model.addAttribute("cars", cars);
-        return "home/homepage";
+        return "home/homePage";
     }
 
     @GetMapping("/createList")
@@ -74,26 +65,74 @@ public class HomeController {
         return "home/createList";
     }
 
-    @GetMapping("/carinformation/{car_id}")
+    @GetMapping("/carInformation/{car_id}")
     public String carinformation(@PathVariable("car_id") int car_id, Model model){
         model.addAttribute("car", carService.findCarById(car_id));
-        return "home/carinformation";
+        return "home/carInformation";
     }
-
-    @PostMapping("/pickLocation/{car_id}")
-    public String pickLocation(@ModelAttribute Car car,@PathVariable("car_id") int car_id) {
-        carService.location(car.getCar_location(), car_id);
-        return "home/homepage";
-    }
-
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model) {
         List<Car> cars =carService.viewCars(car_id);
         model.addAttribute("cars", cars);
-        System.out.println(cars);
-        return "home/carinformation";
+        return "home/carInformation";
     }
 
+    @PostMapping("/pickLocation/{car_id}")
+    public String pickLocation(@ModelAttribute Car car,@PathVariable("car_id") int car_id,Model model) {
+        carService.location(car.getCar_location(), car_id);
+        model.addAttribute("car", carService.findCarById(car_id));
+        return "home/customerForm";
+    }
+
+   @GetMapping("/customerForm/{car_id}")
+    public String customerForm(@PathVariable("car_id") int car_id, Model model ) {
+        model.addAttribute("car", carService.findCarById(car_id));
+        return "home/customerForm";
+    }
+
+    @PostMapping("/createCustomer")
+    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model ) {
+        customerService.createCustomer(customer);
+        model.addAttribute("car", car);
+        return "home/creditDocumentation";
+    }
+
+
+    @GetMapping("/creditDocumentation/{car_id}")
+    public String creditDocumentation(@PathVariable("car_id") int car_id, Model model ) {
+        //model.addAttribute("customer", customerService.findCustomerById(customer_id));
+        model.addAttribute("car", carService.findCarById(car_id));
+        return "home/creditDocumentation";
+    }
+
+    @PostMapping("/receivedCreditDocuments")
+    public String receivedDocuments(@RequestParam("q1") String q1,
+                                    @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
+                                    customer,
+                                    Model model) {
+    model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        if (q1.equals("ja") && q2.equals("ja")) {
+            return "home/creditValidation";
+        } else {
+            return "home/creditDocumentation";
+        }
+    }
+
+    @GetMapping ("/creditValidation")
+    public String creditValidation(@ModelAttribute Car car,@ModelAttribute Customer customer, Model model ) {
+        model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        return "home/creditValidation";
+    }
+
+    @PostMapping("/creditValidationSuccess")
+    public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
+        customerService.makeCustomerCreditworthy(customer.getCustomer_id());
+        model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        return "home/contract";
+    }
 
    @GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
@@ -103,21 +142,19 @@ public class HomeController {
         return "home/contract";
     }
 
-
-    @GetMapping("/contract/{car_id}")
-    public String contract(@PathVariable("car_id") int car_id, Model model) {
-        model.addAttribute("car_id", car_id);
+    @GetMapping("/contract")
+    public String contract(@ModelAttribute Car car, @ModelAttribute Customer customer, Model model) {
+        model.addAttribute("car", car);
+        model.addAttribute("customer", customer);
         return "home/contract";
     }
 
-    @PostMapping("/contractinfo/{car_id}")
-    public String contractinfo(@ModelAttribute Contract contract,@PathVariable("car_id") int car_id) {
+    @PostMapping("/contractinfo")
+    public String contractinfo(@ModelAttribute Contract contract, @ModelAttribute Car car,  @ModelAttribute Customer customer, Model model ) {
         System.out.println(contract);
-        contractService.contractInfo(contract,car_id);
-        return "home/contract";
+        contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
+        return "home/homepage";
     }
-
-
 
 
     @GetMapping("/search")
@@ -137,7 +174,6 @@ public class HomeController {
     @GetMapping("/loginPage")
     public String loginPage() {
         return "home/loginPage";
-
     }
 
     @GetMapping("/findReviewTarget")
@@ -221,37 +257,17 @@ public class HomeController {
             StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
                     staff_member_password);
             model.addAttribute("staff_member", staffMember);
-            return "home/staffType";
+            return "redirect:/homePage";
         }
         return "home/loginPage";
     }
-
-
-    @GetMapping("/creditDocumentation")
-    public String creditDocumentation() {
-        return "home/creditDocumentation";
-    }
-
-    @GetMapping("/totalPriceForMonthlyPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract con, Model model) {
-       int sum = contractService.totalPriceForMonthlyPayment(car_id, con) ;
-        model.addAttribute("con", sum);
+    @GetMapping("/totalPriceForPayment")
+    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
+        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
+        model.addAttribute("contract", sum);
         return "home/contract";
     }
 
-    @GetMapping ("/creditValidation")
-    public String creditValidation() {
-        return "home/creditValidation";
-    }
-    @PostMapping("/receivedCreditDocuments")
-    public String receivedDocuments(@RequestParam("q1") String q1,
-                              @RequestParam("q2") String q2) {
-        if (q1.equals("ja") && q2.equals("ja")) {
-            return "redirect:/creditValidation";
-        } else {
-            return "home/creditDocumentation";
-        }
-    }
 
     @GetMapping("/KPICar")
     public String totalRentedCars (Model model) {
@@ -290,11 +306,7 @@ public class HomeController {
     }
 
 
-    @PostMapping("/creditvalidation-form")
-    public String creditvalidationForm() {
 
-        return "home/contract";
-    }
 
    @PostMapping("/payment")
          public String finalizeWithPatyment(@ModelAttribute Payment payment) {

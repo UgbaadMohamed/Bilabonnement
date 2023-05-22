@@ -1,5 +1,4 @@
 package com.example.bilabonnement.repository;
-import com.example.bilabonnement.model.Car;
 
 import com.example.bilabonnement.model.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,11 @@ public class ContractRepo {
     @Autowired
     JdbcTemplate template;
 
-    public void contractInfo(Contract contract, int car_id) {
-        String sql = "INSERT INTO contract (contract_start_date, contract_end_date, contract_maximum_km, contract_start_km, car_id) Values (?, ?, ?, ?, ?)";
-        template.update(sql,contract.getContract_start_date(), contract.getContract_end_date(), contract.getContract_maximum_km(), contract.getContract_start_km(),car_id);
+    public void makeContract(Contract contract, int car_id, int customer_id) {
+        String sql = "INSERT INTO contract (contract_start_date, contract_end_date, contract_maximum_km, " +
+                "contract_start_km, car_id, customer_id) Values (?, ?, ?, ?, ?, ?)";
+        template.update(sql,contract.getContract_start_date(), contract.getContract_end_date(),
+                contract.getContract_maximum_km(), contract.getContract_start_km(), car_id, customer_id);
     }
 
     public List<Contract> viewLeasedCars(int contract_id){
@@ -59,8 +60,8 @@ public class ContractRepo {
                     "FROM contract JOIN car c ON c.car_id= contract_id WHERE car_id = ?";
             int sum= template.queryForObject(sql2, Integer.class, car_id);
 
-            c.setTotalPriceForMonthlyPayment(sum);
-            return c.getTotalPriceForMonthlyPayment();
+            c.setTotalPriceForPayment(sum);
+            return c.getTotalPriceForPayment();
         }
 
     }

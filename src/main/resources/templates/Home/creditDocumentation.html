@@ -34,7 +34,9 @@
 
 <div class="creditValidation-box">
 <div id="creditDocumentationForm">
-<form method="post" th:action="@{/process-form}" onsubmit="return validateForm()">
+<form method="post" th:action="@{/receivedCreditDocuments}" onsubmit="return validateForm()">
+    <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
+    <input type="hidden" name="car_id" th:value="${car.car_id}">
     <header id="cd-header">Kreditvalidering (1 ud af 2)</header>
     <br><br><br>
     <p>Har du modtaget kundens lønsedler for de sidste 3 måneder?</p>
@@ -52,7 +54,6 @@
 </div>
 </div>
 <script>
-
     function validateForm() {
         //'ja' har værdien 0, mens 'nej' har værdien 1.
         // Hvis 1 er cheked på midste en af dem, vil der komme en javascript alert. den returne'false'

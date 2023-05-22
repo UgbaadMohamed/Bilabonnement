@@ -1,7 +1,5 @@
 package com.example.bilabonnement.service;
 
-import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.ConditionReport;
 import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,8 @@ public class ContractService {
     @Autowired
     ContractRepo contractRepo;
 
-    public void contractInfo(Contract contract, int car_id){
-        contractRepo.contractInfo(contract,car_id);
+    public void makeContract(Contract contract, int car_id, int customer_id){
+        contractRepo.makeContract(contract,car_id, customer_id);
     }
 
     public List<Contract> viewLeasedCars(int contract_id){

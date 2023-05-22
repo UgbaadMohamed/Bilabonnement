@@ -22,5 +22,12 @@ import java.util.List;
         customerRepo.createCustomer(c);
     }
 
+    public void makeCustomerCreditworthy(int customer_id){
+        customerRepo.makeCustomerCreditworthy(customer_id);
+    }
+    public Customer findCustomerById(int customer_id){
+        return customerRepo.findCustomerById(customer_id);
+    }
+
    }
 
