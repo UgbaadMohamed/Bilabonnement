@@ -48,7 +48,7 @@
         <input class="subscription" th:value="'Månedligt abonnement: '+${car.subscription_price} +'kr'"readonly>
 
 
-        <form th:action="@{/pickLocation/{car_id}(car_id=${car.car_id})}" method="post">
+        <form th:action="@{/carSelected/{car_id}(car_id=${car.car_id})}" method="post">
         <label for="car_location" style="color:cornflowerblue; :font-size:160%;"> See pickup locations:</label>
         <select id="car_location"  name="car_location"  required>
         <option value="køge"> Køge   </option>
@@ -58,9 +58,8 @@
             <option value="Dragør"> Dragør    </option>
             <option value="Kongens Nytorv"> Kongens Nytorv    </option>
         </select>
-            <input type="submit"/>
             <a th:href="@{'/customerForm/'+${car.car_id}}">
-                <button class="customer-form"></i></button>
+                <button class="customer-form">NÆSTE</button>
             </a>
             <img th:src="${car.image}" id="carImg"/>
         </form>

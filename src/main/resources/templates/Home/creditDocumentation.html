@@ -37,6 +37,7 @@
 <form method="post" th:action="@{/receivedCreditDocuments}" onsubmit="return validateForm()">
     <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
     <input type="hidden" name="car_id" th:value="${car.car_id}">
+
     <header id="cd-header">Kreditvalidering (1 ud af 2)</header>
     <br><br><br>
     <p>Har du modtaget kundens lønsedler for de sidste 3 måneder?</p>

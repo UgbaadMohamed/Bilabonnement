@@ -44,8 +44,10 @@
         <p>Er kunden registret i RKI?</p>
         <label><input type="radio" name="q2" value="ja" required> Ja</label>
         <label><input type="radio" name="q2" value="nej"> Nej</label>
+
     <input type="hidden" name="car_id" th:value="${car.car_id}">
     <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
+
         <button type="submit" class="submit-btn">SEND</button>
     </form>
     </div>

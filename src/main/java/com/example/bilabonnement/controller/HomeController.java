@@ -50,7 +50,6 @@ public class HomeController {
     @Autowired
     ReviewService reviewService;
 
-    int car_id;
 
     @GetMapping("/homePage")
     public String homePage(Model model) {
@@ -64,27 +63,16 @@ public class HomeController {
         return "home/createList";
     }
 
-    @GetMapping("/carInformation/{car_id}")
-    public String carinformation(@PathVariable("car_id") int car_id, Model model){
-        model.addAttribute("car", carService.findCarById(car_id));
-        return "home/carInformation";
-    }
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model) {
-        List<Car> cars =carService.viewCars(car_id);
+        List<Car> cars = carService.viewCars(car_id);
         model.addAttribute("cars", cars);
         return "home/carInformation";
     }
 
-    @PostMapping("/pickLocation/{car_id}")
-    public String pickLocation(@ModelAttribute Car car,@PathVariable("car_id") int car_id,Model model) {
+    @PostMapping("/carSelected/{car_id}")
+    public String pickLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model) {
         carService.location(car.getCar_location(), car_id);
-        model.addAttribute("car", carService.findCarById(car_id));
-        return "home/customerForm";
-    }
-
-   @GetMapping("/customerForm/{car_id}")
-    public String customerForm(@PathVariable("car_id") int car_id, Model model ) {
         model.addAttribute("car", carService.findCarById(car_id));
         return "home/customerForm";
     }
@@ -94,6 +82,7 @@ public class HomeController {
         customerService.createCustomer(customer);
         model.addAttribute("car", car);
         model.addAttribute("customer",
+                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
                 //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
                 // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
@@ -101,18 +90,10 @@ public class HomeController {
                 // og ikke vil kunne anvendes til videre brug. men ved
                 // brug af license kan vi finde den pågældende customer,
                 // tilføje den til den nye model.addAttribute og anvende den til videre brug
-                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
+
         return "home/creditDocumentation";
     }
 
-
-    /*@GetMapping("/creditDocumentation/{car_id}")
-    public String creditDocumentation(@PathVariable("car_id") int car_id, Model model ) {
-        model.addAttribute("customer", customerService.findCustomerById(customer_id));
-        model.addAttribute("car", carService.findCarById(car_id));
-        return "home/creditDocumentation";
-    }*/
-    //tror ik bruges
 
     @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
@@ -128,13 +109,6 @@ public class HomeController {
         }
     }
 
-    /*@GetMapping ("/creditValidation")
-    public String creditValidation(@ModelAttribute Car car,@ModelAttribute Customer customer, Model model ) {
-        model.addAttribute("customer", customer);
-        model.addAttribute("car", car);
-        return "home/creditValidation";
-    }*/
-
     @PostMapping("/creditValidationSuccess")
     public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
         customerService.makeCustomerCreditworthy(customer.getCustomer_id());
@@ -143,23 +117,16 @@ public class HomeController {
         return "home/contract";
     }
 
-   @GetMapping("/viewLeasedCars/{contract_id}")
+   /*@GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
         List<Contract> contracts =contractService.viewLeasedCars(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
         return "home/contract";
-    }
+    } måske bruges senere*/
 
-    @GetMapping("/contract")
-    public String contract(@ModelAttribute Car car, @ModelAttribute Customer customer, Model model) {
-        model.addAttribute("car", car);
-        model.addAttribute("customer", customer);
-        return "home/contract";
-    }
-
-    @PostMapping("/contractinfo")
-    public String contractinfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
+    @PostMapping("/contractInfo")
+    public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer) {
         System.out.println(contract);
         contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
@@ -174,7 +141,6 @@ public class HomeController {
         model.addAttribute("cars", cars);
         return "home/search";
     }
-    //private int staff_id;
 
     @GetMapping("/")
     public String frontPage() {
