@@ -258,22 +258,16 @@ public class HomeController {
     @PostMapping("/sellCar")
     public String sellCar(Car car) {
         carService.sellCar(car);
-        return "home/conditionReportDocumentation";
+        return "home/homePage";
     }
 
     @PostMapping("/priceConverter")
-    public String convertPrice(Car car, Model model, @RequestParam("currency") String currency, Review review,
+    public String convertPrice(@ModelAttribute Car car, Model model,
+                               @RequestParam("currency") String currency, Review review,
                                Contract contract) {
         car = carService.findCarByContractId(car.getCar_id());
         model.addAttribute("car", car);
         carService.convertPrice(car, currency);
-
-        // Retrieve review and contract objects from the model
-        review = (Review) model.getAttribute("review");
-        contract = (Contract) model.getAttribute("contract");
-
-        model.addAttribute("review", review);
-        model.addAttribute("contract", contract);
 
         return "home/carSale";
     }

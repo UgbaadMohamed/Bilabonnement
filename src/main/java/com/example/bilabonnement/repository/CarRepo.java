@@ -95,8 +95,12 @@ public class CarRepo {
         //review har ikke et car_id, men det har et contract_id, og contract har et car_id,
         // og på den måde bruger vi subquery til at finde det review som har et kontrakt id - som har det car_id
         // det eneste der har et car ID er CONTRACT
+        String deletePaymentSql = "DELETE FROM payment WHERE contract_id IN " +
+                "(SELECT contract_id FROM contract WHERE car_id = ?)";
+        template.update(deletePaymentSql, car.getCar_id());
+
         String deleteReviewSql = "DELETE FROM review WHERE contract_id IN " +
-                                        "(SELECT contract_id FROM contract WHERE car_id = ?)";
+                "(SELECT contract_id FROM contract WHERE car_id = ?)";
         template.update(deleteReviewSql, car.getCar_id());
 
         String deleteContractSql = "DELETE FROM contract WHERE car_id = ?";
@@ -104,5 +108,6 @@ public class CarRepo {
 
         String deleteCarSql = "DELETE FROM car WHERE car_id = ?";
         return template.update(deleteCarSql, car.getCar_id()) > 0;
+
     }
 }
