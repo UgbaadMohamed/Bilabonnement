@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<table>
+    <tbody>
+    <h1 style="color: black"> View wishlist </h1>
+    <tr th:each="contract:${contracts}">
+        <td>
+            <span th:text="${contract.item_name}"></span>
+        </td>
+        <td>
+            <span  th:text="${contract.item_description}"></span>
+        </td>
+        <td style="display: flex; align-items: center;">
+            <a th:href="@{'/editItems/'+${contract.item_id}}" class="btn-editItems">
+                <button class="btn-editItems" style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
+            </a>
+            <a th:href="@{'/deleteItem/'+${contract.item_id}}">
+                <button class="btn-deleteItem" id="btn-deleteWishlist"><i class="fa-solid fa-trash-can"></i></button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

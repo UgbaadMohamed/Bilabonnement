@@ -1,0 +1,42 @@
+.contractform{
+    position: relative;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    padding: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.contractform input{
+    width: 400px;
+    height: 50px;
+    font-size: 25px;
+    margin: 20px;
+    margin-left: 65px;
+    padding-left: 22px;
+
+}
+
+label {
+    font-family: sans-serif;
+    font-size: 1rem;
+    padding-right: 10px;
+}
+
+select {
+    font-size: 1.8rem;
+    padding: 7px 18px;
+}
+#carImg{
+    width: 860px;
+    height: 690px;
+    object-fit: cover;
+    top: 0px;
+    left: 600px;
+    position: absolute;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Kunde Liste</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Kunde ID</th>
+        <th>Fornavn</th>
+        <th>Efternavn</th>
+        <th>Adresse</th>
+        <th>Post nummer</th>
+        <th>Telefon nummer</th>
+        <th>Kørekort nummer</th>
+        <th>Alder</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.customer_id}"></td>
+        <td th:text="${customer.customer_first_name}"></td>
+        <td th:text="${customer.customer_last_name}"></td>
+        <td th:text="${customer.customer_address}"></td>
+        <td th:text="${customer.customer_zip}"></td>
+        <td th:text="${customer.customer_phone_number}"></td>
+        <td th:text="${customer.customer_license_number}"></td>
+        <td th:text="${customer.customer_age}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

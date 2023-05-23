@@ -76,10 +76,18 @@
     </div>
 </div>
 </div>
+<nav>
+    <ul>
+    </ul>
+</nav>
+<div class="creditvalidation-foto">
 </div>
 
 <div class="creditValidation-box">
 <div id="creditDocumentationForm">
+<form method="post" th:action="@{/receivedCreditDocuments}" onsubmit="return validateForm()">
+    <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
+    <input type="hidden" name="car_id" th:value="${car.car_id}">
     <div class="basic-box ">
 <form method="post" th:action="@{/process-form}" onsubmit="return validateForm()">
     <br><br><br>

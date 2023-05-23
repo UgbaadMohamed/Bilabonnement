@@ -1,43 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/homepage.css">
+    <link rel="stylesheet" type="text/css" href="/home.css">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="en"xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<div class="car-container" style="display: flex; flex-wrap: wrap;">
+<div id="menuHeader">
+    Bilabonnement.dk
+</div>
+<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
+<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
+<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
+<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
 
-  <div th:each="car: ${cars}" class="car-box">
+<div id="search-input">
 
-    <div class="information">
-      <p th:text="${car.car_brand}"></p>
-      <p class="car_model" th:text="${car.car_model}"></p>
-      <p class="car_plate" th:text="${car.car_plate}"></p>
-      <p class="car_odometer" th:text="${car.car_odometer}"></p>
-      <p class="car_vin" th:text="${car.car_vin}"></p>
-      <span class="wishlist-count" th:text="${car.image}"></span>
+    <form action="/search" method="GET">
+        <input type="text" placeholder="Search for car..." name="car_brand" required>
+        <button type="submit" id="search-submit"> <i class="fa fa-search"></i></button>
+    </form>
 
-      <img th:src="@{'data:image/jpeg;base64,'+ #strings.encodeBase64(image)}"/>
-
-      <p class="car_vin" th:text="${car.subscription_price}"></p>
-    </div>
-
-
-    <a th:href="@{'/viewCar/'+${car.car_id}}">
-      <button class="view wishlist"><i class="fa-solid fa-eye"></i></button>
+</div>
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
     </a>
-
-  </div>
 </div>
 
-</body>
-</html>
+<div class="home-foto">
+</div>
+<nav>
+    <ul>
+    </ul>
+</nav>
+<div class="car-container" style="display: flex; flex-wrap: wrap;">
+    <div th:each="car: ${cars}" class="car-box">
+        <div class="car">
+            <p class="brand"th:text="${car.car_brand}"></p>
+            <p class="model" th:text="${car.car_model}"></p>
+            <img th:src="${car.image} "class="image"/>
+
+            <p class="subscription"th:text="${car.subscription_price}"></p>
+        </div>
+          <a th:href="@{'/viewCar/'+${car.car_id}}">
+         <button class="view-car"></i></button>
+     </a>
+
+        <a th:href="@{'/contract/'+${car.car_id}}">
+                   <button class="contract"></i></button>
+                   </a>
+         <a th:href="@{'/stats'}">
+              <button class="total"></i></button>
+          </a>
+    </div>
+</div>
 </body>
 </html>
