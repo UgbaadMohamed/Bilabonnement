@@ -19,16 +19,16 @@
     padding: 15px 100px;
 }
 
-.submit-btn{
+.login-btn{
     position: fixed;
-    z-index: 30;
-    margin-left: 897px;
+    z-index: 45;
+    margin-left: 877px;
     margin-top: 515px;
     padding: 5px 25px;
     color: white;
     background: #404047;
 }
-.submit-btn:hover{
+.login-btn:hover{
     color:#404047;
     background:white ;
 }
@@ -47,6 +47,4 @@
     justify-content: center;
     position: fixed;
     left: 0;
-
-
 }

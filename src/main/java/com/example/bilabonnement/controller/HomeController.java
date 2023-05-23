@@ -160,7 +160,7 @@ public class HomeController {
             StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
                     staff_member_password);
             model.addAttribute("staff_member", staffMember);
-            return "home/staffType";
+            return "home/background";
         }
         return "home/loginPage";
     }

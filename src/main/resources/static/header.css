@@ -5,12 +5,12 @@ body {
     padding: 0;
 }
 
-.home-foto{
+.home-foto {
     width: 100%;
     height: 100%;
     font-family: sans-serif;
     margin-top: 0px;
-    background-image: url("d.png");
+    background-image: url(c.png);
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -20,11 +20,72 @@ body {
     position: fixed;
     left: 0;
     filter: blur(0.6) brightness(0.5);
+    top: 83px
 }
+
+.back-foto {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url(back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    filter: blur(0.6) brightness(0.5);
+    top:83px;
+    z-index: -1;
+}
+
+
+
+.faq-foto {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url(l.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+.footer-foto {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url(KA.png);
+    background-repeat: no-repeat;
+    background-size: contain; /* Change this value */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 200%;
+}
+
 
 .navbar {
     background-color: white;
-    border: 2px solid #80a8ce;
+    border: 1px solid #80a8ce;
+    width: 100%;
+    height: 81px;
+    position: fixed;
+    z-index: 35;
 }
 
 #menuHeader {
@@ -38,12 +99,18 @@ body {
     background-size: contain;
     background-position: 30px 0;
     position: -ms-device-fixed;
+    /* position: relative; */
+    position: fixed;
+    z-index: 2;
+    width: 1000px;
 }
 
 #positionForlogout{
-    position: absolute;
+    position: fixed;
     top: 36px;
     right: 55px;
+    z-index: 36;
+    background-color: white;
 }
 
 #logout-style {
@@ -106,27 +173,27 @@ body {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: #73a2c2;
-    z-index: 1;
+    z-index: 40;
 }
 
 #dropdown-1-placement {
-    top: 2px;
+    top: 82px;
     right: -655px;
 }
 #dropdown-2-placement {
-    top: 2px;
+    top: 83px;
     right: -785px;
 }
 #dropdown-3-placement {
-    top: 2px;
+    top: 83px;
     right: -1070px;
 }
 #dropdown-4-placement {
-    top: 2px;
+    top: 83px;
     right: -965px;
 }
 #dropdown-5-placement {
-    top: 2px;
+    top: 83px;
     right: -1260px;
 }
 
@@ -203,6 +270,56 @@ body {
     background-color: #8fbbde;
     transition: all 0.2s ease-in-out;
 }
+
+.basic-box {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    position: relative;
+    z-index: 2;
+    width: 750px;
+    height: 500px;
+    top: 200px;
+    left: 350px;
+}
+
+
+#cd-header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #494646;
+}
+
+.q1{
+    margin-left: 100px;
+    margin-top: -30px;
+    font-family: unset;
+}
+
+.q2 {
+    margin-left: 100px;
+    margin-top: -20px;
+    font-family: unset;
+}
+
+.submit-btn {
+    margin-left: 620px;
+    margin-top: 30px;
+    background-color: #ffffff;
+    color:black;
+}
+
+.submit-btn:hover {
+    background-color:#8fbbde;
+    color: #000000;
+}
+
+#logo-alone {
+    z-index: 36;
+    position: fixed;
+    background-image: url(logo.png);
+}
+
 
 
 

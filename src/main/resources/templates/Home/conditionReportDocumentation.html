@@ -6,8 +6,6 @@
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
     <link rel="stylesheet" type="text/css" href="header.css">
 
-</head>
-<body>
 <div id="positionForlogout">
     <a href="/frontPage" class="logout-button">
         <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
@@ -78,48 +76,41 @@
 </div>
 </div>
 
-<div class="creditValidation-box">
-<div id="creditDocumentationForm">
+</head>
+<body>
+<div class="car-box">
     <div class="basic-box ">
-<form method="post" th:action="@{/process-form}" onsubmit="return validateForm()">
+<form action="/conditionReport" method="post" onsubmit=" return validateForm()">
     <br><br><br>
-    <header id="cd-header">Kreditvalidering (1 ud af 2)</header>
+    <header id="cd-header">Tilstandsrapport </header>
     <br><br><br>
     <div class="q1" >
-    <p>Har du modtaget kundens lønsedler for de sidste 3 måneder?</p>
+    <label for="contract_id">Hvad er kundens kontrakt id?     </label> <br> <br>
+        <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt ID">
+    </div>
+    <div class="q1" >
+        <br><br><br>       <br>
+    <p>Har du modtaget tilstandsrapporten fra FDM?</p>
     <label><input type="radio" name="q1" value="ja" required> Ja</label>
     <label><input type="radio" name="q1" value="nej"> Nej</label>
     </div>
-<br><br><br><br><br><br>
-    <div class="q2">
-    <p>Har du modtaget kundens RKI papirer?</p>
-    <label><input type="radio" name="q2" value="ja" required> Ja</label>
-    <label><input type="radio" name="q2" value="nej"> Nej</label>
-    </div>
-    <button type="submit" class="submit-btn">NÆSTE</button>
-
+    <button type="submit" class="submit-btn">Næste</button>
 </form>
-
-</div>
-</div>
-</div>
+    </div>
 <script>
 
     function validateForm() {
-        //'ja' har værdien 0, mens 'nej' har værdien 1.
-        // Hvis 1 er cheked på midste en af dem, vil der komme en javascript alert. den returne'false'
-        // da den ikke kan komme ud af fuktionen før den returner true, altså begge er 'ja'!
         var q1 = document.getElementsByName("q1");
-        var q2 = document.getElementsByName("q2");
-        if (q1[1].checked || q2[1].checked) {
-            alert("Du kan ikke fortsætte til kreditvalidering, medmindre kundens kreditdokumenter er blevet modtaget.");
+        if (q1[1].checked) {
+            alert("Du kan ikke fortsætte til tilstandsrapportering, medmindre du har modtaget rapporten fra FDM.");
             return false;
         }
         return true;
     }
 </script>
-
+    </div>
 <div class="back-foto">
 </div>
+
 </body>
 </html>
