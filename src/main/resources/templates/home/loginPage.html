@@ -5,19 +5,17 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="frontPage.css">
     <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
 </head>
 <body>
-<div id="menuHeader">
-    Bilabonnement.dk
-</div>
 
+<div class="navbar">
+    <div id="menuHeader">
+    </div>
+</div>
 <div class="bacground-foto">
 </div>
 
-<nav>
-    <ul>
-    </ul>
-</nav>
 
 <form action="/loginPage" method = "post"  onsubmit="return validateForm()">
     <label for="staff_member_username"></label>
@@ -26,9 +24,8 @@
     <label for="staff_member_password"></label>
     <input type="password" id="staff_member_password" class="input-box-password" name="staff_member_password"
            placeholder="             Password" required >
-    <button type="submit" class="submit-btn">LOGIN </button> <br> <br> <br> <br> <br> <br> <br>
+    <button type="submit" class="login-btn">LOGIN </button> <br> <br> <br> <br> <br> <br> <br>
 </form>
-
 
 
 </body>
