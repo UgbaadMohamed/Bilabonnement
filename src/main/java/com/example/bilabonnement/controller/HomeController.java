@@ -134,7 +134,7 @@ public class HomeController {
                                @ModelAttribute Customer customer) {
         System.out.println(contract);
         contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        return "home/homepage";
+        return "home/background";
     }
 
 

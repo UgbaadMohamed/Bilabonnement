@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div id="inner">
+
+<div class="basic-box">
     <h1> Opret medarbejder</h1>
     <form action="/addStaffMember" method="post" th:object="${staffMember}">
         <p1>Fornavn:</p1>
@@ -23,6 +24,9 @@
 
         <button type="submit" class="submit-btn">Opret medarbejder</button><br><br>
     </form>
+</div>
+
+<div class="back-foto">
 </div>
 
 </body>

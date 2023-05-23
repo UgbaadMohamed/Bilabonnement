@@ -1,19 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"></script>
+    <link rel="stylesheet" type="text/css" href="header.css">
 </head>
 
 <body>
-<h1>Search</h1>
+<div id="positionForlogout">
+    <a href="/frontPage" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
 
-<form action="/review" method="get">
-  <input type="number" placeholder="Søg på kontrakt id" name="contract_id" required>
-  <button type="submit">Søg</button>
-</form>
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/background'">
+        <div class="nav-item">
+            <a href="/creditDocumentation" id="logo"></a>
+        </div>
+    </div>
 
+    <div class="links">
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Leasing-botton"> Leasing </button>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="#home">Ledige biler</a>
+                <a href="/creditDocumentation">Kreditvalidering</a>
+            </div>
+        </div>
 
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Skade-botton">Skade og Udbedring</button>
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation">Opret tilstandsrapport</a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="After-botton">Efterbehandling</button>
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="#">Auktion</a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="KPI-botton">KPI</button>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Staff-botton">Personale</button>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="basic-box">
+    <form action="/review" method="get">
+        <br>        <br>        <br>
+        <h1 id="cd-header">Kundeanmeldelse</h1>
+        <br>        <br>        <br>
+        <div class="q1">
+            <p>Hvad er kundens kontrakt ID?</p>
+            <input type="number" placeholder="Søg på kontrakt id" name="contract_id" required>
+        </div>
+        <br>        <br>        <br>        <br>        <br>        <br>
+        <button type="submit" class="submit-btn">Søg</button>
+    </form>
+</div>
+
+<div class="back-foto">
+</div>
 
 </body>
 </html>
