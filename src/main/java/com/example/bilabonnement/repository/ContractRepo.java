@@ -53,6 +53,15 @@ public class ContractRepo {
             return contract;
         }
 
+    public Contract findContractByCarId (int car_id){
+        String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
+                "contract_end_date, contract_maximum_km, contract_start_km FROM contract WHERE car_id = ?";
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        Contract contract = template.queryForObject(sql, rowMapper, car_id);
+        return contract;
+    }
+
+
     public int totalPriceForMonthlyPayment(int car_id, Contract c){
             String sql2 ="SELECT subscription_price, \n" +
                     "      PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1 AS selected_months,\n" +

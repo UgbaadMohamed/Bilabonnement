@@ -20,8 +20,9 @@ public class CarRepo {
     JdbcTemplate template;
 
 
-    public List<Car>fetchCars() {
-        String sql = "SELECT * From car";
+    public List<Car>fetchAvailableCars() {
+         String sql = "SELECT * FROM car c " +
+                "WHERE NOT EXISTS (SELECT 1 FROM contract WHERE car_id = c.car_id)";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
         List<Car> cars = template.query(sql, rowMapper);
         return cars;

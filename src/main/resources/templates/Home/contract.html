@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/contract.css">
+</head>
+<body>
+<div class="contractform" style="display: flex; flex-wrap: wrap;">
+
+    <form th:action="@{/contractInfo}" method="post">
+
+    <label for="contract_start_date">Start Date :</label>
+    <input type="text" name="contract_start_date" id="contract_start_date" required/>
+
+    <label for="contract_end_date">End date:</label>
+         <input type="text" name="contract_end_date" id="contract_end_date" required/>
+
+        <label for="contract_maximum_km">Max KM:</label>
+        <input type="text" name="contract_maximum_km" id="contract_maximum_km" required/>
+
+        <label for="contract_start_km">Start KM:</label>
+        <input type="text" name="contract_start_km" id="contract_start_km" required/>
+
+        <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
+        <input type="hidden" name="car_id" th:value="${car.car_id}">
+
+     <button type="submit" value="Save changes" style="background-color: #4CAF50" >
+        </button>
+    </form>
+
+
+</div>
+</body>
+</html>

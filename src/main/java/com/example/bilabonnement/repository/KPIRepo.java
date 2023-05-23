@@ -1,4 +1,4 @@
-package com.example.bilabonnement.repo;
+package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
@@ -33,8 +33,8 @@ public class KPIRepo {
                 "LEFT JOIN contract a ON c.car_id = a.car_id\n" +
                 "WHERE a.contract_id IS NULL;\n";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        List<Car> car = template.query(sql, rowMapper);
-        return car;
+        List<Car> cars = template.query(sql, rowMapper);
+        return cars;
     }
 
     public List<Car> orderByRentalEndDate() {
@@ -61,7 +61,7 @@ public class KPIRepo {
 
     public List<Payment> payedNow() {
         String sql = "SELECT * FROM payment\n" +
-                "    WHERE payed = 0;";
+                "    WHERE payed = 1;";
         RowMapper<Payment> rowMapper = new BeanPropertyRowMapper<>(Payment.class);
         List<Payment> contracts = template.query(sql, rowMapper);
         return contracts;
@@ -69,7 +69,7 @@ public class KPIRepo {
 
     public List<Payment> notPayed() {
         String sql = "SELECT * FROM payment\n" +
-                "    WHERE payed = 1;";
+                "    WHERE payed = 0;";
         RowMapper<Payment> rowMapper = new BeanPropertyRowMapper<>(Payment.class);
         List<Payment> contracts = template.query(sql, rowMapper);
         return contracts;

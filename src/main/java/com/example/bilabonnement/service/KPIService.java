@@ -3,7 +3,8 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.model.Payment;
-import com.example.bilabonnement.repo.KPIRepo;
+
+import com.example.bilabonnement.repository.KPIRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

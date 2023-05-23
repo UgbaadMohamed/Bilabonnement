@@ -57,7 +57,7 @@ public class HomeController {
 
     @GetMapping("/homePage")
     public String homePage(Model model) {
-        List<Car> cars = carService.fetchCars();
+        List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
         return "home/homePage";
     }
@@ -99,6 +99,8 @@ public class HomeController {
     }
 
 
+
+
     @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
                                     @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
@@ -131,10 +133,11 @@ public class HomeController {
 
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
-                               @ModelAttribute Customer customer) {
+                               @ModelAttribute Customer customer, Model model) {
         System.out.println(contract);
         contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        return "home/homepage";
+        model.addAttribute("contract",contractService.findContractByCarId(car.getCar_id()));
+        return "home/payment";
     }
 
 
@@ -245,6 +248,7 @@ public class HomeController {
     @GetMapping("/totalPriceForPayment")
     public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
         int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
+        System.out.println(sum);
         model.addAttribute("contract", sum);
         return "home/contract";
     }
@@ -263,9 +267,6 @@ public class HomeController {
 
         List<Contract> findRentalEndDate = kpiService.findRentalEndDate();
         model.addAttribute("findRentalEndDate",findRentalEndDate);
-
-
-
         return "home/KPICar";
     }
     @GetMapping("/stats")
@@ -286,15 +287,6 @@ public class HomeController {
         return "home/conditionReportDocumentation";
     }
 
-
-
-
-
-
-
-
-
-
     @PostMapping("/creditvalidation-form")
     public String creditvalidationForm() {
 
@@ -302,9 +294,9 @@ public class HomeController {
     }
 
    @PostMapping("/payment")
-         public String finalizeWithPatyment(@ModelAttribute Payment payment) {
-             paymentService.finalizeWithPatyment(payment);
-             return "home/payment";
+         public String finalizeWithPayment(@ModelAttribute Payment payment, @ModelAttribute Contract contract) {
+        paymentService.finalizeWithPayment(payment, contract);
+             return "home/background";
          }
 
     @GetMapping("/allStaffMembers")
@@ -333,7 +325,7 @@ public class HomeController {
     @PostMapping("/saveConditionReport")
     public String saveConditionReport(@ModelAttribute ConditionReport conditionReport) {
         conditionReportService.saveConditionReport(conditionReport);
-        return "home/frontPage";
+        return "home/background";
     }
 
 

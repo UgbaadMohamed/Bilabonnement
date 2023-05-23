@@ -12,8 +12,8 @@ public class CarService {
     @Autowired
     CarRepo carRepo;
 
-    public List<Car> fetchCars(){
-        return carRepo.fetchCars();
+    public List<Car> fetchAvailableCars(){
+        return carRepo.fetchAvailableCars();
     }
     public List<Car> viewCars(int car_id){
         return carRepo.viewCars(car_id);
