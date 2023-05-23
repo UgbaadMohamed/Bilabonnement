@@ -7,7 +7,7 @@ public class Customer {
     private String customer_first_name;
     private String customer_last_name;
     private String customer_address;
-    private int customer_zip;
+    private int zip_code;
     private String customer_phone_number;
     private String customer_license_number;
     private int customer_age;
@@ -19,13 +19,13 @@ public class Customer {
 
 
     public Customer(int customer_id, String customer_first_name, String customer_last_name, String customer_address,
-                    int customer_zip, String customer_phone_number, String customer_license_number, int customer_age,
+                    int zip_code, String customer_phone_number, String customer_license_number, int customer_age,
                     int customer_validation) {
         this.customer_id = customer_id;
         this.customer_first_name = customer_first_name;
         this.customer_last_name = customer_last_name;
         this.customer_address = customer_address;
-        this.customer_zip = customer_zip;
+        this.zip_code = zip_code;
         this.customer_phone_number = customer_phone_number;
         this.customer_license_number = customer_license_number;
         this.customer_age = customer_age;
@@ -48,8 +48,8 @@ public class Customer {
         return customer_address;
     }
 
-    public int getCustomer_zip() {
-        return customer_zip;
+    public int getZip_code() {
+        return zip_code;
     }
 
     public String getCustomer_phone_number() {
@@ -84,8 +84,8 @@ public class Customer {
         this.customer_address = customer_address;
     }
 
-    public void setCustomer_zip(int customer_zip) {
-        this.customer_zip = customer_zip;
+    public void setZip_code(int zip_code) {
+        this.zip_code = zip_code;
     }
 
     public void setCustomer_phone_number(String customer_phone_number) {

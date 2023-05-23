@@ -146,7 +146,7 @@ public class HomeController {
                                @ModelAttribute Customer customer, Model model) {
         System.out.println(contract);
         contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        model.addAttribute("contract",contractService.findContractByCarId(car.getCar_id()));
+        model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
         return "home/payment";
     }
 
@@ -212,6 +212,7 @@ public class HomeController {
         return "home/KPIEconomy";
     }
 
+    //REVIEW---------------------
 
     @GetMapping("/findReviewTarget")
     public String findReviewTarget() {
@@ -257,7 +258,6 @@ public class HomeController {
     @PostMapping("/sellCar")
     public String sellCar(Car car) {
         carService.sellCar(car);
-
         return "home/conditionReportDocumentation";
     }
 
@@ -278,12 +278,20 @@ public class HomeController {
         return "home/carSale";
     }
 
+    @PostMapping("/carSaleDenied")
+    public String carSaleDenied(@ModelAttribute Car car) {
+        reviewService.carSaleDenied(car);
+        return "home/homePage";
+    }
+
     @GetMapping("/auction")
     public String auction(Model model) {
         List<Car> carsInAuction = carService.fetchCarsInAuction();
         model.addAttribute("cars_in_auction", carsInAuction);
         return "home/auction";
     }
+
+    //------------------------------
 
     @GetMapping("/createStaffMember")
     public String createCustomer() {

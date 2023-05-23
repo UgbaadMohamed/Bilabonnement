@@ -36,9 +36,9 @@
 
 </form>
 
-<form action="/" method="get">
-
-    <button>Annuller køb</button>
+<form action="/carSaleDenied" method="post">
+        <input type="hidden" name="car_id" th:value="${car.car_id}">
+        <button type="submit">Annuller køb</button>
 </form>
 
 </body>
