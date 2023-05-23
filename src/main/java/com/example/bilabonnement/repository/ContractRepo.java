@@ -68,7 +68,6 @@ public class ContractRepo {
                     "       (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1) * subscription_price AS total_price\n" +
                     "FROM contract JOIN car c ON c.car_id= contract_id WHERE car_id = ?";
             int sum= template.queryForObject(sql2, Integer.class, car_id);
-
             c.setTotalPriceForPayment(sum);
             return c.getTotalPriceForPayment();
         }

@@ -8,9 +8,13 @@
 </head>
 <body>
 <form action="/payment" method="post">
+    <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+
+    <p> TOTAL PRICE : <p th:text="${contract.totalPriceForPayment}"/> </p>
     <p>Vil kunden betale nu?</p>
-    <label><input type="radio" name="payed" value="true" required> Ja</label>
-    <label><input type="radio" name="payed" value="false"> Nej</label>
+
+    <label><input type="radio" name="payed" value="1" required> Ja</label>
+    <label><input type="radio" name="payed" value="0"> Nej</label>
 
     <p>Hvad er kundens kontonummer?</p>
     <input type="text" name="card_number" class="input-box" placeholder="kontonummer" required><br><br>
@@ -18,10 +22,8 @@
     <p>Hvad er kundens registreringsnummer?</p>
     <input type="text" name="registration_number" class="input-box" placeholder="registreringsnummer" required><br><br>
 
-    <p>Hvad er kontrakt nummeret?</p>
-    <input type="text" name="contract_id" class="input-box" placeholder="kontrakt ID" required><br><br>
 
-    <button type="submit" class="submit-btn">SEND</button><br><br>
+    <button type="submit" class="submit-btn">Afslut betaling</button><br><br>
 </form>
 
 </body>
