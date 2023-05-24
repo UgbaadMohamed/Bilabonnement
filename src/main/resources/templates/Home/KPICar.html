@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="custumer.css">
+
+</head>
+<body>
+<div id="positionForlogout">
+    <a href="/frontPage.html" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
+
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/background'">
+        <div class="nav-item">
+            <a href="/creditDocumentation" id="logo"></a>
+        </div>
+    </div>
+
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Leasing-botton"> Leasing
+
+            </button>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+
+            </div>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+
+            </button>
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="After-botton" >Efterbehandling
+
+            </button>
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+
+            </div>
+        </div>
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="KPI-botton">KPI
+            </button>
+            <div class="dropdown-content" id="dropdown-4-placement">
+
+                <a href="/KPICar">KPI over biler</a>
+                <a href="/KPIEconomy">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Staff-botton" >Personale
+            </button>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+    </div>
+    <div class="back-foto">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <div class="scrollable">
+    <div class="cd-header"style="margin-left: -950px;">Udlejet biler</div>
+<table>
+    <thead>
+    <tr>
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${totalRentedCars}">
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+    </tbody>
+</table>
+    <br><br><br><br><br>
+    <div id="cd-header"style="margin-left: -950px;">Biler på lager</div>
+<table>
+    <thead>
+    <tr>
+
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${totalavailabelCars}">
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+    </tbody>
+</table>
+    <br><br><br><br><br>
+    <div class="cd-header"style="margin-left: -750px;"> Nærmeste leasing afslutninger</div>
+<table>
+    <thead>
+    <tr>
+
+        <th>Leasing slut dato</th>
+        <th>Bil brand</th>
+        <th>Bil model</th>
+        <th>Nummerplade</th>
+    </tr>
+
+    <tbody>
+    <tr th:each="contract : ${findRentalEndDate}">
+        <td th:text="${contract.contract_end_date}">
+
+        </td>
+    <tr th:each="car : ${orderByRentalEndDate}">
+        <td th:text="${car.car_brand}"></td>
+        <td th:text="${car.car_model}"></td>
+        <td th:text="${car.car_plate}"></td>
+    </tr>
+
+</table>
+</div>
+</div>
+
+</body>
+</html>
