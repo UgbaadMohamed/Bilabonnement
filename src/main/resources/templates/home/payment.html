@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
   VELKOMMEN TIL betaling AF DIN LEASING
-
 </head>
 <body>
 <form action="/payment" method="post">
+    <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>
     <label><input type="radio" name="payed" value="false"> Nej</label>
@@ -19,6 +19,7 @@
     <input type="text" name="registration_number" class="input-box" placeholder="registreringsnummer" required><br><br>
 
     <p>Hvad er kontrakt nummeret?</p>
+
     <input type="text" name="contract_id" class="input-box" placeholder="kontrakt ID" required><br><br>
 
     <button type="submit" class="submit-btn">SEND</button><br><br>

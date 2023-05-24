@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="wishlist_box">
+  <div class="car display">
+    <table>
+        <tbody>
+        <h1 style="color: black"> View wishlist </h1>
+          <tr th:each="car:${car}">
+            <td>
+                <span th:text="${car.car_model}"></span>
+            </td>
+            <td>
+                <span  th:text="${car.car_brand}"></span>
+            </td>
+            <td>
+                <span th:text="${car.image}"></span>
+            </td>
+            <td>
+                <span th:text="${car.car_vin}"></span>
+            </td>
+          </tr>
+              </div>
+<div class= "contract-display">
+    <tr th:each="contract:${contracts}">
+        <td>
+                <span th:text="${contract.contract_start_date}"></span>
+            </td>
+            <td>
+                <span th:text="${contract.contract_end_date}"></span>
+            </td>
+            <td style="display: flex; align-items: center;">
+                <a th:href="@{'/deleteContract/'+${contract.contract_id}}">
+                    <button class="btn-deleteItem" id="btn-deleteWishlist"><i class="fa-solid fa-trash-can"></i></button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

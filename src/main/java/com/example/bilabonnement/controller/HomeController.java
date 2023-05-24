@@ -123,13 +123,6 @@ public class HomeController {
         return "home/contract";
     }
 
-   /*@GetMapping("/viewLeasedCars/{contract_id}")
-    public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
-        List<Contract> contracts =contractService.viewLeasedCars(contract_id);
-        model.addAttribute("contracts", contracts);
-        System.out.println(contracts);
-        return "home/contract";
-    } måske bruges senere*/
 
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
@@ -245,13 +238,7 @@ public class HomeController {
         }
         return "home/loginPage";
     }
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
+
 
 
     @GetMapping("/KPICar")
@@ -306,7 +293,6 @@ public class HomeController {
         return "home/allStaffMembers";
     }
 
-
     @PostMapping("/addStaffMember")
     public String createCustomer(@ModelAttribute StaffMember s) {
         staffMemberService.createStaff(s);
@@ -328,11 +314,11 @@ public class HomeController {
         return "home/background";
     }
 
-
     @GetMapping("/background")
     public String background() {
         return "home/background";
     }
+
 
     @GetMapping("/customerPage")
     public String customerPage(Model model) {
@@ -340,6 +326,43 @@ public class HomeController {
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
+
+    @GetMapping("/totalPriceForPayment")
+    public String totalPayment(@ModelAttribute Contract contract, Model model) {
+        int sum=contractService.totalPriceForMonthlyPayment(contract.getContract_id(), contract) ;
+        System.out.println(sum);
+        model.addAttribute("totalPriceForPayment", sum);
+        return "home/payment";
+    }
+
+   /* @GetMapping("/viewContracts")
+    public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
+        List<Contract> contracts =contractService.viewContracts(contract_id);
+        model.addAttribute("contracts", contracts);
+        System.out.println(contracts);
+        return "home/viewContracts";
+    }*/
+   @GetMapping("/viewContracts")
+   public String viewContract(Model model, Car car) {
+       List<Contract> contracts =contractService.fetchContracts();
+       model.addAttribute("contracts", contracts);
+       model.addAttribute("car",car);
+       return "home/viewContracts";
+   }
+
+
+    @GetMapping("/deleteContract/{contract_id}")
+    public String deleteContract(@PathVariable("contact_id")int contract_id){
+        boolean deleted= contractService.deleteContract(contract_id);
+        if (deleted) {
+            return "redirect:/homePage";
+        }
+        else {
+            return "redirect:/homePage";
+        }
+    }
+
+
     }
 
 

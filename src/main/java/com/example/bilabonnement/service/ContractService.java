@@ -17,16 +17,21 @@ public class ContractService {
         contractRepo.makeContract(contract,car_id, customer_id);
     }
 
-    public List<Contract> viewLeasedCars(int contract_id){
-        return contractRepo.viewLeasedCars(contract_id);
+    public List<Contract> viewContracts(int contract_id){
+        return contractRepo.viewContracts(contract_id);
     }
 
     public Contract findContractId(int contract_id){
         return contractRepo.findContractId(contract_id);
     }
-    public int totalPriceForMonthlyPayment(int car_id, Contract contract){
+    public int totalPriceForMonthlyPayment(int contract_id, Contract contract){
 
-        return contractRepo.totalPriceForMonthlyPayment(car_id, contract);
+        return contractRepo.totalPriceForMonthlyPayment(contract_id, contract);
+    }
+
+
+    public List<Contract> fetchContracts() {
+    return contractRepo.fetchContracts();
     }
 
     public Contract findContractById(int contract_id){
@@ -35,5 +40,9 @@ public class ContractService {
 
     public Contract findContractByCarId(int car_id){
         return contractRepo.findContractByCarId(car_id);
+    }
+
+    public Boolean deleteContract(int contract_id){
+        return contractRepo.deleteContract(contract_id);
     }
 }
