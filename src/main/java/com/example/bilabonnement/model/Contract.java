@@ -1,10 +1,13 @@
 package com.example.bilabonnement.model;
 
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
+
 public class Contract {
     private int contract_id;
     private int car_id;
-    private String contract_start_date;
-    private String contract_end_date;
+    private LocalDate contract_start_date;
+    private LocalDate contract_end_date;
     private int contract_maximum_km;
     private int totalPriceForPayment;
     private int customer_id;
@@ -13,7 +16,7 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int contract_id, String contract_start_date, String contract_end_date,
+    public Contract(int contract_id, LocalDate contract_start_date, LocalDate contract_end_date,
                     int contract_maximum_km, int car_id) {
         this.contract_id = contract_id;
         this.contract_start_date = contract_start_date;
@@ -46,19 +49,19 @@ public class Contract {
         this.contract_id = contract_id;
     }
 
-    public String getContract_start_date() {
+    public LocalDate getContract_start_date() {
         return contract_start_date;
     }
 
-    public void setContract_start_date(String contract_start_date) {
+    public void setContract_start_date(LocalDate contract_start_date) {
         this.contract_start_date = contract_start_date;
     }
 
-    public String getContract_end_date() {
+    public LocalDate getContract_end_date() {
         return contract_end_date;
     }
 
-    public void setContract_end_date(String contract_end_date) {
+    public void setContract_end_date(LocalDate contract_end_date) {
         this.contract_end_date = contract_end_date;
     }
 

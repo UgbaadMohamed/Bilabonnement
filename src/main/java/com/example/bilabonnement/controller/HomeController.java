@@ -141,13 +141,19 @@ public class HomeController {
         return "home/contract";
     }
 
+
+
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model) {
         System.out.println(contract);
-        contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
-        return "home/payment";
+        if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
+            model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
+
+            return "home/payment";
+        }
+        else
+        return "home/contract";
     }
 
     @PostMapping("/payment")
