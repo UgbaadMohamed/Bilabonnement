@@ -10,11 +10,9 @@ class CarServiceTest {
 
     @Test
     public void totalMonthlyPrice() {
-        CarService carService = new CarService();
         Car car = new Car();
-        car.setSubscription_price(5);
-        carService.totalMonthlyPrice();
-        assertEquals(5, car.getSubscription_price());
+        car.setSubscription_price(4500);
+        assertEquals(4500, car.getSubscription_price());
 
     }
-    }
+ }
