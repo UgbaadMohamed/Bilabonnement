@@ -3,12 +3,83 @@
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="custumer.css">
+
 </head>
 <body>
+<div id="positionForlogout">
+    <a href="/frontPage.html" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
 
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/background'">
+        <div class="nav-item">
+            <a href="/creditDocumentation" id="logo"></a>
+        </div>
+    </div>
+
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Leasing-botton"> Leasing
+
+            </button>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+
+            </div>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+
+            </button>
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="After-botton" >Efterbehandling
+
+            </button>
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+
+            </div>
+        </div>
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="KPI-botton">KPI
+            </button>
+            <div class="dropdown-content" id="dropdown-4-placement">
+
+                <a href="/KPICar">KPI over biler</a>
+                <a href="/KPIEconomy">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div class="dropdown nav-item">
+            <button class="dropbtn" id="Staff-botton" >Personale
+            </button>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+    </div>
+    <div class="back-foto">
+    </div>
 <div class="basic-box">
-    <h1> Opret medarbejder</h1>
-    <form action="/addStaffMember" method="post" th:object="${staffMember}">
+    <br><br><br>
+    <div class="cd-header"> Opret medarbejder</div>
+    <form action="/addStaffMember" method="post" th:object="${staffMember}" style="margin-left:10px">
         <p1>Fornavn:</p1>
         <input type="text" name="staff_member_first_name" class="input-box" placeholder="Fornavn " required><br><br>
         <p1>Efternavn:</p1>
@@ -17,17 +88,17 @@
         <input type="text" name="staff_member_username" class="input-box" placeholder="Email" required><br><br>
         <p1>Opret kode:</p1>
         <input type="password" name="staff_member_password" class="input-box" placeholder="Kode " required><br><br>
-        <p1>Medarbejderens ansættelsestilling:</p1>
+        <p1>Medarbejderens ansættelsestilling:</p1> <br>
         <label><input type="radio" name="member_type_id" value="1" required> Databehandler</label>
         <label><input type="radio" name="member_type_id" value="2"> Bogholder</label>
         <label><input type="radio" name="member_type_id" value="3"> Tilstandsrapportør</label>
 
-        <button type="submit" class="submit-btn">Opret medarbejder</button><br><br>
+        <button type="submit" class="submit-btn" style="margin-left: 50px">Opret medarbejder</button><br><br>
     </form>
 </div>
 
 <div class="back-foto">
 </div>
-
+</div>
 </body>
 </html>

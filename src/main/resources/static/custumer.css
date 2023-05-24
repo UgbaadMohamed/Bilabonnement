@@ -1,0 +1,26 @@
+table {
+    border-collapse: collapse;
+    width: 80%;
+    height: auto;
+    margin-left: 170px;
+    border: 1px solid #8e8b8b;
+}
+th, td {
+    text-align: left;
+    padding: 25px;
+    font-size: 12px;
+    border-bottom: 0.5px solid #8e8b8b;
+}
+
+.cd-header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #494646;
+}
+
+.scrollable{
+    max-height: 400px;
+    overflow-y: scroll;
+}
