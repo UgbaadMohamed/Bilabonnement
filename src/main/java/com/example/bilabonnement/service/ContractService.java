@@ -5,6 +5,8 @@ import com.example.bilabonnement.repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -13,8 +15,20 @@ public class ContractService {
     @Autowired
     ContractRepo contractRepo;
 
-    public void makeContract(Contract contract, int car_id, int customer_id){
-        contractRepo.makeContract(contract,car_id, customer_id);
+    public boolean makeContract(Contract contract, int car_id, int customer_id) {
+        LocalDate currentDate = LocalDate.now();
+        // Check if the contract start date is at least 3 months (90 days) from the current date And
+        //if end_date is less than 36
+        if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) >= 120 &&
+                ChronoUnit.MONTHS.between(contract.getContract_start_date(), contract.getContract_end_date()) < 36) {
+            contractRepo.makeContract(contract, car_id, customer_id);
+            return true;
+        } else if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) == 150) {
+            contractRepo.makeContract(contract, car_id, customer_id);
+            return true;
+        }
+        return false;
+
     }
 
     public List<Contract> viewContracts(int contract_id){
