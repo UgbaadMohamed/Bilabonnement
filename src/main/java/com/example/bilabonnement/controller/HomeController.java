@@ -32,21 +32,16 @@ public class HomeController {
 
     @Autowired
     CustomerService customerService;
-
     @Autowired
     CarService carService;
-
     @Autowired
     ContractService contractService;
-
     @Autowired
     StaffMemberService staffMemberService;
-
     @Autowired
     KPIService kpiService;
     @Autowired
     PaymentService paymentService;
-
     @Autowired
     ConditionReportService conditionReportService;
     @Autowired
@@ -130,9 +125,6 @@ public class HomeController {
         return "home/creditDocumentation";
     }
 
-
-
-
     @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
                                     @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
@@ -146,7 +138,6 @@ public class HomeController {
             return "home/creditDocumentation";
         }
     }
-
     @PostMapping("/creditValidationSuccess")
     public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
         customerService.makeCustomerCreditworthy(customer.getCustomer_id());
@@ -156,13 +147,20 @@ public class HomeController {
     }
 
 
+
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model) {
-        System.out.println(contract);
-        contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
-        return "home/payment";
+        if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
+
+            model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
+
+
+            return "home/payment";
+        }
+        else
+
+        return "home/contract";
     }
 
     @PostMapping("/payment")
@@ -212,9 +210,6 @@ public class HomeController {
         return "home/KPICar";
     }
 
-    @GetMapping("/loginPage")
-    public String loginPage() {
-        return "home/loginPage";
 
     @GetMapping("/KPIEconomy")
     public String payedNow(Model model) {
@@ -303,20 +298,6 @@ public class HomeController {
         return "home/auction";
     }
 
-    @PostMapping("/loginPage")
-    public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
-                            @RequestParam("staff_member_password")
-                            String staff_member_password, Model model) {
-        if (staffMemberService.validateLogin(staff_member_username, staff_member_password)) {
-            StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
-                    staff_member_password);
-            model.addAttribute("staff_member", staffMember);
-            return "home/background";
-        }
-        return "home/loginPage";
-    }
-
-
     //------------------------------
 
     @GetMapping("/createStaffMember")
@@ -337,39 +318,15 @@ public class HomeController {
         return "home/allStaffMembers";
     }
 
-    @PostMapping("/addStaffMember")
-    public String createCustomer(@ModelAttribute StaffMember s) {
-        staffMemberService.createStaff(s);
-        return "home/createStaffMember";
-    }
-    @GetMapping("/createStaffMember")
-    public String createCustomer() {
-        return "home/createStaffMember";
-    }
-    @PostMapping("/conditionReport")
-    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model) {
-        model.addAttribute("contract", contractService.findContractById(contract_id));
-        return "home/conditionReport";
-    }
-
-    @PostMapping("/saveConditionReport")
-    public String saveConditionReport(@ModelAttribute ConditionReport conditionReport) {
-        conditionReportService.saveConditionReport(conditionReport);
-        return "home/background";
-    }
-
-    @GetMapping("/background")
-    public String background() {
-        return "home/background";
-    }
-
-
     @GetMapping("/customerPage")
     public String customerPage(Model model) {
         List<Customer> customerList = customerService.fetchAllCustomer();
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
+    }
+
+
 
     @GetMapping("/totalPriceForPayment")
     public String totalPayment(@ModelAttribute Contract contract, Model model) {
@@ -379,9 +336,9 @@ public class HomeController {
         return "home/payment";
     }
 
-   /* @GetMapping("/viewContracts")
+   /*@GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
-        List<Contract> contracts =contractService.viewContracts(contract_id);
+        List<Contract> contracts =contractService.viewLeasedCars(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
         return "home/viewContracts";
@@ -405,8 +362,13 @@ public class HomeController {
         }
     }
 
+   /*
+    @PostMapping("/credit validation-form")
+    public String creditvalidationForm() {
 
+        return "home/contract";
     }
+    */
 
 
 
