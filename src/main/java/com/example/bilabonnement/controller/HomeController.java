@@ -343,16 +343,15 @@ public class HomeController {
         return "home/viewContracts";
     }*/
    @GetMapping("/viewContracts")
-   public String viewContract(Model model, Car car) {
-       List<Contract> contracts =contractService.fetchContracts();
-       model.addAttribute("contracts", contracts);
-       model.addAttribute("car",car);
+   public String viewContract(Model model) {
+       model.addAttribute("contracts", contractService.fetchContracts());
+       model.addAttribute("cars",carService.carsWithContract());
        return "home/viewContracts";
    }
 
 
     @GetMapping("/deleteContract/{contract_id}")
-    public String deleteContract(@PathVariable("contact_id")int contract_id){
+    public String deleteContract(@PathVariable("contract_id")int contract_id){
         boolean deleted= contractService.deleteContract(contract_id);
         if (deleted) {
             return "redirect:/homePage";

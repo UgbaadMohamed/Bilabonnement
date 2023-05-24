@@ -7,13 +7,13 @@
 <body>
 
 <div class="wishlist_box">
-  <div class="car display">
     <table>
         <tbody>
+  <div class="car display">
         <h1 style="color: black"> View wishlist </h1>
-          <tr th:each="car:${car}">
+          <tr th:each="car:${cars}">
             <td>
-                <span th:text="${car.car_model}"></span>
+                <span th:text="${car_model}"></span>
             </td>
             <td>
                 <span  th:text="${car.car_brand}"></span>
@@ -25,9 +25,16 @@
                 <span th:text="${car.car_vin}"></span>
             </td>
           </tr>
-              </div>
+  </div>
+
+
+
 <div class= "contract-display">
     <tr th:each="contract:${contracts}">
+
+        <td>
+            <span th:text="${contract.contract_id}"></span>
+        </td>
         <td>
                 <span th:text="${contract.contract_start_date}"></span>
             </td>
@@ -35,14 +42,15 @@
                 <span th:text="${contract.contract_end_date}"></span>
             </td>
             <td style="display: flex; align-items: center;">
+
                 <a th:href="@{'/deleteContract/'+${contract.contract_id}}">
                     <button class="btn-deleteItem" id="btn-deleteWishlist"><i class="fa-solid fa-trash-can"></i></button>
                 </a>
             </td>
         </tr>
-        </tbody>
-    </table>
 </div>
+</tbody>
+</table>
 </div>
 </body>
 </html>

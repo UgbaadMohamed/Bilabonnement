@@ -37,7 +37,7 @@ public class ContractRepo {
         return contract;
     }
    public List<Contract> fetchContracts(){
-        String sql = "SELECT car_model, car_brand, image, car_vin,contract_start_date, contract_end_date FROM car c JOIN contract t ON c.car_id=t.car_id";
+        String sql = "SELECT contract_id, car_model, car_brand, image, car_vin,contract_start_date, contract_end_date FROM car c JOIN contract t ON c.car_id=t.car_id";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper);
     }
@@ -79,7 +79,7 @@ public class ContractRepo {
 
 
     public Boolean deleteContract(int contract_id){
-        String sql = "DELETE FROM item WHERE contract_id = ?";
+        String sql = "DELETE FROM contract WHERE contract_id = ?";
         return template.update(sql, contract_id) > 0;
     }
 
