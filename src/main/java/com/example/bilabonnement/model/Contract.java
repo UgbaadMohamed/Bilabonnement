@@ -10,7 +10,9 @@ public class Contract {
     private LocalDate contract_end_date;
     private int contract_maximum_km;
     private int totalPriceForPayment;
-    private int customer_id;
+
+    private boolean limited;
+    private  boolean unlimited;
 
 
     public Contract() {
@@ -23,6 +25,22 @@ public class Contract {
         this.contract_end_date = contract_end_date;
         this.contract_maximum_km = contract_maximum_km;
         this.car_id=car_id;
+    }
+
+    public boolean isLimited() {
+        return limited;
+    }
+
+    public void setLimited(boolean limited) {
+        this.limited = limited;
+    }
+
+    public boolean isUnlimited() {
+        return unlimited;
+    }
+
+    public void setUnlimited(boolean unlimited) {
+        this.unlimited = unlimited;
     }
 
     public int getTotalPriceForPayment() {

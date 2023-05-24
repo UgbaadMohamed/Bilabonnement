@@ -60,13 +60,7 @@ public class ContractRepo {
             return contract;
         }
 
-    public Contract findContractById ( int contract_id){
-        String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
-                "contract_end_date, contract_maximum_km, contract_start_km FROM contract WHERE contract_id = ?";
-        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
-        Contract contract = template.queryForObject(sql, rowMapper, contract_id);
-        return contract;
-    }
+
     public Contract findContractByCarId (int car_id){
         String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
                 "contract_end_date, contract_maximum_km FROM contract WHERE car_id = ?";
@@ -76,15 +70,7 @@ public class ContractRepo {
     }
 
 
-    public int totalPriceForMonthlyPayment(int contract_id, Contract contract){
-        String sql2 = "SELECT (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM t.contract_end_date), EXTRACT(YEAR_MONTH FROM t.contract_start_date)) + 1) * c.subscription_price AS total_price\n" +
-                "FROM contract t\n" +
-                "JOIN car c ON c.car_id = t.car_id\n" +
-                "WHERE t.contract_id = ?";
-        int sum= template.queryForObject(sql2, Integer.class, contract_id);
-        contract.setTotalPriceForPayment(sum);
-        return contract.getTotalPriceForPayment();
-    }
+
 
 
     public Boolean deleteContract(int contract_id){

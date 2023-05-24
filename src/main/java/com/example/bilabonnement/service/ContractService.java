@@ -16,17 +16,15 @@ public class ContractService {
     ContractRepo contractRepo;
 
     public boolean makeContract(Contract contract, int car_id, int customer_id) {
-
-        LocalDate currentDate = LocalDate.now();
         // Check if the contract start date is at least 3 months (90 days) from the current date And
         //if end_date is less than 36
         if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) >= 120 &&
                 ChronoUnit.MONTHS.between(contract.getContract_start_date(), contract.getContract_end_date()) < 36) {
             contractRepo.makeContract(contract, car_id, customer_id);
-            return true;
+            return contract.isUnlimited() ;
         } else if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) == 150) {
             contractRepo.makeContract(contract, car_id, customer_id);
-            return true;
+            return contract.isLimited();
         }
         return false;
 

@@ -50,7 +50,6 @@ public class HomeController {
     ReviewService reviewService;
 
 
-
     @GetMapping("/")
     public String frontPage() {
         return "home/frontPage";
@@ -60,6 +59,7 @@ public class HomeController {
     public String loginPage() {
         return "home/loginPage";
     }
+
 
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
@@ -152,10 +152,7 @@ public class HomeController {
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model) {
         if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
-
             model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
-
-
             return "home/payment";
         }
         else
@@ -169,13 +166,7 @@ public class HomeController {
         return "home/homePage";
     }
 
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
+
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation() {
@@ -324,7 +315,7 @@ public class HomeController {
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
-    }
+
 
 
 
@@ -348,8 +339,8 @@ public class HomeController {
        model.addAttribute("contracts", contractService.fetchContracts());
        model.addAttribute("cars",carService.carsWithContract());
        return "home/viewContracts";
-   }
 
+}
 
     @GetMapping("/deleteContract/{contract_id}")
     public String deleteContract(@PathVariable("contract_id")int contract_id){
@@ -361,11 +352,21 @@ public class HomeController {
             return "redirect:/homePage";
         }
     }
+}
 
    /*
     @PostMapping("/credit validation-form")
     public String creditvalidationForm() {
 
+        return "home/contract";
+    }
+
+
+        @GetMapping("/totalPriceForPayment")
+    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
+        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
+        System.out.println(sum);
+        model.addAttribute("contract", sum);
         return "home/contract";
     }
     */
