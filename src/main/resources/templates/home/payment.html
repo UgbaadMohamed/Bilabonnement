@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
   VELKOMMEN TIL betaling AF DIN LEASING
-
 </head>
 <body>
 
-    <p> TOTAL PRICE : <p th:text="${contract.totalPriceForPayment}"/> </p>
+
 <form th:action="@{/payment}" method="post">
+    <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>
     <label><input type="radio" name="payed" value="false"> Nej</label>
