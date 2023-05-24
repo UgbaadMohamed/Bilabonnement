@@ -6,7 +6,6 @@ public class Contract {
     private String contract_start_date;
     private String contract_end_date;
     private int contract_maximum_km;
-    private int contract_start_km;
     private int totalPriceForPayment;
     private int customer_id;
 
@@ -14,12 +13,12 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int contract_id, String contract_start_date, String contract_end_date, int contract_maximum_km, int contract_start_km, int car_id) {
+    public Contract(int contract_id, String contract_start_date, String contract_end_date,
+                    int contract_maximum_km, int car_id) {
         this.contract_id = contract_id;
         this.contract_start_date = contract_start_date;
         this.contract_end_date = contract_end_date;
         this.contract_maximum_km = contract_maximum_km;
-        this.contract_start_km = contract_start_km;
         this.car_id=car_id;
     }
 
@@ -71,13 +70,6 @@ public class Contract {
         this.contract_maximum_km = contract_maximum_km;
     }
 
-    public int getContract_start_km() {
-        return contract_start_km;
-    }
-
-    public void setContract_start_km(int contract_start_km) {
-        this.contract_start_km = contract_start_km;
-    }
 
 
     @Override
@@ -87,7 +79,6 @@ public class Contract {
                 ", contract_start_date='" + contract_start_date + '\'' +
                 ", contract_end_date='" + contract_end_date + '\'' +
                 ", contract_maximum_km=" + contract_maximum_km +
-                ", contract_start_km=" + contract_start_km +
                 '}';
     }
 }

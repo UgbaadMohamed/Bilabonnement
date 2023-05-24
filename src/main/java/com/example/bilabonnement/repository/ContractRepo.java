@@ -18,9 +18,9 @@ public class ContractRepo {
 
     public void makeContract(Contract contract, int car_id, int customer_id) {
         String sql = "INSERT INTO contract (customer_id, car_id, contract_start_date, contract_end_date," +
-                " contract_maximum_km, contract_start_km) VALUES (?, ?, ?, ?, ?, ?)";
+                " contract_maximum_km) VALUES (?, ?, ?, ?, ?)";
         template.update(sql, customer_id, car_id, contract.getContract_start_date(), contract.getContract_end_date(),
-                contract.getContract_maximum_km(), contract.getContract_start_km());
+                contract.getContract_maximum_km());
     }
 
     public List<Contract> viewLeasedCars(int contract_id){
@@ -47,7 +47,7 @@ public class ContractRepo {
 
         public Contract findContractById ( int contract_id){
             String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
-                    "contract_end_date, contract_maximum_km, contract_start_km FROM contract WHERE contract_id = ?";
+                    "contract_end_date, contract_maximum_km FROM contract WHERE contract_id = ?";
             RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
             Contract contract = template.queryForObject(sql, rowMapper, contract_id);
             return contract;
