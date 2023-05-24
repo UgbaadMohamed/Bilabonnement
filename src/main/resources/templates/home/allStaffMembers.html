@@ -1,11 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PERSONALE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+  <link rel="stylesheet" type="text/css" href="header.css">
+  <link rel="stylesheet" type="text/css" href="custumer.css">
+
 </head>
 <body>
+<div id="positionForlogout">
+  <a href="/frontPage.html" class="logout-button">
+    <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+  </a>
+</div>
+
+<div class="navbar">
+  <div id="menuHeader" onclick="window.location.href='/background'">
+    <div class="nav-item">
+      <a href="/creditDocumentation" id="logo"></a>
+    </div>
+  </div>
+
+
+  <div class="links">
+    <div class="dropdown nav-item">
+      <button class="dropbtn" id="Leasing-botton"> Leasing
+
+      </button>
+      <div class="dropdown-content" id="dropdown-1-placement">
+        <a href="/carLeasing">Ledige biler</a>
+        <a href="/customerPage">Alle kunder</a>
+
+      </div>
+    </div>
+
+
+    <div class="dropdown nav-item">
+      <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+
+      </button>
+      <div class="dropdown-content" id="dropdown-2-placement">
+        <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+      </div>
+    </div>
+
+    <div class="dropdown nav-item">
+      <button class="dropbtn" id="After-botton" >Efterbehandling
+
+      </button>
+      <div class="dropdown-content" id="dropdown-3-placement">
+        <a href="/findReviewTarget">Kundeanmeldelse</a>
+        <a href="/auction">Auktion </a>
+
+      </div>
+    </div>
+    <div class="dropdown nav-item">
+      <button class="dropbtn" id="KPI-botton">KPI
+      </button>
+      <div class="dropdown-content" id="dropdown-4-placement">
+
+        <a href="/KPICar">KPI over biler</a>
+        <a href="/KPIEconomy">KPI over økonomi</a>
+      </div>
+    </div>
+
+    <div class="dropdown nav-item">
+      <button class="dropbtn" id="Staff-botton" >Personale
+      </button>
+      <div class="dropdown-content" id="dropdown-5-placement">
+        <a href="/createStaffMember">Opret ny medarbejder</a>
+        <a href="/allStaffMembers">Alle medarbejdere</a>
+      </div>
+    </div>
+  </div>
+  <div class="back-foto">
+  </div>
 <table>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br>
   <thead>
   <tr>
     <th>Medarbejder fornavn:</th>
@@ -19,5 +91,6 @@
   </tr>
   </tbody>
 </table>
+</div>
 </body>
 </html>
