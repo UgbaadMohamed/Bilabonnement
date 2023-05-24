@@ -31,7 +31,6 @@ public class CarRepo {
     public int totalMonthlyPrice() {
         String sql2 = "Select SUM(subscription_price) FROM car";
         int total = template.queryForObject(sql2, Integer.class);
-
         return total;
     }
 
