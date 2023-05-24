@@ -44,6 +44,18 @@ public class ReviewRepo {
         Review review = template.queryForObject(sql, rowMapper, contract_id);
         return review;
     }
+
+    public void carSaleDenied(Car car) {
+        //hvis en kunde ikke vil købe en bil alligevel, bliver buying_customer
+        //i review = 0, ved brug af car_id og joins
+        String sql = "UPDATE review r " +
+                "JOIN contract c ON r.contract_id = c.contract_id " +
+                "JOIN car ca ON c.car_id = ca.car_id " +
+                "SET r.buying_customer = 0 " +
+                "WHERE ca.car_id = ?";
+
+        template.update(sql, car.getCar_id());
+    }
 }
 
 

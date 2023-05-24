@@ -1,5 +1,6 @@
 package com.example.bilabonnement.service;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Review;
 import com.example.bilabonnement.repository.ReviewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,9 @@ public class ReviewService {
 
     public Review findReviewByContractId(int contract_id){
         return reviewRepo.findReviewByContractId(contract_id);
+    }
+
+    public void carSaleDenied(Car car) {
+        reviewRepo.carSaleDenied(car);
     }
 }

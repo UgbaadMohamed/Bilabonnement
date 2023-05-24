@@ -74,31 +74,51 @@
             </div>
         </div>
     </div>
+
+
+
     <div class="back-foto">
     </div>
-<div class="basic-box">
-    <br><br><br>
-    <div class="cd-header"> Opret medarbejder</div>
-    <form action="/addStaffMember" method="post" th:object="${staffMember}" style="margin-left:10px">
-        <p1>Fornavn:</p1>
-        <input type="text" name="staff_member_first_name" class="input-box" placeholder="Fornavn " required><br><br>
-        <p1>Efternavn:</p1>
-        <input type="text" name="staff_member_last_name" class="input-box" placeholder="Efternavn" required><br><br>
-        <p1>Email:</p1>
-        <input type="text" name="staff_member_username" class="input-box" placeholder="Email" required><br><br>
-        <p1>Opret kode:</p1>
-        <input type="password" name="staff_member_password" class="input-box" placeholder="Kode " required><br><br>
-        <p1>Medarbejderens ansættelsestilling:</p1> <br>
-        <label><input type="radio" name="member_type_id" value="1" required> Databehandler</label>
-        <label><input type="radio" name="member_type_id" value="2"> Bogholder</label>
-        <label><input type="radio" name="member_type_id" value="3"> Tilstandsrapportør</label>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
 
-        <button type="submit" class="submit-btn" style="margin-left: 50px">Opret medarbejder</button><br><br>
-    </form>
-</div>
+    <div class="cd-header" style="margin-left: -935px;">Biler i auktion</div>
 
-<div class="back-foto">
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>Car ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
+    <td>
+        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
+    </td>
+    <td>
+            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
+        </td>
+    <td>
+        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
+    </td>
+    <td>
+
+        <form th:action="@{/sellCar}" method="post">
+
+            <button>Marker som solgt</button>
+
+            <input type="hidden" name="car_id" th:value="${car_in_auction.car_id}">
+
+        </form>
+
+    </td>
+</tr>
+
+    </tbody>
+</table>
 </div>
 </body>
 </html>
