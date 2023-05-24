@@ -16,6 +16,7 @@ public class ContractService {
     ContractRepo contractRepo;
 
     public boolean makeContract(Contract contract, int car_id, int customer_id) {
+
         LocalDate currentDate = LocalDate.now();
         // Check if the contract start date is at least 3 months (90 days) from the current date And
         //if end_date is less than 36
