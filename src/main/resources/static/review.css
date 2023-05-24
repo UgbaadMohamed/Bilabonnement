@@ -12,20 +12,33 @@
     content: "\2605"; /* Star symbol */
 }
 
-.rating input[type="radio"]:checked ~ label {
+.rating input[type="radio"]:checked ~ label:before {
+    content: "\2605"; /* Filled star symbol */
     color: gold;
 }
 
-.rating label:hover,
-.rating label:hover ~ label {
-    color: gold;
+.rating input[type="radio"]:not(:checked) ~ label:before {
+    color: gray;
 }
 
 .rating label:hover:before,
 .rating label:hover ~ label:before {
     content: "\2605"; /* Filled star symbol */
+    color: gold;
 }
 
-.review{
-    margin-top: 20%;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -252,7 +252,7 @@ public class HomeController {
         else
             carsInAuction = carService.fetchCarsInAuction();
             model.addAttribute("cars_in_auction", carsInAuction);
-            return "home/auction";
+            return "home/homePage";
     }
 
     @PostMapping("/sellCar")
