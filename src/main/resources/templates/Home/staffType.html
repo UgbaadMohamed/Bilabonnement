@@ -7,13 +7,7 @@
 
 <body>
 
-<div th:if="${staff_member.member_type_id == 1}">
-  <button> registering </button>
-</div>
 
-<div th:unless="${staff_member.member_type_id == 1}">
-    <button disabled> registering </button >
-</div>
 
 <div th:if="${staff_member.member_type_id == 2}">
     <button> økonomi </button>

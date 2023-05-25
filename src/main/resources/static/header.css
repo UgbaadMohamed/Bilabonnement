@@ -216,7 +216,7 @@ body {
 
 
 
-#Leasing-botton,
+#Leasing-botton,#Leasing-botton-disable,
 #Skade-botton,
 #KPI-botton,
 #After-botton,#Staff-botton {
@@ -265,6 +265,12 @@ body {
     left: 1120px;
     padding: 31px 50px;
 }
+#Leasing-botton-disable {
+    left: 500px;
+    padding: 31px 25px;
+    top: 1px;
+}
+
 
 #Leasing-botton:hover,#Skade-botton:hover,#KPI-botton:hover,#After-botton:hover,#Staff-botton:hover{
     background-color: #8fbbde;
