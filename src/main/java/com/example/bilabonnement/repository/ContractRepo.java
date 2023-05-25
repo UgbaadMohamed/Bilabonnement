@@ -55,7 +55,7 @@ public class ContractRepo {
 
     public Contract findContractByCarId (int car_id){
         String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
-                "contract_end_date, contract_maximum_km, contract_start_km FROM contract WHERE car_id = ?";
+                "contract_end_date, contract_maximum_km FROM contract WHERE car_id = ?";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         Contract contract = template.queryForObject(sql, rowMapper, car_id);
         return contract;
