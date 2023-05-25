@@ -24,6 +24,9 @@ public class KPIService {
         return kpiRepo.totalavailabelCars();
     }
 
+
+
+
     public List<Car> orderByRentalEndDate() {
         return kpiRepo.orderByRentalEndDate();
     }

@@ -7,6 +7,8 @@
 
 </head>
 <body>
+
+    <p> TOTAL PRICE : <p th:text="${contract.totalPriceForPayment}"/> </p>
 <form th:action="@{/payment}" method="post">
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>

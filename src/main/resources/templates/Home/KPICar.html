@@ -78,67 +78,67 @@
     </div>
     <br><br><br><br><br><br><br><br><br><br><br>
     <div class="scrollable">
-    <div class="cd-header"style="margin-left: -950px;">Udlejet biler</div>
-<table>
-    <thead>
-    <tr>
-        <th>Bil brand</th>
-        <th>Bil model</th>
-        <th>Nummerplade</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${totalRentedCars}">
-        <td th:text="${car.car_brand}"></td>
-        <td th:text="${car.car_model}"></td>
-        <td th:text="${car.car_plate}"></td>
-    </tr>
-    </tbody>
-</table>
-    <br><br><br><br><br>
-    <div id="cd-header"style="margin-left: -950px;">Biler på lager</div>
-<table>
-    <thead>
-    <tr>
+        <div class="cd-header"style="margin-left: -950px;">Udlejet biler</div>
+        <table>
+            <thead>
+            <tr>
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car : ${totalRentedCars}">
+                <td th:text="${car.car_brand}"></td>
+                <td th:text="${car.car_model}"></td>
+                <td th:text="${car.car_plate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br><br><br><br>
+        <div id="cd-header"style="margin-left: -950px;">Biler på lager</div>
+        <table>
+            <thead>
+            <tr>
 
-        <th>Bil brand</th>
-        <th>Bil model</th>
-        <th>Nummerplade</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${totalavailabelCars}">
-        <td th:text="${car.car_brand}"></td>
-        <td th:text="${car.car_model}"></td>
-        <td th:text="${car.car_plate}"></td>
-    </tr>
-    </tbody>
-</table>
-    <br><br><br><br><br>
-    <div class="cd-header"style="margin-left: -750px;"> Nærmeste leasing afslutninger</div>
-<table>
-    <thead>
-    <tr>
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car : ${totalavailabelCars}">
+                <td th:text="${car.car_brand}"></td>
+                <td th:text="${car.car_model}"></td>
+                <td th:text="${car.car_plate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br><br><br><br>
+        <div class="cd-header"style="margin-left: -750px;"> Nærmeste leasing afslutninger</div>
+        <table>
+            <thead>
+            <tr>
 
-        <th>Leasing slut dato</th>
-        <th>Bil brand</th>
-        <th>Bil model</th>
-        <th>Nummerplade</th>
-    </tr>
+                <th>Leasing slut dato</th>
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            <tbody>
 
-    <tbody>
-    <tr th:each="contract : ${findRentalEndDate}">
-        <td th:text="${contract.contract_end_date}">
+            <tr th:each="contract : ${findRentalEndDate}">
+                <td th:text="${contract.contract_end_date}">
 
-        </td>
-    <tr th:each="car : ${orderByRentalEndDate}">
-        <td th:text="${car.car_brand}"></td>
-        <td th:text="${car.car_model}"></td>
-        <td th:text="${car.car_plate}"></td>
-    </tr>
+                </td>
+            <tr th:each="car : ${orderByRentalEndDate}">
+                <td th:text="${car.car_brand}"></td>
+                <td th:text="${car.car_model}"></td>
+                <td th:text="${car.car_plate}"></td>
+            </tr>
 
-</table>
-</div>
+        </table>
+    </div>
 </div>
 
 </body>

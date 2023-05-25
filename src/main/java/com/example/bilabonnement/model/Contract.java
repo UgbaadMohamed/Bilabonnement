@@ -1,25 +1,46 @@
 package com.example.bilabonnement.model;
 
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
+
 public class Contract {
     private int contract_id;
     private int car_id;
-    private String contract_start_date;
-    private String contract_end_date;
+    private LocalDate contract_start_date;
+    private LocalDate contract_end_date;
     private int contract_maximum_km;
     private int totalPriceForPayment;
-    private int customer_id;
+
+    private boolean limited;
+    private  boolean unlimited;
 
 
     public Contract() {
     }
 
-    public Contract(int contract_id, String contract_start_date, String contract_end_date,
+    public Contract(int contract_id, LocalDate contract_start_date, LocalDate contract_end_date,
                     int contract_maximum_km, int car_id) {
         this.contract_id = contract_id;
         this.contract_start_date = contract_start_date;
         this.contract_end_date = contract_end_date;
         this.contract_maximum_km = contract_maximum_km;
         this.car_id=car_id;
+    }
+
+    public boolean isLimited() {
+        return limited;
+    }
+
+    public void setLimited(boolean limited) {
+        this.limited = limited;
+    }
+
+    public boolean isUnlimited() {
+        return unlimited;
+    }
+
+    public void setUnlimited(boolean unlimited) {
+        this.unlimited = unlimited;
     }
 
     public int getTotalPriceForPayment() {
@@ -46,19 +67,19 @@ public class Contract {
         this.contract_id = contract_id;
     }
 
-    public String getContract_start_date() {
+    public LocalDate getContract_start_date() {
         return contract_start_date;
     }
 
-    public void setContract_start_date(String contract_start_date) {
+    public void setContract_start_date(LocalDate contract_start_date) {
         this.contract_start_date = contract_start_date;
     }
 
-    public String getContract_end_date() {
+    public LocalDate getContract_end_date() {
         return contract_end_date;
     }
 
-    public void setContract_end_date(String contract_end_date) {
+    public void setContract_end_date(LocalDate contract_end_date) {
         this.contract_end_date = contract_end_date;
     }
 
