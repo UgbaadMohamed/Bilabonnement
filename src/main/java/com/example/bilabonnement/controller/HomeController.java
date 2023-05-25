@@ -236,11 +236,10 @@ public class HomeController {
         }
     }
 
+    //Ikhra og Freya
     @PostMapping("/reviewSubmitted")
     public String submitReview(Review review, Model model) {
         reviewService.addReview(review);
-        //deklaration
-        List<Car> carsInAuction;
 
         /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
             pågældende bil (gennem en join) */
@@ -250,8 +249,6 @@ public class HomeController {
         if (review.getBuying_customer() == 1)
             return "home/carSale";
         else
-            carsInAuction = carService.fetchCarsInAuction();
-            model.addAttribute("cars_in_auction", carsInAuction);
             return "home/homePage";
     }
 
