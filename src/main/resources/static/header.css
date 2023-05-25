@@ -10,7 +10,7 @@ body {
     height: 100%;
     font-family: sans-serif;
     margin-top: 0px;
-    background-image: url(c.png);
+    background-image: url(images/bil.png);
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -28,7 +28,7 @@ body {
     height: 100%;
     font-family: sans-serif;
     margin-top: 0px;
-    background-image: url(back.png);
+    background-image: url(images/bagground.png);
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -49,7 +49,7 @@ body {
     height: 100%;
     font-family: sans-serif;
     margin-top: 0px;
-    background-image: url(l.png);
+    background-image: url(images/guidance.png);
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -66,7 +66,7 @@ body {
     height: 100%;
     font-family: sans-serif;
     margin-top: 0px;
-    background-image: url(KA.png);
+    background-image: url(images/footer.PNG);
     background-repeat: no-repeat;
     background-size: contain; /* Change this value */
     color: #fff;
@@ -94,7 +94,7 @@ body {
     font-weight: bold;
     padding: 40px;
     align-items: center;
-    background-image: url(logo.png);
+    background-image: url(images/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: 30px 0;
@@ -199,7 +199,7 @@ body {
 
 
 .dropdown:hover .dropdown-content {
-    display: block; /* Show the dropdown content when hovering over the dropdown button */
+    display: block; /* viser dropdown når man går over det */
 }
 
 .dropdown-content a {
@@ -216,10 +216,10 @@ body {
 
 
 
-#Leasing-botton,#Leasing-botton-disable,
+#Leasing-botton,
 #Skade-botton,
 #KPI-botton,
-#After-botton,#Staff-botton {
+#After-botton ,#Staff-botton,#Leasing-botton-disable,#Skade-botton-disable,#KPI-botton-disable,#After-botton-disable,#Staff-botton-disable {
     display: inline-block;
     background-color: #ffffff;
     color: #000000;
@@ -236,6 +236,11 @@ body {
     z-index: 35;
 }
 
+#Leasing-botton {
+    left: 500px;
+    padding: 31px 25px;
+    top: 1px;
+}
 
 #Skade-botton {
     top: 1px;
@@ -246,11 +251,6 @@ body {
 #KPI-botton {
     left: 841px;
     padding: 31px 31px;
-    top: 1px;
-}
-#Leasing-botton {
-    left: 500px;
-    padding: 31px 25px;
     top: 1px;
 }
 
@@ -265,10 +265,36 @@ body {
     left: 1120px;
     padding: 31px 50px;
 }
+
 #Leasing-botton-disable {
     left: 500px;
     padding: 31px 25px;
     top: 1px;
+}
+
+
+#Skade-botton-disable {
+    top: 1px;
+    left: 616px;
+    padding: 31px 30px;
+}
+
+#KPI-botton-disable {
+    left: 841px;
+    padding: 31px 31px;
+    top: 1px;
+}
+
+#After-botton-disable {
+    top: 1px;
+    left: 925px;
+    padding: 31px 30px;
+}
+
+#Staff-botton-disable {
+    top: 1px;
+    left: 1120px;
+    padding: 31px 50px;
 }
 
 
@@ -308,6 +334,12 @@ body {
     font-family: unset;
 }
 
+.q3 {
+    margin-left: 100px;
+    margin-top: -10px;
+    font-family: unset;
+}
+
 .submit-btn {
     margin-left: 620px;
     margin-top: 30px;
@@ -323,8 +355,9 @@ body {
 #logo-alone {
     z-index: 36;
     position: fixed;
-    background-image: url(logo.png);
+    background-image: url(images/logo.png);
 }
+
 
 
 

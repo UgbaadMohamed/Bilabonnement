@@ -348,26 +348,18 @@ public class HomeController {
         model.addAttribute("staff_member", staffMember);
             return "home/customerPage";
         }
-    }
 
-
-
-
-   /*@GetMapping("/viewLeasedCars/{contract_id}")
+    @GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
         List<Contract> contracts =contractService.viewLeasedCars(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
         return "home/contract";
-    } måske bruges senere*/
-
-   /*
-    @PostMapping("/credit validation-form")
-    public String creditvalidationForm() {
-
-        return "home/contract";
     }
-    */
+
+
+}
+
 
 
 
