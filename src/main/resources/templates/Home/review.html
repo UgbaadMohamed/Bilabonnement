@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="header.css">
+
+</head>
+<body>
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
+
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">KPI
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+<div class="back-foto">
+</div>
+
+<form action="/reviewSubmitted" method="post">
+    <div class="basic-box ">
+        <br><br><br><br>
+        <header id="cd-header">Kundens anmeldelse af vores udlejningsservice</header>
+
+<div class="rating">
+    <div class="q1">
+        <br><br>
+    <p>Hvad synes kunden om vores udlejningsservice?</p>
+        <input type="radio" id="star1" name="rating" value="1" required1 sjerne > 1 stjerne</label>
+    <label for="star1" title="En stjerne"></label>
+
+        <input type="radio" id="star2" name="rating" value="2" required1 sjerne > 2 stjerner</label>
+    <label for="star2" title="To stjerner"></label>
+
+    <input type="radio" id="star3" name="rating" value="3" required1 sjerne> 3 stjerner </label>
+    <label for="star3" title="Tre stjerner"></label>
+
+    <input type="radio" id="star4" name="rating" value="4" required1 sjerne > 4 stjerner</label>
+    <label for="star4" title="Fire stjerner"></label>
+
+    <input type="radio" id="star5" name="rating" value="5" required1 sjerne> 5 stjerner </label>
+    <label for="star5" title="Fem stjerner"></label>
+
+    <input type="hidden" id="selectedRating" name="selectedRating" value=""/>
+ </div>
+</div>
+        <br><br>
+        <div class="q2">
+  <p>Kunne kunden finde på at bruge vores udlejningsservice igen?</p>
+  <label><input type="radio" name="staying_customer" value="1" required> Ja</label>
+  <label><input type="radio" name="staying_customer" value="0"> Nej</label>
+        </div>
+
+        <br><br>
+        <div class="q3">
+  <p>Er kunden interesseret i at købe bilen?</p>
+  <label><input type="radio" name="buying_customer" value="1" required> Ja</label>
+  <label><input type="radio" name="buying_customer" value="0"> Nej</label> <br><br>
+        </div>
+    <button type="submit" class="submit-btn">Indsend</button>
+
+    <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+    </div>
+</form>
+
+<!--script>
+  function setSelectedRating() {
+    const selectedRating = document.querySelector('input[name="rating"]:checked').value;
+    document.getElementById('selectedRating').value = selectedRating;
+  }
+</script-->
+
+</body>
+</html>

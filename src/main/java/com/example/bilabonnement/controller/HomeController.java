@@ -154,12 +154,10 @@ public class HomeController {
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model,@ModelAttribute StaffMember staffMember) {
+        model.addAttribute("staff_member", staffMember);
         if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
 
             model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
-            model.addAttribute("staff_member", staffMember);
-
-
             return "home/payment";
         }
         else
