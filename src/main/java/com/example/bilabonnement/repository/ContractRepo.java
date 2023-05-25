@@ -16,15 +16,16 @@ public class ContractRepo {
     @Autowired
     JdbcTemplate template;
 
-    public void makeContract(Contract contract, int car_id, int customer_id) {
+    public boolean makeContract(Contract contract, int car_id, int customer_id) {
         String sql = "INSERT INTO contract (customer_id, car_id, contract_start_date, contract_end_date," +
                 " contract_maximum_km) VALUES (?, ?, ?, ?, ?)";
-        template.update(sql, customer_id, car_id, contract.getContract_start_date(), contract.getContract_end_date(),
-                contract.getContract_maximum_km());
+       return template.update(sql, customer_id, car_id, contract.getContract_start_date(), contract.getContract_end_date(),
+                contract.getContract_maximum_km()) >0;
+
     }
 
-    public List<Contract> viewLeasedCars(int contract_id){
-        String sql= "SELECT car_model, car_brand, image, car_vin FROM contract WHERE contract_id = ?";
+    public List<Contract> viewContracts(int contract_id){
+        String sql= "SELECT car_model, car_brand, image, car_vin,contract_start_date, contract_end_date FROM car c JOIN contract t ON c.car_id=t.car_id";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper, contract_id);
     }
@@ -36,14 +37,20 @@ public class ContractRepo {
         Contract contract= template.queryForObject(sql, rowMapper, contract_id);
         return contract;
     }
-
-
-    public List<Contract> fetchContracts(){
-        String sql = "SELECT DISTINCT contract_id, customer_id, car_id, contract_start_date, " +
-                "contract_end_date, contract_maximum_km, contract_start_km FROM contract";
+   public List<Contract> fetchContracts(){
+        String sql = "SELECT contract_id, car_model, car_brand, image, car_vin,contract_start_date, contract_end_date FROM car c JOIN contract t ON c.car_id=t.car_id";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper);
     }
+
+
+   /* public List<Contract> fetchContracts(){
+        String sql = "SELECT DISTINCT contract_id, customer_id, car_id, contract_start_date, " +
+                "contract_end_date, contract_maximum_km FROM contract";
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return template.query(sql, rowMapper);
+    }*/
+
 
         public Contract findContractById ( int contract_id){
             String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
@@ -53,12 +60,22 @@ public class ContractRepo {
             return contract;
         }
 
+
     public Contract findContractByCarId (int car_id){
         String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +
-                "contract_end_date, contract_maximum_km, contract_start_km FROM contract WHERE car_id = ?";
+                "contract_end_date, contract_maximum_km FROM contract WHERE car_id = ?";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         Contract contract = template.queryForObject(sql, rowMapper, car_id);
         return contract;
+    }
+
+
+
+
+
+    public Boolean deleteContract(int contract_id){
+        String sql = "DELETE FROM contract WHERE contract_id = ?";
+        return template.update(sql, contract_id) > 0;
     }
 
 
@@ -68,7 +85,6 @@ public class ContractRepo {
                     "       (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM contract_end_date), EXTRACT(YEAR_MONTH FROM contract_start_date)) + 1) * subscription_price AS total_price\n" +
                     "FROM contract JOIN car c ON c.car_id= contract_id WHERE car_id = ?";
             int sum= template.queryForObject(sql2, Integer.class, car_id);
-
             c.setTotalPriceForPayment(sum);
             return c.getTotalPriceForPayment();
         }

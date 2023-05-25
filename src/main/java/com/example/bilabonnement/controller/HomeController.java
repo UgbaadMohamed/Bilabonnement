@@ -1,4 +1,5 @@
 package com.example.bilabonnement.controller;
+
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.model.Payment;
@@ -20,7 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+
+
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -45,7 +50,6 @@ public class HomeController {
     ReviewService reviewService;
 
 
-
     @GetMapping("/")
     public String frontPage() {
         return "home/frontPage";
@@ -55,6 +59,7 @@ public class HomeController {
     public String loginPage() {
         return "home/loginPage";
     }
+
 
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
@@ -141,13 +146,18 @@ public class HomeController {
         return "home/contract";
     }
 
+
+
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model) {
-        System.out.println(contract);
-        contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id());
-        model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
-        return "home/payment";
+        if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
+            model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
+            return "home/payment";
+        }
+        else
+
+        return "home/contract";
     }
 
     @PostMapping("/payment")
@@ -156,13 +166,7 @@ public class HomeController {
         return "home/homePage";
     }
 
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
+
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation() {
@@ -308,23 +312,58 @@ public class HomeController {
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
+
+
+
+
+    @GetMapping("/totalPriceForPayment")
+    public String totalPayment(@ModelAttribute Contract contract, Model model) {
+        int sum=contractService.totalPriceForMonthlyPayment(contract.getContract_id(), contract) ;
+        System.out.println(sum);
+        model.addAttribute("totalPriceForPayment", sum);
+        return "home/payment";
     }
-
-
-
 
    /*@GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
         List<Contract> contracts =contractService.viewLeasedCars(contract_id);
         model.addAttribute("contracts", contracts);
         System.out.println(contracts);
-        return "home/contract";
-    } måske bruges senere*/
+        return "home/viewContracts";
+    }*/
+   @GetMapping("/viewContracts")
+   public String viewContract(Model model) {
+       model.addAttribute("contracts", contractService.fetchContracts());
+       model.addAttribute("cars",carService.carsWithContract());
+       return "home/viewContracts";
+
+}
+
+    @GetMapping("/deleteContract/{contract_id}")
+    public String deleteContract(@PathVariable("contract_id")int contract_id){
+        boolean deleted= contractService.deleteContract(contract_id);
+        if (deleted) {
+            return "redirect:/homePage";
+        }
+        else {
+            return "redirect:/homePage";
+        }
+    }
+}
 
    /*
     @PostMapping("/credit validation-form")
     public String creditvalidationForm() {
 
+        return "home/contract";
+    }
+
+
+        @GetMapping("/totalPriceForPayment")
+    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
+        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
+        System.out.println(sum);
+        model.addAttribute("contract", sum);
         return "home/contract";
     }
     */
