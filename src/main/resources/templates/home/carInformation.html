@@ -33,7 +33,7 @@
 
 <p id="car_model" ></p>
 <div class="information" style="display: flex; flex-wrap: wrap;">
-    <div th:each="car: ${cars}">
+    <!--div th:each="car: ${cars}"-->
 
         <h1 class="model" th:text="'Model: ' +${car.car_model}"></h1>
 
@@ -63,7 +63,7 @@
             </a>
             <img th:src="${car.image}" id="carImg"/>
         </form>
-    </div>
+
 </div>
 </body>
 </html>

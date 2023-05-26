@@ -91,14 +91,14 @@ public class HomeController {
 
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model) {
-        List<Car> cars = carService.viewCars(car_id);
-        model.addAttribute("cars", cars);
+        Car car = carService.viewCar(car_id);
+        model.addAttribute("car", car);
         return "home/carInformation";
     }
 
     @PostMapping("/carSelected/{car_id}")
     public String pickLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model) {
-        carService.location(car.getCar_location(), car_id);
+        carService.pickLocation(car.getCar_location(), car_id);
         model.addAttribute("car", carService.findCarById(car_id));
         return "home/customerForm";
     }

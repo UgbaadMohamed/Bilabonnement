@@ -15,16 +15,16 @@ public class CarService {
     public List<Car> fetchAvailableCars(){
         return carRepo.fetchAvailableCars();
     }
-    public List<Car> viewCars(int car_id){
-        return carRepo.viewCars(car_id);
+    public Car viewCar(int car_id){
+        return carRepo.viewCar(car_id);
     }
 
      public int totalMonthlyPrice(){
         return carRepo.totalMonthlyPrice();
     }
 
-    public void location(String car_location, int car_id){
-        carRepo.location(car_location,car_id);
+    public void pickLocation(String car_location, int car_id){
+        carRepo.pickLocation(car_location,car_id);
     }
     public Car findCarById(int id){
         return carRepo.findCarById(id);
