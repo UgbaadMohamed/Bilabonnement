@@ -147,26 +147,27 @@ public class HomeController {
     }
 
 
-
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model) {
         if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
-            model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
+            Contract contract2 = contractService.findContractByCarId(car.getCar_id());
+            
+            model.addAttribute("contract", contract2);
+            System.out.println("contractID" + contract2.getContract_id());
+            int sum=  contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
+            model.addAttribute("totalPriceForPayment",sum );
             return "home/payment";
         }
         else
-
         return "home/contract";
     }
 
     @PostMapping("/payment")
-    public String finalizeWithPayment(@ModelAttribute Payment payment, @ModelAttribute Contract contract) {
+    public String finalizeWithPayment(@ModelAttribute Payment payment, @ModelAttribute Contract contract, Model model) {
         paymentService.finalizeWithPayment(payment, contract);
         return "home/homePage";
     }
-
-
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation() {
@@ -314,15 +315,6 @@ public class HomeController {
         }
 
 
-
-
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@ModelAttribute Contract contract, Model model) {
-        int sum=contractService.totalPriceForMonthlyPayment(contract.getContract_id(), contract) ;
-        System.out.println(sum);
-        model.addAttribute("totalPriceForPayment", sum);
-        return "home/payment";
-    }
 
    /*@GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {

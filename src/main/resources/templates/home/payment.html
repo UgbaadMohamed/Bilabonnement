@@ -9,7 +9,7 @@
 <form th:action="@{/payment}" method="post">
     <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
 
-    <table>
+    <!--table>
         <thead>
         <tr>
             <th>Abonnement type:</th>
@@ -36,14 +36,7 @@
             <td th:text="unlimited abonnement"></td>
         </tr>
         </tbody>
-    </table>
-
-
-
-
-
-
-
+    </table-->
 
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>
