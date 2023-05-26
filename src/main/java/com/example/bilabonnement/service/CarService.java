@@ -52,4 +52,8 @@ public class CarService {
         return carRepo.sellCar(car);
     }
 
+
+    public List<Car> carsWithContract() {
+        return carRepo.carsWithContract();
+    }
 }

@@ -15,9 +15,8 @@ public class ContractService {
     @Autowired
     ContractRepo contractRepo;
 
-    public boolean makeContract(Contract contract, int car_id, int customer_id) {
 
-        LocalDate currentDate = LocalDate.now();
+    public boolean makeContract(Contract contract, int car_id, int customer_id) {
         // Check if the contract start date is at least 3 months (90 days) from the current date And
         //if end_date is less than 36
         if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) >= 120 &&
@@ -32,16 +31,22 @@ public class ContractService {
 
     }
 
-    public List<Contract> viewLeasedCars(int contract_id){
-        return contractRepo.viewLeasedCars(contract_id);
+    public List<Contract> viewContracts(int contract_id){
+        return contractRepo.viewContracts(contract_id);
     }
 
     public Contract findContractId(int contract_id){
         return contractRepo.findContractId(contract_id);
     }
-    public int totalPriceForMonthlyPayment(int car_id, Contract contract){
+    public int totalPriceForMonthlyPayment(int contract_id){
 
-        return contractRepo.totalPriceForMonthlyPayment(car_id, contract);
+
+        return contractRepo.totalPriceForMonthlyPayment(contract_id);
+    }
+
+
+    public List<Contract> fetchContracts() {
+    return contractRepo.fetchContracts();
     }
 
     public Contract findContractById(int contract_id){
@@ -50,5 +55,9 @@ public class ContractService {
 
     public Contract findContractByCarId(int car_id){
         return contractRepo.findContractByCarId(car_id);
+    }
+
+    public Boolean deleteContract(int contract_id){
+        return contractRepo.deleteContract(contract_id);
     }
 }

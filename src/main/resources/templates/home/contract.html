@@ -10,6 +10,7 @@
 
     <form th:action="@{/contractInfo}" method="post">
 
+
     <label for="contract_start_date">Start Date :</label>
     <input type="text" name="contract_start_date" id="contract_start_date" required/>
 
@@ -19,8 +20,6 @@
         <label for="contract_maximum_km">Max KM:</label>
         <input type="text" name="contract_maximum_km" id="contract_maximum_km" required/>
 
-        <label for="contract_start_km">Start KM:</label>
-        <input type="text" name="contract_start_km" id="contract_start_km" required/>
 
         <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
         <input type="hidden" name="car_id" th:value="${car.car_id}">
@@ -30,7 +29,7 @@
     </form>
 
 
-       <!--p> TOTAL PRICE : <span th:text="${contract.totalPriceForPayment}"/> </p-->
+
 </div>
 </body>
 </html>
