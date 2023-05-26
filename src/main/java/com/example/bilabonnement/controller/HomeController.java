@@ -181,13 +181,6 @@ public class HomeController {
         return "home/homePage";
     }
 
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation(Model model,@ModelAttribute StaffMember staffMember) {
@@ -348,7 +341,7 @@ public class HomeController {
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
-    }
+    
 
 
 
