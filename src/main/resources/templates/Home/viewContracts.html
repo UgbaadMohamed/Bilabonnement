@@ -18,9 +18,7 @@
             <td>
                 <span  th:text="${car.car_brand}"></span>
             </td>
-            <td>
-                <span th:text="${car.image}"></span>
-            </td>
+
             <td>
                 <span th:text="${car.car_vin}"></span>
             </td>
@@ -42,12 +40,13 @@
                 <span th:text="${contract.contract_end_date}"></span>
             </td>
             <td style="display: flex; align-items: center;">
-
                 <a th:href="@{'/deleteContract/'+${contract.contract_id}}">
                     <button class="btn-deleteItem" id="btn-deleteWishlist"><i class="fa-solid fa-trash-can"></i></button>
                 </a>
             </td>
         </tr>
+
+
 </div>
 </tbody>
 </table>

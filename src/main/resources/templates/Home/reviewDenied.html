@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
     <link rel="stylesheet" type="text/css" href="header.css">
-    <link rel="stylesheet" type="text/css" href="custumer.css">
 
 </head>
 <body>
@@ -22,8 +21,6 @@
         </div>
     </div>
 
-
-
     <div class="links">
         <div class="dropdown nav-item">
             <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
@@ -33,6 +30,7 @@
             <div class="dropdown-content" id="dropdown-1-placement">
                 <a href="/carLeasing">Ledige biler</a>
                 <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
             </div>
         </div>
 
@@ -112,48 +110,25 @@
 </div>
 </div>
 
+<div class="basic-box">
+    <form action="/review" method="get">
+        <br>        <br>        <br>
+        <h1 id="cd-header">Kundeanmeldelse</h1>
+        <br>        <br>        <br>
+        <div class="q1">
+            <p>Hvad er kundens kontrakt ID?</p>
+            <input type="number" placeholder="Søg på kontrakt id" name="contract_id" required>
+        </div>
+        <br>        <br>        <br>        <br>           <br>
+        <div class="q2">
+        <p style="color: #ea8282 "> * Denne udlejningsaftale findes ikke eller er allerede blevet reviewed! * </p>
+        </div>
+        <button type="submit" class="submit-btn">Søg</button>
+    </form>
+</div>
+
 <div class="back-foto">
-    </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <div class="cd-header" style="margin-left: -935px;">Biler i auktion</div>
-
-<table>
-    <thead>
-    <tr>
-        <th>Car ID</th>
-        <th>Brand</th>
-        <th>Model</th>
-
-    </tr>
-    </thead>
-    <tbody>
-
-<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
-    <td>
-        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
-    </td>
-    <td>
-            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
-        </td>
-    <td>
-        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
-    </td>
-    <td>
-
-        <form th:action="@{/sellCar}" method="post">
-
-            <button>Marker som solgt</button>
-
-            <input type="hidden" name="car_id" th:value="${car_in_auction.car_id}">
-
-        </form>
-
-    </td>
-</tr>
-
-    </tbody>
-</table>
+</div>
 </div>
 </body>
 </html>

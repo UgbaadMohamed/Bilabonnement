@@ -1,54 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/home.css">
-    <link rel="stylesheet" type="text/css" href="/creditValidation.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="header.css">
+
 </head>
-
-<div id="menuHeader">
-    Bilabonnement.dk
-</div>
-<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
-<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
-<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
-<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
-
 
 <div id="positionForlogout">
     <a href="/" class="logout-button">
-        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
     </a>
 </div>
 
-<div class="home-foto">
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">KPI
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+
+    </div>
 </div>
-<nav>
-    <ul>
-    </ul>
-</nav>
-<div class="creditvalidation-foto">
+</div>
 </div>
 <div class="creditValidation-box">
     <div id="creditDocumentationForm">
+
 <form method="post" th:action="@{/creditValidationSuccess}" onsubmit="return validateForm()">
+    <div class="basic-box ">
+        <br><br><br>
         <header id="cd-header">Kreditvalidering (2 ud af 2)</header>
         <br><br><br>
+        <div class="q1" >
         <p>Hvad er kundens gennemsnitlige måndelige indtægt?</p>
         <label><input type="radio" name="q1" value="under_femogtyve" required> Under 25.000</label>
         <label><input type="radio" name="q1" value="under_femogfyrre"> Mellem 25.000 - 45.000</label>
         <label><input type="radio" name="q1" value="over_femogfyrre"> Over 45.000</label>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br>
+        </div>
+        <div class="q2" >
         <p>Er kunden registret i RKI?</p>
         <label><input type="radio" name="q2" value="ja" required> Ja</label>
         <label><input type="radio" name="q2" value="nej"> Nej</label>
-
+        </div>
     <input type="hidden" name="car_id" th:value="${car.car_id}">
     <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
 
-        <button type="submit" class="submit-btn">SEND</button>
+        <button type="submit" class="submit-btn">INDSEND</button>
+    </div>
     </form>
     </div>
 </div>
@@ -66,6 +151,7 @@
 
 </head>
 <body>
-
+<div class="back-foto">
+</div>
 </body>
 </html>

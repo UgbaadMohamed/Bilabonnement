@@ -4,8 +4,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
-    <link rel="stylesheet" type="text/css" href="header.css">
-    <link rel="stylesheet" type="text/css" href="custumer.css">
+    <link rel="stylesheet" type="text/css" href="/header.css">
 
 </head>
 <body>
@@ -22,8 +21,6 @@
         </div>
     </div>
 
-
-
     <div class="links">
         <div class="dropdown nav-item">
             <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
@@ -33,6 +30,7 @@
             <div class="dropdown-content" id="dropdown-1-placement">
                 <a href="/carLeasing">Ledige biler</a>
                 <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
             </div>
         </div>
 
@@ -111,49 +109,44 @@
 </div>
 </div>
 </div>
+    <div id="inner">
+        <form th:action="@{/createCustomer}" method="post">
+            <div class="basic-box ">
+                <br><br><br>
+                <header id="cd-header">Kunderegistrering</header>
+            <input type="hidden" name="car_id" th:value="${car_id}">
+                <div id="q1" style="margin-left: 40px;">
+                    <p style="display:inline-block;">Fornavn:</p>
+                    <input type="text" name="customer_first_name" class="input-box" placeholder="Fornavn" required>
+                    <p style="display:inline-block;">Efternavn:</p>
+               <input type="text" name="customer_last_name" class="input-box" placeholder="Efternavn" required>
+                </div>
+                <br>
+                <div id="q2" style="margin-left: 40px;">
+                    <p style="display:inline-block;">Adresse:</p>
+            <input type="text" name="customer_address" class="input-box" placeholder="Adresse" required>
+                    <p style="display:inline-block;">Postnumer:</p>
+                    <input type="number" name="zip_code" class="input-box" placeholder="Postnummer" required>
+                </div>
+                <br>
+                <div id="q3" style="margin-left: 40px;">
+                    <p style="display:inline-block; margin-left: 5px
+" >Tlf:</p>
+                <input style="margin-left: 28px" type="number" name="customer_phone_number" class="input-box" placeholder="Telefonnummer" required>
+                    <p style="display:inline-block;">  Kørekort nr:</p>
+           <input type="number" name="customer_license_number" class="input-box" placeholder="Kørekort nummer" required><br>
+                    <br>
+                    <p style="display:inline-block;">Alder: </p>
+                  <input style="margin-left: 15px" type="number" name="customer_age" class="input-box" placeholder="Alder" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Opret kunde</button><br>
+            </div>
+        </form>
+    </div>
 
 <div class="back-foto">
-    </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <div class="cd-header" style="margin-left: -935px;">Biler i auktion</div>
-
-<table>
-    <thead>
-    <tr>
-        <th>Car ID</th>
-        <th>Brand</th>
-        <th>Model</th>
-
-    </tr>
-    </thead>
-    <tbody>
-
-<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
-    <td>
-        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
-    </td>
-    <td>
-            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
-        </td>
-    <td>
-        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
-    </td>
-    <td>
-
-        <form th:action="@{/sellCar}" method="post">
-
-            <button>Marker som solgt</button>
-
-            <input type="hidden" name="car_id" th:value="${car_in_auction.car_id}">
-
-        </form>
-
-    </td>
-</tr>
-
-    </tbody>
-</table>
 </div>
+
 </body>
 </html>

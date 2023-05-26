@@ -1,5 +1,4 @@
 package com.example.bilabonnement.controller;
-
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.model.Payment;
@@ -11,21 +10,18 @@ import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.service.*;
 import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.service.ContractService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
-
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -50,6 +46,7 @@ public class HomeController {
     ReviewService reviewService;
 
 
+
     @GetMapping("/")
     public String frontPage() {
         return "home/frontPage";
@@ -60,60 +57,67 @@ public class HomeController {
         return "home/loginPage";
     }
 
-
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
                             @RequestParam("staff_member_password")
-                            String staff_member_password, Model model) {
+                            String staff_member_password, HttpSession session) {
         if (staffMemberService.validateLogin(staff_member_username, staff_member_password)) {
             StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
                     staff_member_password);
-            model.addAttribute("staff_member", staffMember);
+            session.setAttribute("staff_member", staffMember);
+
             return "home/homePage";
         }
         return "home/loginPage";
     }
 
     @GetMapping("/homePage")
-    public String homePage() {
+    public String homePage(HttpSession session ) {
+        session.getAttribute("staffmember");
         return "home/homePage";
     }
 
+
     @GetMapping("/search")
-    public String searchForCar(@RequestParam("car_brand") String car_brand, Model model) {
+    public String searchForCar(@RequestParam("car_brand") String car_brand, HttpSession session, Model model) {
         List<Car> cars= carService.searchSpecificCar(car_brand);
         System.out.println(cars);
         model.addAttribute("cars", cars);
+        session.getAttribute("staffmember");
         return "home/search";
     }
 
     @GetMapping("/carLeasing")
-    public String carLeasing(Model model) {
+    public String carLeasing(Model model,@ModelAttribute StaffMember staffMember) {
         List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
+        model.addAttribute("staff_member", staffMember);
         return "home/carLeasing";
     }
 
     @GetMapping("/viewCar/{car_id}")
-    public String viewCar(@PathVariable("car_id") int car_id, Model model) {
+    public String viewCar(@PathVariable("car_id") int car_id, Model model, @ModelAttribute StaffMember staffMember) {
         List<Car> cars = carService.viewCars(car_id);
         model.addAttribute("cars", cars);
+        model.addAttribute("staff_member", staffMember);
         return "home/carInformation";
     }
 
     @PostMapping("/carSelected/{car_id}")
-    public String pickLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model) {
+    public String pickLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model,@ModelAttribute StaffMember staffMember) {
         carService.location(car.getCar_location(), car_id);
         model.addAttribute("car", carService.findCarById(car_id));
+        model.addAttribute("staff_member", staffMember);
         return "home/customerForm";
     }
 
     @PostMapping("/createCustomer")
-    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
+    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,@ModelAttribute StaffMember staffMember) {
         customerService.createCustomer(customer);
         model.addAttribute("car", car);
         model.addAttribute("customer",
                 customerService.findCustomerByLicense(customer.getCustomer_license_number()));
+        model.addAttribute("staff_member", staffMember);
 
                 //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
                 // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
@@ -122,6 +126,7 @@ public class HomeController {
                 // brug af license kan vi finde den pågældende customer,
                 // tilføje den til den nye model.addAttribute og anvende den til videre brug
 
+
         return "home/creditDocumentation";
     }
 
@@ -129,9 +134,10 @@ public class HomeController {
     public String receivedDocuments(@RequestParam("q1") String q1,
                                     @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
                                     customer,
-                                    Model model) {
+                                    Model model,@ModelAttribute StaffMember staffMember) {
         model.addAttribute("customer", customer);
         model.addAttribute("car", car);
+        model.addAttribute("staff_member", staffMember);
         if (q1.equals("ja") && q2.equals("ja")) {
             return "home/creditValidation";
         } else {
@@ -139,10 +145,11 @@ public class HomeController {
         }
     }
     @PostMapping("/creditValidationSuccess")
-    public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
+    public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,@ModelAttribute StaffMember staffMember) {
         customerService.makeCustomerCreditworthy(customer.getCustomer_id());
         model.addAttribute("customer", customer);
         model.addAttribute("car", car);
+        model.addAttribute("staff_member", staffMember);
         return "home/contract";
     }
 
@@ -150,9 +157,16 @@ public class HomeController {
 
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
-                               @ModelAttribute Customer customer, Model model) {
+                               @ModelAttribute Customer customer, Model model, HttpSession session) {
+        session.getAttribute("staffmember");
+
         if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
-            model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
+            Contract contract2 = contractService.findContractByCarId(car.getCar_id());
+
+            model.addAttribute("contract", contract2);
+            System.out.println("contractID" + contract2.getContract_id());
+            int sum=  contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
+            model.addAttribute("totalPriceForPayment",sum );
             return "home/payment";
         }
         else
@@ -161,32 +175,35 @@ public class HomeController {
     }
 
     @PostMapping("/payment")
-    public String finalizeWithPayment(@ModelAttribute Payment payment, @ModelAttribute Contract contract) {
+    public String finalizeWithPayment(Model model,@ModelAttribute Payment payment, @ModelAttribute Contract contract,@ModelAttribute StaffMember staffMember) {
         paymentService.finalizeWithPayment(payment, contract);
+        model.addAttribute("staff_member", staffMember);
         return "home/homePage";
     }
 
 
-
     @GetMapping("/conditionReportDocumentation")
-    public String conditionReportDocumentation() {
+    public String conditionReportDocumentation(Model model,@ModelAttribute StaffMember staffMember) {
+        model.addAttribute("staff_member", staffMember);
         return "home/conditionReportDocumentation";
     }
 
     @PostMapping("/conditionReport")
-    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model) {
+    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model,@ModelAttribute StaffMember staffMember) {
         model.addAttribute("contract", contractService.findContractById(contract_id));
+        model.addAttribute("staff_member", staffMember);
         return "home/conditionReport";
     }
 
     @PostMapping("/saveConditionReport")
-    public String saveConditionReport(@ModelAttribute ConditionReport conditionReport) {
+    public String saveConditionReport(Model model,@ModelAttribute ConditionReport conditionReport,@ModelAttribute StaffMember staffMember) {
+        model.addAttribute("staff_member", staffMember);
         conditionReportService.saveConditionReport(conditionReport);
         return "home/homePage";
     }
 
     @GetMapping("/KPICar")
-    public String totalRentedCars (Model model) {
+    public String totalRentedCars(Model model, HttpSession session) {
         List<Car> totalRentedCarsList = kpiService.totalRentedCars();
         model.addAttribute("totalRentedCars", totalRentedCarsList);
 
@@ -198,12 +215,18 @@ public class HomeController {
 
         List<Contract> findRentalEndDate = kpiService.findRentalEndDate();
         model.addAttribute("findRentalEndDate",findRentalEndDate);
+
+        HashMap<Contract, Car>map = kpiService.mapOfcontractsandcar();
+        model.addAttribute("list",map);
+
+        session.getAttribute("staffmember");
+
         return "home/KPICar";
     }
 
 
     @GetMapping("/KPIEconomy")
-    public String payedNow(Model model) {
+    public String payedNow(Model model,@ModelAttribute StaffMember staffMember) {
         List<Payment> payedNow = kpiService.payedNow();
         model.addAttribute("payedNow",payedNow);
 
@@ -213,18 +236,21 @@ public class HomeController {
         int total= carService.totalMonthlyPrice();
         model.addAttribute("subscriptionPrice", total);
 
+
         return "home/KPIEconomy";
     }
 
     //REVIEW---------------------
 
     @GetMapping("/findReviewTarget")
-    public String findReviewTarget() {
+    public String findReviewTarget(Model model,@ModelAttribute StaffMember staffMember) {
+        model.addAttribute("staff_member", staffMember);
             return "home/findReviewTarget";
     }
 
     @GetMapping("/review")
-    public String review(@RequestParam("contract_id") int contract_id, Model model) {
+    public String review(@RequestParam("contract_id") int contract_id, Model model,@ModelAttribute StaffMember staffMember) {
+        model.addAttribute("staff_member", staffMember);
         try {
             if (reviewService.checkIfAlreadyReviewed(contract_id)) {
                 return "home/reviewDenied";
@@ -240,10 +266,11 @@ public class HomeController {
         }
     }
 
-    //Ikhra og Freya
     @PostMapping("/reviewSubmitted")
-    public String submitReview(Review review, Model model) {
+    public String submitReview(Review review, Model model,@ModelAttribute StaffMember staffMember) {
         reviewService.addReview(review);
+        //deklaration
+        List<Car> carsInAuction;
 
         /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
             pågældende bil (gennem en join) */
@@ -253,6 +280,8 @@ public class HomeController {
         if (review.getBuying_customer() == 1)
             return "home/carSale";
         else
+            carsInAuction = carService.fetchCarsInAuction();
+            model.addAttribute("cars_in_auction", carsInAuction);
             return "home/homePage";
     }
 
@@ -312,17 +341,10 @@ public class HomeController {
         model.addAttribute("customers", customerList);
             return "home/customerPage";
         }
+    
 
 
 
-
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@ModelAttribute Contract contract, Model model) {
-        int sum=contractService.totalPriceForMonthlyPayment(contract.getContract_id(), contract) ;
-        System.out.println(sum);
-        model.addAttribute("totalPriceForPayment", sum);
-        return "home/payment";
-    }
 
    /*@GetMapping("/viewLeasedCars/{contract_id}")
     public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--div id="search-input">
+    <form action="/search" method="GET">
+        <input type="text" placeholder="Search for car..." name="car_model" required>
+        <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
+    </form>
+</div-->
+
+<div class="car-container"  th:if="${not #lists.isEmpty(cars)}">>
+    <div th:each="car: ${cars}" class="car-box">
+        <h1>
+            <p class="model" th:text="${car.car_model}"></p>
+          <!--  <p class="brand"th:text="${car[0].car_brand}"></p-->
+        </h1>
+</div>
+</div>
+<table>
+    <tbody>
+    <tr th:if="${cars != null}" th:each="car: ${cars}">
+            <td>
+                <span th:text="${car.car_brand}"></span>
+            </td>
+            <td>
+                <span th:text="${car.car_model}"></span>
+            </td>
+        <td>
+            <span th:text="${car.subscription_price}"></span>
+        </td>
+        <td>
+            <img th:src="${car.image} "class="image"/>
+        </td>
+    <a th:href="@{'/viewCar/'+${car.car_id}}">
+        <button class="view-car"></i></button>
+    </a>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

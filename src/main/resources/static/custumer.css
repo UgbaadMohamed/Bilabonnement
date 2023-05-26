@@ -24,3 +24,8 @@ th, td {
     max-height: 400px;
     overflow-y: scroll;
 }
+
+.scrollable-y{
+    max-height: 800px;
+    overflow-y: scroll;
+}

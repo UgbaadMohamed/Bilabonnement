@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
     <link rel="stylesheet" type="text/css" href="header.css">
-    <link rel="stylesheet" type="text/css" href="custumer.css">
 
 </head>
 <body>
@@ -16,13 +15,12 @@
 </div>
 
 <div class="navbar">
+
     <div id="menuHeader" onclick="window.location.href='/homePage'">
         <div class="nav-item">
             <a href="/homePage" id="logo"></a>
         </div>
     </div>
-
-
 
     <div class="links">
         <div class="dropdown nav-item">
@@ -33,6 +31,7 @@
             <div class="dropdown-content" id="dropdown-1-placement">
                 <a href="/carLeasing">Ledige biler</a>
                 <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
             </div>
         </div>
 
@@ -106,54 +105,59 @@
             <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
             </button>
         </div>
-
     </div>
-</div>
-</div>
-</div>
+    </div>
 
 <div class="back-foto">
-    </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <div class="cd-header" style="margin-left: -935px;">Biler i auktion</div>
-
-<table>
-    <thead>
-    <tr>
-        <th>Car ID</th>
-        <th>Brand</th>
-        <th>Model</th>
-
-    </tr>
-    </thead>
-    <tbody>
-
-<tr th:if="${cars_in_auction != null}" th:each="car_in_auction: ${cars_in_auction}"> <br>
-    <td>
-        <span name="car_id" th:text="${car_in_auction.car_id}"></span> <br>
-    </td>
-    <td>
-            <span name="car_brand" th:text="${car_in_auction.car_brand}"></span> <br>
-        </td>
-    <td>
-        <span name="car_model" th:text="${car_in_auction.car_model}"></span> <br>
-    </td>
-    <td>
-
-        <form th:action="@{/sellCar}" method="post">
-
-            <button>Marker som solgt</button>
-
-            <input type="hidden" name="car_id" th:value="${car_in_auction.car_id}">
-
-        </form>
-
-    </td>
-</tr>
-
-    </tbody>
-</table>
 </div>
+</head>
+
+<form action="/saveConditionReport" method="post" onsubmit="return validateForm()" >
+    <div class="basic-box ">
+        <br><br>
+        <header id="cd-header">Tilstandsrapportering</header>
+    <div class="q1" >
+        <br> <br><br>
+        <label>Hvilken tilstand er bilen i?</label><br><br>
+        <label for="damage_level_id_1">Ingen fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_1" value="1" required >
+        <label for="damage_level_id_2">Mindre fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_2"value="2" >
+        <label for="damage_level_id_3">Moderate fejl eller mangler</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_3"value="3">
+        <br>        <br>
+        <label for="damage_level_id_4">Totalskadet</label>
+        <input type="radio" name="damage_level_id" id="damage_level_id_4"value="4">
+    </div>
+        <br><br> <br>
+    <div class="q2" >
+        <p>Har bilen kørt mere end de aftalte km, og hvis ja, hvor mange km?</p>
+        <label><input type="radio" name="q2" value="ja" required> Ja</label>
+        <label><input type="radio" name="q2" value="nej"> Nej</label>
+    </div>
+        <br><br>
+    <div class="q3" >
+        <label for ="odometer_over_limit">Hvor mange overkørte kilometer?</label>
+        <input type="number" name="odometer_over_limit" id="odometer_over_limit" placeholder="Indtast km">
+    </div>
+        <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+        <button type="submit" class="submit-btn">Næste</button>
+    </div>
+    </form>
+
+    <script>
+        //sørger for at hvis nej bliver krydset af, så bliver odometer_over_limit gemt som 0 i databasen uanset hvad!
+        function validateForm() {
+            var q2 = document.getElementsByName("q2");
+            var odometer = document.getElementById("odometer_over_limit");
+            if (q2[1].checked) {
+                odometer.value = 0;
+                odometer.readOnly = true;
+            }
+            return true;
+        }
+    </script>
+
+
 </body>
 </html>

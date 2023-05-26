@@ -1,15 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  VELKOMMEN TIL betaling AF DIN LEASING
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="header.css">
 
 </head>
 <body>
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
 
-    <p> TOTAL PRICE : <p th:text="${contract.totalPriceForPayment}"/> </p>
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">KPI
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+
+<div class="back-foto">
+    </div>
+
+
 <form th:action="@{/payment}" method="post">
+    <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
+
+    <!--table>
+        <thead>
+        <tr>
+            <th>Abonnement type:</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contract : ${contract.isLimited()}">
+            <td th:text="limited abonnement"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Abonnement type:</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contract : ${contract.unlimited}">
+            <td th:text="unlimited abonnement"></td>
+        </tr>
+        </tbody>
+    </table-->
+
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>
     <label><input type="radio" name="payed" value="false"> Nej</label>
@@ -21,9 +157,32 @@
     <input type="number" name="registration_number" class="input-box" placeholder="registreringsnummer" required><br><br>
 
     <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
+    <div class="basic-box ">
+        <br><br> <br>
+        <header id="cd-header">Betaling</header>
+        <br><br>
+          <p style="display: inline-block"> TOTAL LEASING PRIS:<p th:text="${contract.totalPriceForPayment}"/> </p>
 
-    <button type="submit" class="submit-btn">SEND</button><br><br>
-</form>
+          <div class="q1" >
+              <br>
+      <p style="display: inline-block">Vil kunden betale nu?</p>
+      <label><input type="radio" name="payed" value="true" required> Ja</label>
+      <label><input type="radio" name="payed" value="false"> Nej</label>
+          </div>
+          <br> <br>
+          <div class="q2" >
+      <p style="display: inline-block">Hvad er kundens kontonummer?</p>
+      <input type="number" name="card_number" class="input-box" placeholder="kontonummer" required><br><br>
+          </div>
+          <div class="q3" >
+      <p style="display: inline-block">Hvad er kundens registreringsnummer?</p>
+      <input type="number" name="registration_number" class="input-box" placeholder="registreringsnummer" required><br><br>
+          </div>
+      <input type="hidden" name="contract_id" th:value="${contract.contract_id}">
 
-</body>
-</html>
+      <button type="submit" class="submit-btn">INDSEND</button><br><br>
+      </div>
+  </form>
+
+  </body>
+  </html>
