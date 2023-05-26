@@ -10,17 +10,16 @@ import com.example.bilabonnement.model.*;
 import com.example.bilabonnement.service.*;
 import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.service.ContractService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -57,29 +56,30 @@ public class HomeController {
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
                             @RequestParam("staff_member_password")
-                            String staff_member_password, Model model) {
+                            String staff_member_password, HttpSession session) {
         if (staffMemberService.validateLogin(staff_member_username, staff_member_password)) {
             StaffMember staffMember = staffMemberService.findStaffMember(staff_member_username,
                     staff_member_password);
-            model.addAttribute("staff_member", staffMember);
+            session.setAttribute("staff_member", staffMember);
+
             return "home/homePage";
         }
         return "home/loginPage";
     }
 
     @GetMapping("/homePage")
-    public String homePage(@ModelAttribute StaffMember staffMember, Model model) {
-        model.addAttribute("staff_member", staffMember);
+    public String homePage(HttpSession session ) {
+        session.getAttribute("staffmember");
         return "home/homePage";
     }
 
+
     @GetMapping("/search")
-    public String searchForCar(@RequestParam("car_brand") String car_brand, Model model, @ModelAttribute StaffMember staffMember) {
+    public String searchForCar(@RequestParam("car_brand") String car_brand, HttpSession session, Model model) {
         List<Car> cars= carService.searchSpecificCar(car_brand);
         System.out.println(cars);
         model.addAttribute("cars", cars);
-        model.addAttribute("staff_member", staffMember);
-
+        session.getAttribute("staffmember");
         return "home/search";
     }
 
@@ -153,8 +153,9 @@ public class HomeController {
 
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
-                               @ModelAttribute Customer customer, Model model,@ModelAttribute StaffMember staffMember) {
-        model.addAttribute("staff_member", staffMember);
+                               @ModelAttribute Customer customer, Model model, HttpSession session) {
+        session.getAttribute("staffmember");
+
         if(contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
 
             model.addAttribute("contract", contractService.findContractByCarId(car.getCar_id()));
@@ -202,7 +203,7 @@ public class HomeController {
     }
 
     @GetMapping("/KPICar")
-    public String totalRentedCars (Model model, @ModelAttribute StaffMember staffMember) {
+    public String totalRentedCars (Model model, HttpSession session) {
         List<Car> totalRentedCarsList = kpiService.totalRentedCars();
         model.addAttribute("totalRentedCars", totalRentedCarsList);
 
@@ -215,7 +216,11 @@ public class HomeController {
         List<Contract> findRentalEndDate = kpiService.findRentalEndDate();
         model.addAttribute("findRentalEndDate",findRentalEndDate);
 
-        model.addAttribute("staff_member", staffMember);
+        HashMap<Contract, Car>map = kpiService.mapOfcontractsandcar();
+        model.addAttribute("list",map);
+
+        session.getAttribute("staffmember");
+
         return "home/KPICar";
     }
 
@@ -232,7 +237,6 @@ public class HomeController {
         model.addAttribute("subscriptionPrice", total);
 
         model.addAttribute("staff_member", staffMember);
-
         return "home/KPIEconomy";
     }
 

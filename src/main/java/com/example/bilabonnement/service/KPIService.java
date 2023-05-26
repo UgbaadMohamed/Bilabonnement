@@ -8,6 +8,7 @@ import com.example.bilabonnement.repository.KPIRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -36,7 +37,26 @@ public class KPIService {
         return kpiRepo.findRentalEndDate();
     }
 
+
+    public HashMap<Contract, Car> mapOfcontractsandcar(){
+
+        List<Contract> rentalEndDate = findRentalEndDate();
+        List<Car>cars = orderByRentalEndDate();
+
+        HashMap<Contract, Car> map = new HashMap<>();
+
+        for (Contract contract : rentalEndDate) {
+            for (Car car : cars){
+                if(contract.getCar_id() == (car.getCar_id())){
+                    map.put(contract, car);
+                }
+            }
+        }
+        return map;
+    }
+
     public List<Payment> notPayed() {
         return kpiRepo.notPayed();
     }
 }
+
