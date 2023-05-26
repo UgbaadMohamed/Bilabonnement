@@ -1,28 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="customerPage.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/header.css">
+
 </head>
 <body>
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
+
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">KPI
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
     <div id="inner">
-        <h1> Kunde regristration!</h1>
         <form th:action="@{/createCustomer}" method="post">
-            <!--form action="/createCustomer" method="post" th:object="${customers}"-->
+            <div class="basic-box ">
+                <br><br><br>
+                <header id="cd-header">Kunderegistrering</header>
             <input type="hidden" name="car_id" th:value="${car_id}">
+                <div id="q1" style="margin-left: 40px;">
+                    <p style="display:inline-block;">Fornavn:</p>
+                    <input type="text" name="customer_first_name" class="input-box" placeholder="Fornavn" required>
+                    <p style="display:inline-block;">Efternavn:</p>
+               <input type="text" name="customer_last_name" class="input-box" placeholder="Efternavn" required>
+                </div>
+                <br>
+                <div id="q2" style="margin-left: 40px;">
+                    <p style="display:inline-block;">Adresse:</p>
+            <input type="text" name="customer_address" class="input-box" placeholder="Adresse" required>
+                    <p style="display:inline-block;">Postnumer:</p>
+                    <input type="number" name="zip_code" class="input-box" placeholder="Postnummer" required>
+                </div>
+                <br>
+                <div id="q3" style="margin-left: 40px;">
+                    <p style="display:inline-block; margin-left: 5px
+" >Tlf:</p>
+                <input style="margin-left: 28px" type="number" name="customer_phone_number" class="input-box" placeholder="Telefonnummer" required>
+                    <p style="display:inline-block;">  Kørekort nr:</p>
+           <input type="number" name="customer_license_number" class="input-box" placeholder="Kørekort nummer" required><br>
+                    <br>
+                    <p style="display:inline-block;">Alder: </p>
+                  <input style="margin-left: 15px" type="number" name="customer_age" class="input-box" placeholder="Alder" required>
+                </div>
 
-            <input type="text" name="customer_first_name" class="input-box" placeholder="Fornavn " required><br><br>
-            <input type="text" name="customer_last_name" class="input-box" placeholder="Efternavn" required><br><br>
-            <input type="text" name="customer_address" class="input-box" placeholder="Address" required><br><br>
-            <input type="number" name="zip_code" class="input-box" placeholder="Postnummer" required><br><br>
-            <input type="number" name="customer_phone_number" class="input-box" placeholder="Telefon nummer" required><br><br>
-            <input type="number" name="customer_license_number" class="input-box" placeholder="Kørekort nummer" required><br><br>
-            <input type="number" name="customer_age" class="input-box" placeholder="Alder" required><br><br>
-
-            <button type="submit" class="submit-btn">Opret kunde</button><br><br>
+                <button type="submit" class="submit-btn">Opret kunde</button><br>
+            </div>
         </form>
     </div>
+
+<div class="back-foto">
+</div>
 
 </body>
 </html>

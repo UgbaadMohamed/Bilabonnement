@@ -109,12 +109,11 @@ public class HomeController {
     }
 
     @PostMapping("/createCustomer")
-    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,@ModelAttribute StaffMember staffMember) {
+    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
         customerService.createCustomer(customer);
         model.addAttribute("car", car);
         model.addAttribute("customer",
                 customerService.findCustomerByLicense(customer.getCustomer_license_number()));
-        model.addAttribute("staff_member", staffMember);
 
                 //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
                 // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
@@ -174,13 +173,6 @@ public class HomeController {
         return "home/homePage";
     }
 
-    @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation() {

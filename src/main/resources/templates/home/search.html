@@ -11,6 +11,7 @@
         <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
     </form>
 </div-->
+
 <div class="car-container"  th:if="${not #lists.isEmpty(cars)}">>
     <div th:each="car: ${cars}" class="car-box">
         <h1>

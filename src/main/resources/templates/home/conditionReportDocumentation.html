@@ -5,76 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
     <link rel="stylesheet" type="text/css" href="header.css">
-
-<div id="positionForlogout">
-    <a href="/frontPage" class="logout-button">
-        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
-    </a>
-</div>
-
-<div class="navbar">
-    <div id="menuHeader" onclick="window.location.href='/background'">
-        <div class="nav-item">
-            <a href="/creditDocumentation" id="logo"></a>
-        </div>
+    <div id="positionForlogout">
+        <a href="/" class="logout-button">
+            <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+        </a>
     </div>
 
-
-    <div class="links">
-        <div class="dropdown nav-item">
-            <button class="dropbtn" id="Leasing-botton"> Leasing
-
-            </button>
-            <div class="dropdown-content" id="dropdown-1-placement">
-                <a href="#home">Ledige biler</a>
-                <a href="/creditDocumentation">Kreditvalidering</a>
-
+    <div class="navbar">
+        <div id="menuHeader" onclick="window.location.href='/homePage'">
+            <div class="nav-item">
+                <a href="/homePage" id="logo"></a>
             </div>
         </div>
 
-
-        <div class="dropdown nav-item">
-            <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
-
-            </button>
-            <div class="dropdown-content" id="dropdown-2-placement">
-                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+        <div class="links">
+            <div class="dropdown nav-item">
+                <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                    <button class="dropbtn" id="Leasing-botton"> Leasing
+                    </button>
+                </div>
+                <div class="dropdown-content" id="dropdown-1-placement">
+                    <a href="/carLeasing">Ledige biler</a>
+                    <a href="/customerPage">Alle kunder</a>
+                </div>
             </div>
-        </div>
 
-        <div class="dropdown nav-item">
-            <button class="dropbtn" id="After-botton" >Efterbehandling
-
-            </button>
-            <div class="dropdown-content" id="dropdown-3-placement">
-                <a href="/findReviewTarget">Kundeanmeldelse</a>
-                <a href="#">Auktion </a>
-
+            <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
+                <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+                </button>
             </div>
-        </div>
-        <div class="dropdown nav-item">
-            <button class="dropbtn" id="KPI-botton">KPI
-            </button>
-            <div class="dropdown-content" id="dropdown-4-placement">
 
-                <a href="/KPICar">KPI over biler</a>
-                <a href="#">KPI over økonomi</a>
+
+            <div class="dropdown nav-item">
+                <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                    <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                    </button>
+                </div>
+
+                <div class="dropdown-content" id="dropdown-2-placement">
+                    <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+                </div>
             </div>
-        </div>
 
-        <div class="dropdown nav-item">
-            <button class="dropbtn" id="Staff-botton" >Personale
-            </button>
-            <div class="dropdown-content" id="dropdown-5-placement">
-                <a href="/createStaffMember">Opret ny medarbejder</a>
-                <a href="/allStaffMembers">Alle medarbejdere</a>
+            <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
+                <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
             </div>
-        </div>
 
+
+            <div class="dropdown nav-item">
+
+                <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                    <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+                </div>
+
+                <div class="dropdown-content" id="dropdown-3-placement">
+                    <a href="/findReviewTarget">Kundeanmeldelse</a>
+                    <a href="/auction">Auktion </a>
+                </div>
+            </div>
+
+            <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+                </button>
+            </div>
+
+            <div class="dropdown nav-item">
+                <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                    <button class="dropbtn" id="KPI-botton">KPI
+                    </button>
+                </div>
+                <div class="dropdown-content" id="dropdown-4-placement">
+                    <a href="/KPICar">KPI over biler</a>
+                    <a href="#">KPI over økonomi</a>
+                </div>
+            </div>
+
+            <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
+                <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+                </button>
+            </div>
+
+            <div class="dropdown nav-item">
+                <div th:if="${staff_member.member_type_id == 4}">
+                    <button class="dropbtn" id="Staff-botton" >Personale
+                    </button>
+                </div>
+                <div class="dropdown-content" id="dropdown-5-placement">
+                    <a href="/createStaffMember">Opret ny medarbejder</a>
+                    <a href="/allStaffMembers">Alle medarbejdere</a>
+                </div>
+            </div>
+
+            <div th:unless="${staff_member.member_type_id == 4}">
+                <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+                </button>
+            </div>
+
+        </div>
     </div>
-</div>
-</div>
-</div>
+    </div>
+    </div>
+
 
 </head>
 <body>
@@ -85,14 +116,14 @@
     <header id="cd-header">Tilstandsrapport </header>
     <br><br><br>
     <div class="q1" >
-    <label for="contract_id">Hvad er kundens kontrakt id?     </label> <br> <br>
-        <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt ID">
+        <p>Har du modtaget tilstandsrapporten fra FDM?</p>
+        <label><input type="radio" name="q1" value="ja" required> Ja</label>
+        <label><input type="radio" name="q1" value="nej"> Nej</label>
     </div>
     <div class="q1" >
         <br><br><br>       <br>
-    <p>Har du modtaget tilstandsrapporten fra FDM?</p>
-    <label><input type="radio" name="q1" value="ja" required> Ja</label>
-    <label><input type="radio" name="q1" value="nej"> Nej</label>
+        <label for="contract_id">Hvad er kundens kontrakt id?     </label> <br> <br>
+        <input type="text" name="contract_id" id="contract_id" placeholder="Indtast kontrakt ID">
     </div>
     <button type="submit" class="submit-btn">Næste</button>
 </form>
