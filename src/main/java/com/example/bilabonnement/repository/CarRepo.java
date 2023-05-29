@@ -1,15 +1,11 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Contract;
-import com.example.bilabonnement.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -34,10 +30,10 @@ public class CarRepo {
         return total;
     }
 
-    public List<Car> viewCars(int car_id) {
-        String sql = "SELECT * From car where car_id=?";
+    public Car viewCar(int car_id) {
+        String sql = "SELECT * From car where car_id = ?";
         RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        return template.query(sql, rowMapper, car_id);
+        return template.queryForObject(sql, rowMapper, car_id);
     }
 
 
@@ -54,7 +50,7 @@ public class CarRepo {
         return car;
     }
 
-    public void location(String car_location, int car_id) {
+    public void pickLocation(String car_location, int car_id) {
         System.out.println(car_id);
         String sql = "UPDATE car SET car_location = ? Where car_id = ?";
         template.update(sql, car_location, car_id);
