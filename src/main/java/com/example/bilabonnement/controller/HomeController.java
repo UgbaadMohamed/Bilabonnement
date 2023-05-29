@@ -120,18 +120,22 @@ public class HomeController {
 
     @PostMapping("/createCustomer")
     public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,HttpSession session) {
-        customerService.createCustomer(customer);
         model.addAttribute("car", car);
         model.addAttribute("customer",
                 customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
+        //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
+        // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
+        // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
+        // og ikke vil kunne anvendes til videre brug. men ved
+        // brug af license kan vi finde den pågældende customer,
+        // tilføje den til den nye model.addAttribute og anvende den til videre brug
 
-                //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
-                // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
-                // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
-                // og ikke vil kunne anvendes til videre brug. men ved
-                // brug af license kan vi finde den pågældende customer,
-                // tilføje den til den nye model.addAttribute og anvende den til videre brug
+        if(customer.getCustomer_age() < 18){
+            return "home/customerForm";
+        }
+        customerService.createCustomer(customer);
+
 
 
         return "home/creditDocumentation";
@@ -172,7 +176,7 @@ public class HomeController {
             Contract contract2 = contractService.findContractByCarId(car.getCar_id());
 
             model.addAttribute("contract", contract2);
-            System.out.println("contractID" + contract2.getContract_id());
+
             int sum=  contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
             model.addAttribute("totalPriceForPayment",sum );
             return "home/payment";
