@@ -1,5 +1,4 @@
 package com.example.bilabonnement.service;
-
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.repository.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class CarService {
         return carRepo.totalMonthlyPrice();
     }
 
-    public void pickLocation(String car_location, int car_id){
+    public void location(String car_location, int car_id){
         carRepo.pickLocation(car_location,car_id);
     }
     public Car findCarById(int id){

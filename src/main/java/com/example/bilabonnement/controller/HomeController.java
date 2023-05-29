@@ -98,8 +98,8 @@ public class HomeController {
 
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model,HttpSession session) {
-        List<Car> cars = carService.viewCars(car_id);
-        model.addAttribute("cars", cars);
+        Car car = carService.viewCar(car_id);
+        model.addAttribute("car", car);
         session.getAttribute("staffmember");
         return "home/carInformation";
     }

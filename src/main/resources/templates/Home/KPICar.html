@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="positionForlogout">
-    <a href="/frontPage.html" class="logout-button">
+    <a href="/" class="logout-button">
         <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
     </a>
 </div>
@@ -31,7 +31,7 @@
             <div class="dropdown-content" id="dropdown-1-placement">
                 <a href="/carLeasing">Ledige biler</a>
                 <a href="/customerPage">Alle kunder</a>
-                <a href="/viewContracts">Alle kontrakter</a>
+                <a href="/viewLeasedCars/">Alle Kontrakter</a>
             </div>
         </div>
 
@@ -49,7 +49,6 @@
 
             <div class="dropdown-content" id="dropdown-2-placement">
                 <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
-                <a href="/viewContracts">Alle kontrakter</a>
             </div>
         </div>
 
@@ -67,7 +66,6 @@
             <div class="dropdown-content" id="dropdown-3-placement">
                 <a href="/findReviewTarget">Kundeanmeldelse</a>
                 <a href="/auction">Auktion </a>
-                <a href="/viewContracts">Alle kontrakter</a>
             </div>
         </div>
 
@@ -78,13 +76,12 @@
 
         <div class="dropdown nav-item">
             <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="KPI-botton">PA
+                <button class="dropbtn" id="KPI-botton">KPI
                 </button>
             </div>
             <div class="dropdown-content" id="dropdown-4-placement">
-                <a href="/KPICar">Lagerstatus</a>
-                <a href="/KPIEconomy">KPI</a>
-
+                <a href="/KPICar">KPI over biler</a>
+                <a href="#">KPI over økonomi</a>
             </div>
         </div>
 
@@ -108,71 +105,75 @@
             <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
             </button>
         </div>
-        </div>
+
     </div>
-<div class="back-foto">
 </div>
-<br><br><br><br><br><br><br><br><br><br><br>
-<div class="scrollable">
-    <div class="cd-header"style="margin-left: -950px;">Udlejet biler</div>
-    <table>
-        <thead>
-        <tr>
-            <th>Bil brand</th>
-            <th>Bil model</th>
-            <th>Nummerplade</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="car : ${totalRentedCars}">
-            <td th:text="${car.car_brand}"></td>
-            <td th:text="${car.car_model}"></td>
-            <td th:text="${car.car_plate}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <br><br><br><br><br>
-    <div id="cd-header"style="margin-left: -950px;">Biler på lager</div>
-    <table>
-        <thead>
-        <tr>
-
-            <th>Bil brand</th>
-            <th>Bil model</th>
-            <th>Nummerplade</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="car : ${totalavailabelCars}">
-            <td th:text="${car.car_brand}"></td>
-            <td th:text="${car.car_model}"></td>
-            <td th:text="${car.car_plate}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <br><br><br><br><br>
-    <div class="cd-header"style="margin-left: -750px;"> Nærmeste leasing afslutninger</div>
-    <table>
-        <thead>
-        <tr>
-
-            <th>Leasing slut dato</th>
-            <th>Bil brand</th>
-            <th>Bil model</th>
-            <th>Nummerplade</th>
-        </tr>
-        <tbody>
-
-        <tr th:each="data : ${list}">
-            <td th:text="${data.key.contract_end_date}"></td>
-            <td th:text="${data.value.car_brand}"></td>
-            <td th:text="${data.value.car_model}"></td>
-            <td th:text="${data.value.car_plate}"></td>
-        </tr>
-
-
-    </table>
 </div>
+</div>
+
+    <div class="back-foto">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <div class="scrollable">
+        <div class="cd-header"style="margin-left: -950px;">Udlejet biler</div>
+        <table>
+            <thead>
+            <tr>
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car : ${totalRentedCars}">
+                <td th:text="${car.car_brand}"></td>
+                <td th:text="${car.car_model}"></td>
+                <td th:text="${car.car_plate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br><br><br><br>
+        <div id="cd-header"style="margin-left: -950px;">Biler på lager</div>
+        <table>
+            <thead>
+            <tr>
+
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car : ${totalavailabelCars}">
+                <td th:text="${car.car_brand}"></td>
+                <td th:text="${car.car_model}"></td>
+                <td th:text="${car.car_plate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br><br><br><br>
+        <div class="cd-header"style="margin-left: -750px;"> Nærmeste leasing afslutninger</div>
+        <table>
+            <thead>
+            <tr>
+
+                <th>Leasing slut dato</th>
+                <th>Bil brand</th>
+                <th>Bil model</th>
+                <th>Nummerplade</th>
+            </tr>
+            <tbody>
+
+            <tr th:each="data : ${list}">
+                <td th:text="${data.key.contract_end_date}"></td>
+                <td th:text="${data.value.car_brand}"></td>
+                <td th:text="${data.value.car_model}"></td>
+                <td th:text="${data.value.car_plate}"></td>
+            </tr>
+
+
+        </table>
+    </div>
 </div>
 
 </body>
