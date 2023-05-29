@@ -30,7 +30,7 @@
         <div class="dropdown-content" id="dropdown-1-placement">
           <a href="/carLeasing">Ledige biler</a>
           <a href="/customerPage">Alle kunder</a>
-          <a href="/viewLeasedCars/">Alle Kontrakter</a>
+          <a href="/viewContracts">Alle kontrakter</a>
         </div>
       </div>
 
@@ -48,6 +48,7 @@
 
         <div class="dropdown-content" id="dropdown-2-placement">
           <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+          <a href="/viewContracts">Alle kontrakter</a>
         </div>
       </div>
 
@@ -65,6 +66,7 @@
         <div class="dropdown-content" id="dropdown-3-placement">
           <a href="/findReviewTarget">Kundeanmeldelse</a>
           <a href="/auction">Auktion </a>
+          <a href="/viewContracts">Alle kontrakter</a>
         </div>
       </div>
 
@@ -75,13 +77,13 @@
 
       <div class="dropdown nav-item">
         <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
-        <button class="dropbtn" id="KPI-botton">KPI
+        <button class="dropbtn" id="KPI-botton">PA
         </button>
         </div>
         <div class="dropdown-content" id="dropdown-4-placement">
-          <a href="/KPICar">KPI over biler</a>
-          <a href="#">KPI over økonomi</a>
-          <a href="/viewContracts">KPI over kontrakt</a>
+          <a href="/KPICar">Lagerstatus</a>
+          <a href="/KPIEconomy">KPI</a>
+
         </div>
       </div>
 

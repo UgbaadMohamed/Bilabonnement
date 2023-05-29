@@ -1,149 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
-    <link rel="stylesheet" type="text/css" href="header.css">
-
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/contract.css">
 </head>
 <body>
-<div id="positionForlogout">
-    <a href="/" class="logout-button">
-        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
-    </a>
-</div>
-
-<div class="navbar">
-
-    <div id="menuHeader" onclick="window.location.href='/homePage'">
-        <div class="nav-item">
-            <a href="/homePage" id="logo"></a>
-        </div>
-    </div>
-
-    <div class="links">
-        <div class="dropdown nav-item">
-            <div th:if="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="Leasing-botton"> Leasing
-                </button>
-            </div>
-            <div class="dropdown-content" id="dropdown-1-placement">
-                <a href="/carLeasing">Ledige biler</a>
-                <a href="/customerPage">Alle kunder</a>
-                <a href="/viewLeasedCars/">Alle Kontrakter</a>
-            </div>
-        </div>
-
-        <div th:unless="${staff_member.member_type_id == 1 || staff_member.member_type_id == 4}">
-            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
-            </button>
-        </div>
-
-
-        <div class="dropdown nav-item">
-            <div th:if="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
-                </button>
-            </div>
-
-            <div class="dropdown-content" id="dropdown-2-placement">
-                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
-            </div>
-        </div>
-
-        <div th:unless="${staff_member.member_type_id == 3 || staff_member.member_type_id == 4}">
-            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
-        </div>
-
-
-        <div class="dropdown nav-item">
-
-            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
-            </div>
-
-            <div class="dropdown-content" id="dropdown-3-placement">
-                <a href="/findReviewTarget">Kundeanmeldelse</a>
-                <a href="/auction">Auktion </a>
-            </div>
-        </div>
-
-        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
-            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
-            </button>
-        </div>
-
-        <div class="dropdown nav-item">
-            <div th:if="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="KPI-botton">KPI
-                </button>
-            </div>
-            <div class="dropdown-content" id="dropdown-4-placement">
-                <a href="/KPICar">KPI over biler</a>
-                <a href="#">KPI over økonomi</a>
-            </div>
-        </div>
-
-        <div th:unless="${staff_member.member_type_id == 2 || staff_member.member_type_id == 4}">
-            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
-            </button>
-        </div>
-
-        <div class="dropdown nav-item">
-            <div th:if="${staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="Staff-botton" >Personale
-                </button>
-            </div>
-            <div class="dropdown-content" id="dropdown-5-placement">
-                <a href="/createStaffMember">Opret ny medarbejder</a>
-                <a href="/allStaffMembers">Alle medarbejdere</a>
-            </div>
-        </div>
-
-        <div th:unless="${staff_member.member_type_id == 4}">
-            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="back-foto">
-</div>
 <div class="contractform" style="display: flex; flex-wrap: wrap;">
 
     <form th:action="@{/contractInfo}" method="post">
-        <div class="basic-box ">
-            <br><br>
-            <header id="cd-header">Kontrakt </header>
-            <div class="q1" >
-                <br> <br><br>
-    <label for="contract_start_date">Leasing start dato :</label>
+
+
+    <label for="contract_start_date">Start Date :</label>
     <input type="text" name="contract_start_date" id="contract_start_date" required/>
-            </div>
-            <br><br> <br><br>
-            <div class="q2" >
-    <label for="contract_end_date">Leasing slut dato</label>
+
+    <label for="contract_end_date">End date:</label>
          <input type="text" name="contract_end_date" id="contract_end_date" required/>
-            </div>
-            <br><br> <br>
-            <div class="q3" >
-        <label for="contract_maximum_km">Maximum KM kørsel tilladt:</label>
+
+        <label for="contract_maximum_km">Max KM:</label>
         <input type="text" name="contract_maximum_km" id="contract_maximum_km" required/>
-            </div>
+
+
         <input type="hidden" name="customer_id" th:value="${customer.customer_id}">
         <input type="hidden" name="car_id" th:value="${car.car_id}">
-            <br><br>
-            <p style="color: #aec0c9; margin-left: 90px;">* Ved underskrivelse påtager du fuldt ansvar
-                for at sikre at oplysningern</p>
-            <p  style="color: #aec0c9; margin-left:90px;"> fra kundens side er korrekte. *</p>
-            <button type="submit" class="submit-btn">Underskriv</button>
+
+     <button type="submit" value="Save changes" style="background-color: #4CAF50" >
         </button>
-        </div>
     </form>
 
 
-       <!--p> TOTAL PRICE : <span th:text="${contract.totalPriceForPayment}"/> </p-->
+
 </div>
 </body>
 </html>

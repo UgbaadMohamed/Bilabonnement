@@ -111,13 +111,5 @@ public class CarRepo {
     }
 
 
-    public List<Car> carsWithContract() {
-        String sql = "SELECT c.car_brand, c.car_model, c.image, c.car_vin \n" +
-                "FROM car c\n" +
-                "LEFT JOIN contract a ON c.car_id = a.car_id\n" +
-                "WHERE a.contract_id IS NOT NULL;\n";
-        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
-        List<Car> cars = template.query(sql, rowMapper);
-        return cars;
-    }
+
 }

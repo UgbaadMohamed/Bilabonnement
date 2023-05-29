@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class KPIService {
@@ -41,22 +42,23 @@ public class KPIService {
     }
 
 
-    public HashMap<Contract, Car> mapOfcontractsandcar(){
 
-        List<Contract> rentalEndDate = findRentalEndDate();
+
+    public Map<Contract, Car> mapOfcontractsandcar(){
+
+        List<Contract> findRentalEndDate = findRentalEndDate();
         List<Car>cars = orderByRentalEndDate();
 
-        HashMap<Contract, Car> map = new HashMap<>();
+        Map<Contract, Car> map = new HashMap<>();
 
-        for (Contract contract : rentalEndDate) {
-            for (Car car : cars){
-                if(contract.getCar_id() == (car.getCar_id())){
-                    map.put(contract, car);
-                }
-            }
+        for (int i = 0; i < findRentalEndDate.size(); i++) {
+            Contract contract = findRentalEndDate.get(i);
+            Car car = cars.get(i);
+            map.put(contract,car);
         }
         return map;
     }
+
 
     public List<Payment> notPayed() {
         return kpiRepo.notPayed();

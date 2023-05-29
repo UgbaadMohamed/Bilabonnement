@@ -1,6 +1,4 @@
-package com.example.bilabonnement.repo;
-
-import com.example.bilabonnement.model.Payment;
+package com.example.bilabonnement.repository;
 import com.example.bilabonnement.model.StaffMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -50,7 +48,7 @@ public class StaffMemberRepo {
 
 
     public List<StaffMember> allStaffMembers() {
-        String sql = "SELECT staff_member_first_name, staff_member_last_name FROM staff_member;";
+        String sql = "SELECT staff_member_id,staff_member_first_name, staff_member_last_name FROM staff_member;";
         RowMapper<StaffMember> rowMapper = new BeanPropertyRowMapper<>(StaffMember.class);
         List<StaffMember> staffMemberList = template.query(sql, rowMapper);
         return staffMemberList;
@@ -61,6 +59,11 @@ public class StaffMemberRepo {
         String sql = "INSERT INTO staff_member (staff_member_first_name, staff_member_last_name, staff_member_username, staff_member_password, member_type_id) " +
                 "VALUES (?, ?, ?, ?, ?)";
         template.update(sql,s.getStaff_member_first_name(),s.getStaff_member_last_name(),s.getStaff_member_username(),s.getStaff_member_password(),s.getMember_type_id());
+    }
+
+    public Boolean deleteStaffMember(int staff_memeber_id){
+        String sql = "DELETE FROM staff_member WHERE staff_member_id = ?";
+        return template.update(sql, staff_memeber_id) > 0;
     }
 
 }

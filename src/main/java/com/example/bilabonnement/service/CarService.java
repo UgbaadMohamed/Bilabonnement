@@ -53,7 +53,5 @@ public class CarService {
     }
 
 
-    public List<Car> carsWithContract() {
-        return carRepo.carsWithContract();
-    }
+
 }

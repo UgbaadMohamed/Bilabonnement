@@ -29,6 +29,14 @@ public class CustomerRepo {
                 c.getCustomer_license_number(), c.getCustomer_age(), c.getCustomer_creditworthy());
     }
 
+    public Boolean deleteCustomer(int customer_id){
+        String sql = "DELETE FROM customer WHERE customer_id = ?";
+        return template.update(sql,customer_id) > 0;
+    }
+
+
+
+
 
     public void makeCustomerCreditworthy(int customer_id){
         String sql = "UPDATE customer SET customer_creditworthy = 1 WHERE customer_id = ?";

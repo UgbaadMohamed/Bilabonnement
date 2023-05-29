@@ -1,5 +1,6 @@
 package com.example.bilabonnement.repository;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -88,6 +89,17 @@ public class ContractRepo {
                 "WHERE t.contract_id = ?";
         int sum= template.queryForObject(sql2, Integer.class, contract_id);
         return sum;
+    }
+
+
+    public List<Car> carsWithContract() {
+        String sql = "SELECT c.car_brand, c.car_model, c.image, c.car_vin \n" +
+                "FROM car c\n" +
+                "LEFT JOIN contract a ON c.car_id = a.car_id\n" +
+                "WHERE a.contract_id IS NOT NULL;\n";
+        RowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        List<Car> cars = template.query(sql, rowMapper);
+        return cars;
     }
 
 }

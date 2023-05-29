@@ -1,5 +1,6 @@
 package com.example.bilabonnement.service;
 
+import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.Contract;
 import com.example.bilabonnement.repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ContractService {
@@ -44,10 +47,23 @@ public class ContractService {
         return contractRepo.totalPriceForMonthlyPayment(contract_id);
     }
 
+    public Map<Contract, Car> mapOfcontractsandcar(){
 
-    public List<Contract> fetchContracts() {
-    return contractRepo.fetchContracts();
+        List<Contract> fetchContracts = contractRepo.fetchContracts();
+        List<Car>cars = contractRepo.carsWithContract();
+
+       // HashMap<Contract, Car> map = new HashMap<>();
+        Map<Contract, Car> map = new HashMap<>();
+
+        for (int i = 0; i < fetchContracts.size(); i++) {
+            Contract contract = fetchContracts.get(i);
+            Car car = cars.get(i);
+            map.put(contract,car);
+        }
+        return map;
     }
+
+
 
     public Contract findContractById(int contract_id){
         return contractRepo.findContractById(contract_id);
@@ -60,4 +76,10 @@ public class ContractService {
     public Boolean deleteContract(int contract_id){
         return contractRepo.deleteContract(contract_id);
     }
+
+
+
+
+
+
 }

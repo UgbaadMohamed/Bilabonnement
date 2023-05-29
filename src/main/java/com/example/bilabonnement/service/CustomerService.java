@@ -13,6 +13,9 @@ import java.util.List;
         @Autowired
         CustomerRepo customerRepo;
 
+    public Boolean deleteCustomer(int customer){
+        return customerRepo.deleteCustomer(customer);
+    }
 
     public List<Customer>fetchAllCustomer(){
         return customerRepo.fetchAllCustomer();
