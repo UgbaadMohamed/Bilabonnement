@@ -39,6 +39,17 @@ body {
     border: #000000;
 }
 
+.video-filter{
+    position: absolute;
+    z-index: 4;
+    background: transparent;
+    width:1700px;
+    height:1000px;
+}
+
+
+
+
 
 
 

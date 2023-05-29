@@ -98,6 +98,10 @@ public class CarRepo {
                 "(SELECT contract_id FROM contract WHERE car_id = ?)";
         template.update(deleteReviewSql, car.getCar_id());
 
+        String deleteConditionReportSql = "DELETE FROM condition_report WHERE contract_id IN" +
+                "(SELECT contract_id FROM contract WHERE car_id = ?)";
+        template.update(deleteConditionReportSql, car.getCar_id());
+
         String deleteContractSql = "DELETE FROM contract WHERE car_id = ?";
         template.update(deleteContractSql, car.getCar_id());
 

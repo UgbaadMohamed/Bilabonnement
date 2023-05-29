@@ -3,39 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/homepage.css">
-    <link rel="stylesheet" type="text/css" href="/home.css">
+    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="custumer.css">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
 </head>
 <body>
-<div id="menuHeader">
-    Bilabonnement.dk
-</div>
-<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
-<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
-<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
-<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
 
-<div id="search-input">
-
-    <form action="/search" method="GET">
-        <input type="text" placeholder="Search for car..." name="car_brand" required>
-        <button type="submit" id="search-submit"> <i class="fa fa-search"></i></button>
-    </form>
-
-</div>
 <div id="positionForlogout">
     <a href="/" class="logout-button">
-        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
     </a>
 </div>
 
-<div class="home-foto">
-</div>
-<nav>
-    <ul>
-    </ul>
-</nav>
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">PA
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">Lagerstatus</a>
+                <a href="/KPIEconomy">KPI</a>
+
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+
+    </div>
+    <div class="scrollable-y">
 <div class="car-container" style="display: flex; flex-wrap: wrap;">
     <div th:each="car: ${cars}" class="car-box">
         <div class="car">
@@ -52,6 +128,11 @@
               <button class="total"></i></button>
           </a>
     </div>
+</div>
+</div>
+</div>
+
+<div class="back-foto">
 </div>
 </body>
 </html>

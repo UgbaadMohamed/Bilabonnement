@@ -14,4 +14,14 @@ public class ConditionReportService
     public void saveConditionReport(ConditionReport conditionReport){
         conditionReportRepo.saveConditionReport(conditionReport);
     }
+
+
+    public Boolean checkIfAlreadyConditionReported(int contract_id) {
+        return conditionReportRepo.checkIfAlreadyConditionReported(contract_id);
+    }
+
+    public ConditionReport findContractById (int contract_id){
+       return conditionReportRepo.findContractById(contract_id);
+
+    }
 }

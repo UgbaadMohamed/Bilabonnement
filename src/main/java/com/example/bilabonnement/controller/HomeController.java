@@ -23,6 +23,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PathVariable;
+/*
+<div id="video-filter" >
+<div class="background-video" >
+<iframe width="1700" height="1000" src="https://www.youtube.com/embed/5HyDAC5bxwc?autoplay=1&mute=1&loop=100&controls=0" allowfullscreen></iframe>
+</div>
+ */
 
 @Controller
 public class HomeController {
@@ -69,7 +75,7 @@ public class HomeController {
 
             return "home/homePage";
         }
-        return "home/loginPage";
+        return "home/loginPageDenied";
     }
 
     @GetMapping("/homePage")
@@ -184,7 +190,6 @@ public class HomeController {
         return "home/homePage";
     }
 
-
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation(Model model,HttpSession session) {
         session.getAttribute("staffmember");
@@ -193,9 +198,22 @@ public class HomeController {
 
     @PostMapping("/conditionReport")
     public String conditionReport(@RequestParam("contract_id") int contract_id, Model model,HttpSession session) {
-        model.addAttribute("contract", contractService.findContractById(contract_id));
+
         session.getAttribute("staffmember");
-        return "home/conditionReport";
+        try {
+            if (conditionReportService.checkIfAlreadyConditionReported(contract_id)) {
+                return "home/ConditionReportDenied";
+            }
+            else {
+               // ConditionReport conditionReport = conditionReportService.findContractById(contract_id);
+                model.addAttribute("contract", contractService.findContractById(contract_id));
+
+                return "home/conditionReport";
+            }
+        } catch (EmptyResultDataAccessException e) {
+            return "home/ConditionReportDenied";
+        }
+
     }
 
     @PostMapping("/saveConditionReport")
@@ -204,6 +222,14 @@ public class HomeController {
         conditionReportService.saveConditionReport(conditionReport);
         return "home/homePage";
     }
+
+
+
+    /* @RequestParam("contract_id") int contract_id,
+
+
+
+     */
 
     @GetMapping("/KPICar")
     public String totalRentedCars(Model model, HttpSession session) {
@@ -337,7 +363,7 @@ public class HomeController {
     public String createCustomer(@ModelAttribute StaffMember s,HttpSession session) {
         session.getAttribute("staffmember");
         staffMemberService.createStaff(s);
-        return "home/createStaffMember";
+        return "home/homePage";
     }
 
     @GetMapping("/deleteStaffMember/{staff_member_id}")
@@ -418,27 +444,6 @@ public class HomeController {
 }
 
 
-
-
-
-
-
-   /*
-    @PostMapping("/credit validation-form")
-    public String creditvalidationForm() {
-
-        return "home/contract";
-    }
-
-
-        @GetMapping("/totalPriceForPayment")
-    public String totalPayment(@PathVariable("car_id") int car_id,Contract contract, Model model) {
-        int sum = contractService.totalPriceForMonthlyPayment(car_id, contract) ;
-        System.out.println(sum);
-        model.addAttribute("contract", sum);
-        return "home/contract";
-    }
-    */
 
 
 
