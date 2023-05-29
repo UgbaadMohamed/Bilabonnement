@@ -120,9 +120,8 @@ public class HomeController {
 
     @PostMapping("/createCustomer")
     public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,HttpSession session) {
+        session.getAttribute("staffmember");
         model.addAttribute("car", car);
-        model.addAttribute("customer",
-                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
         //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
         // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
@@ -135,6 +134,8 @@ public class HomeController {
             return "home/customerForm";
         }
         customerService.createCustomer(customer);
+        model.addAttribute("customer",
+                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
 
 
