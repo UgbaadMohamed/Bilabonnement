@@ -120,7 +120,7 @@ public class HomeController {
     public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,HttpSession session) {
         session.getAttribute("staffmember");
         model.addAttribute("car", car);
-
+//hh
         //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
         // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
         // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
