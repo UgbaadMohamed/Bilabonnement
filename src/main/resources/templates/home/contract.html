@@ -8,8 +8,7 @@
 <body>
 <div class="contractform" style="display: flex; flex-wrap: wrap;">
 
-    <form th:action="@{/contractInfo}" method="post">
-
+    <form th:action="@{/contractInfo}" method="post" onsubmit="return validateForm()">
 
     <label for="contract_start_date">Start Date :</label>
     <input type="text" name="contract_start_date" id="contract_start_date" required/>
@@ -26,9 +25,54 @@
 
      <button type="submit" value="Save changes" style="background-color: #4CAF50" >
         </button>
-    </form>
 
+                <script>
+                    function validateForm() {
+                        var startDate = document.getElementById("contract_start_date").value;
+                        var endDate = document.getElementById("contract_end_date").value;
+                        var errorMessage = document.getElementById("error_message");
 
+                        // Calculate the duration in months
+                        var durationInMonths = calculateDurationInMonths(startDate, endDate);
+
+                        // Check if the duration is bigger than 36 months
+                        if (durationInMonths > 36) {
+                            errorMessage.innerText = "Varigheden er ikke gyldig. Vælg venligst en varighed på mindre end 36 måneder.";
+                            return false; // Prevent form submission
+                        }
+
+                        // Clear the error message if the duration is valid
+                        errorMessage.innerText = "";
+
+                        // Other form validation logic
+
+                        return true;
+                    }
+
+                    function calculateDurationInMonths(contract_start_date, contract_end_date) {
+                        var start = new Date(contract_start_date);
+                        var end = new Date(contract_end_date);
+
+                        var yearDiff = end.getFullYear() - start.getFullYear();
+                        var monthDiff = end.getMonth() - start.getMonth();
+                        var totalMonths = yearDiff * 12 + monthDiff;
+
+                        if (end.getDate() < start.getDate()) {
+                            totalMonths--;
+                        }
+
+                        return totalMonths;
+                    }
+
+                </script>
+
+                <!-- Form fields -->
+
+                <p id="error_message" style="color: red;"></p>
+
+                <!-- Submit button -->
+
+            </form>
 
 </div>
 </body>

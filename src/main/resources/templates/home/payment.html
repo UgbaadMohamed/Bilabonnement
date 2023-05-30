@@ -5,38 +5,13 @@
     <title>Title</title>
   VELKOMMEN TIL betaling AF DIN LEASING
 </head>
-<body>
-<form th:action="@{/payment}" method="post">
-    <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
 
-    <!--table>
-        <thead>
-        <tr>
-            <th>Abonnement type:</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="contract : ${contract.isLimited()}">
-            <td th:text="limited abonnement"></td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <table>
-        <thead>
-        <tr>
-            <th>Abonnement type:</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="contract : ${contract.unlimited}">
-            <td th:text="unlimited abonnement"></td>
-        </tr>
-        </tbody>
-    </table-->
+ <body>
+    <form th:action="@{/payment}" method="post">
+        <p> TOTAL PRICE : <span th:text="${totalPriceForPayment}"/> </p>
+        <p>Abonnement type:</p>
+        <p th:if="${contract.limited == 1}">Limited Abonnement</p>
+        <p th:if="${contract.limited == 0}">Unlimited Abonnement</p>
 
     <p>Vil kunden betale nu?</p>
     <label><input type="radio" name="payed" value="true" required> Ja</label>
