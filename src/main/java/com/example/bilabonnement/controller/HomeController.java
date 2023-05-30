@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -91,8 +90,15 @@ public class HomeController {
         model.addAttribute("cars", cars);
       //  session.getAttribute("staffmember");
 
-        return "home/carLeasing";
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1)
+            return "home/carLeasing";
+
+
+        return "redirect:/loginPage";
     }
+
+
 
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model,HttpSession session) {
@@ -184,7 +190,12 @@ public class HomeController {
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation(Model model,HttpSession session) {
         session.getAttribute("staffmember");
-        return "home/conditionReportDocumentation";
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 3)
+            return "home/conditionReportDocumentation";
+
+        return "redirect:/loginPage";
+
     }
 
     @PostMapping("/conditionReport")
@@ -237,15 +248,15 @@ public class HomeController {
 
         Map<Contract, Car> map = kpiService.mapOfcontractsandcar();
         model.addAttribute("list", map);
-
         session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4)
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
             return "home/KPICar";
 
 
-        return "redirect:/login";
+        return "redirect:/loginPage";
     }
+
 
 
     @GetMapping("/KPIEconomy")
@@ -260,16 +271,29 @@ public class HomeController {
         model.addAttribute("subscriptionPrice", total);
 
         session.getAttribute("staffmember");
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+            return "home/KPIEconomy";
 
-        return "home/KPIEconomy";
+
+        return "redirect:/loginPage";
+
     }
+
 
     //REVIEW---------------------
 
     @GetMapping("/findReviewTarget")
     public String findReviewTarget(Model model,HttpSession session) {
         session.getAttribute("staffmember");
+
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
             return "home/findReviewTarget";
+
+
+        return "redirect:/loginPage";
+
     }
 
     @GetMapping("/review")
@@ -342,7 +366,14 @@ public class HomeController {
         List<Car> carsInAuction = carService.fetchCarsInAuction();
         model.addAttribute("cars_in_auction", carsInAuction);
         session.getAttribute("staffmember");
-        return "home/auction";
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+            return "home/auction";
+
+
+        return "redirect:/loginPage";
+
+
     }
 
     //------------------------------
@@ -350,7 +381,14 @@ public class HomeController {
     @GetMapping("/createStaffMember")
     public String createCustomer(HttpSession session) {
         session.getAttribute("staffmember");
-        return "home/createStaffMember";
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4)
+            return "home/createStaffMember";
+
+        return "redirect:/loginPage";
+
+
+
     }
 
     @PostMapping("/addStaffMember")
@@ -378,7 +416,14 @@ public class HomeController {
         List<StaffMember> staffMemberList = staffMemberService.allStaffMembers();
         model.addAttribute("allStaff",staffMemberList);
         session.getAttribute("staffmember");
-        return "home/allStaffMembers";
+
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4)
+            return "home/allStaffMembers";
+
+        return "redirect:/loginPage";
+
+
     }
 
     @GetMapping("/customerPage")
@@ -386,7 +431,12 @@ public class HomeController {
         List<Customer> customerList = customerService.fetchAllCustomer();
         model.addAttribute("customers", customerList);
         session.getAttribute("staffmember");
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4)
             return "home/customerPage";
+
+        return "redirect:/loginPage";
+
         }
     
 
@@ -404,11 +454,13 @@ public class HomeController {
    public String viewContract(Model model,HttpSession session) {
        Map<Contract, Car> map = contractService.mapOfcontractsandcar();
        model.addAttribute("list",map);
-       //  model.addAttribute("contracts", contractService.fetchContracts());
-     //  model.addAttribute("cars",carService.carsWithContract())
-       //  ;
        session.getAttribute("staffmember");
-       return "home/viewContracts";
+       StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+       //if (staffMember.getMember_type_id() )
+          // return "home/viewContracts";
+
+       return "redirect:/loginPage";
+
 
 }
 
