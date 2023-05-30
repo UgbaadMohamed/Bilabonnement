@@ -11,15 +11,24 @@ import com.example.bilabonnement.service.*;
 import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.service.ContractService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import org.springframework.web.bind.annotation.PathVariable;
+/*
+<div id="video-filter" >
+<div class="background-video" >
+<iframe width="1700" height="1000" src="https://www.youtube.com/embed/5HyDAC5bxwc?autoplay=1&mute=1&loop=100&controls=0" allowfullscreen></iframe>
+</div>
+ */
 
 @Controller
 public class HomeController {
@@ -42,6 +51,7 @@ public class HomeController {
     ContractService contractservice;
     @Autowired
     ReviewService reviewService;
+
 
 
     @GetMapping("/")
@@ -80,7 +90,7 @@ public class HomeController {
         List<Car> cars= carService.searchSpecificCar(car_brand);
         System.out.println(cars);
         model.addAttribute("cars", cars);
-       // session.getAttribute("staffmember");
+        session.getAttribute("staffmember");
         return "home/search";
     }
 
@@ -97,8 +107,6 @@ public class HomeController {
 
         return "redirect:/loginPage";
     }
-
-
 
     @GetMapping("/viewCar/{car_id}")
     public String viewCar(@PathVariable("car_id") int car_id, Model model,HttpSession session) {
@@ -118,18 +126,26 @@ public class HomeController {
 
     @PostMapping("/createCustomer")
     public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,HttpSession session) {
-        customerService.createCustomer(customer);
+        session.getAttribute("staffmember");
         model.addAttribute("car", car);
         model.addAttribute("customer",
                 customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
 
-                //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
-                // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
-                // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
-                // og ikke vil kunne anvendes til videre brug. men ved
-                // brug af license kan vi finde den pågældende customer,
-                // tilføje den til den nye model.addAttribute og anvende den til videre brug
+        //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
+        // i princippet ikke har nogen customer_id endnu, og derfor vil værdien være 0
+        // (da den endnu ikke helt er oprettet endnu med auto increment(i databasen)),
+        // og ikke vil kunne anvendes til videre brug. men ved
+        // brug af license kan vi finde den pågældende customer,
+        // tilføje den til den nye model.addAttribute og anvende den til videre brug
+
+        if(customer.getCustomer_age() < 18){
+            return "home/customerForm";
+        }
+        customerService.createCustomer(customer);
+        model.addAttribute("customer",
+                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
+
 
 
         return "home/creditDocumentation";
@@ -170,7 +186,7 @@ public class HomeController {
             Contract contract2 = contractService.findContractByCarId(car.getCar_id());
 
             model.addAttribute("contract", contract2);
-            System.out.println("contractID" + contract2.getContract_id());
+
             int sum=  contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
             model.addAttribute("totalPriceForPayment",sum );
             return "home/payment";
@@ -184,6 +200,7 @@ public class HomeController {
     public String finalizeWithPayment(Model model,@ModelAttribute Payment payment, @ModelAttribute Contract contract,HttpSession session) {
         paymentService.finalizeWithPayment(payment, contract);
         session.getAttribute("staffmember");
+
         return "home/homePage";
     }
 
@@ -207,6 +224,7 @@ public class HomeController {
                 return "home/ConditionReportDenied";
             }
             else {
+               // ConditionReport conditionReport = conditionReportService.findContractById(contract_id);
                 model.addAttribute("contract", contractService.findContractById(contract_id));
 
                 return "home/conditionReport";
@@ -258,7 +276,6 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/KPIEconomy")
     public String payedNow(Model model,HttpSession session) {
         List<Payment> payedNow = kpiService.payedNow();
@@ -279,7 +296,6 @@ public class HomeController {
         return "redirect:/loginPage";
 
     }
-
 
     //REVIEW---------------------
 
@@ -487,6 +503,17 @@ public class HomeController {
             return "redirect:/homePage";
         }
     }
+    @GetMapping("/fleet")
+    public String fleet(){
+        return "home/buyCar";
+    }
+    @PostMapping("/buyCar")
+    public String buyCar(@ModelAttribute Car car, HttpSession session){
+        carService.buyCar(car);
+        session.getAttribute("staffmember");
+        return "redirect:/homePage";
+    }
+
 }
 
 

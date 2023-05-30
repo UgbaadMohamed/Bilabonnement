@@ -51,6 +51,8 @@ public class CarService {
         return carRepo.sellCar(car);
     }
 
-
+    public void buyCar(Car c){
+        carRepo.buyCar(c);
+    }
 
 }

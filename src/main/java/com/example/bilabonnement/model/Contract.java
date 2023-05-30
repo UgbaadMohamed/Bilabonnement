@@ -10,38 +10,31 @@ public class Contract {
     private LocalDate contract_end_date;
     private int contract_maximum_km;
     private int totalPriceForPayment;
+    private int limited;
 
-    private boolean limited;
-    private  boolean unlimited;
 
+    public int getLimited() {
+        return limited;
+    }
+
+    public void setLimited(int limited) {
+        this.limited = limited;
+    }
 
     public Contract() {
     }
 
     public Contract(int contract_id, LocalDate contract_start_date, LocalDate contract_end_date,
-                    int contract_maximum_km, int car_id) {
+                    int contract_maximum_km, int car_id, int limited) {
         this.contract_id = contract_id;
         this.contract_start_date = contract_start_date;
         this.contract_end_date = contract_end_date;
         this.contract_maximum_km = contract_maximum_km;
         this.car_id=car_id;
+        this.limited=limited;
     }
 
-    public boolean isLimited() {
-        return limited;
-    }
 
-    public void setLimited(boolean limited) {
-        this.limited = limited;
-    }
-
-    public boolean isUnlimited() {
-        return unlimited;
-    }
-
-    public void setUnlimited(boolean unlimited) {
-        this.unlimited = unlimited;
-    }
 
     public int getTotalPriceForPayment() {
         return totalPriceForPayment;
