@@ -53,7 +53,6 @@ public class HomeController {
     ReviewService reviewService;
 
 
-
     @GetMapping("/")
     public String frontPage() {
         return "home/frontPage";
@@ -64,6 +63,7 @@ public class HomeController {
         return "home/loginPage";
     }
 
+    
     @PostMapping("/loginPage")
     public String loginPage(@RequestParam("staff_member_username") String staff_member_username,
                             @RequestParam("staff_member_password")
@@ -75,6 +75,7 @@ public class HomeController {
 
             return "home/homePage";
         }
+
         return "home/loginPageDenied";
     }
 
@@ -99,6 +100,7 @@ public class HomeController {
         List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
         session.getAttribute("staffmember");
+        session.setAttribute("hasAccess",true);
         return "home/carLeasing";
     }
 
@@ -446,6 +448,17 @@ public class HomeController {
             return "redirect:/homePage";
         }
     }
+    @GetMapping("/fleet")
+    public String fleet(){
+        return "home/buyCar";
+    }
+    @PostMapping("/buyCar")
+    public String buyCar(@ModelAttribute Car car, HttpSession session){
+        carService.buyCar(car);
+        session.getAttribute("staffmember");
+        return "redirect:/homePage";
+    }
+
 }
 
 
