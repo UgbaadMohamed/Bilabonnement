@@ -11,24 +11,16 @@ import com.example.bilabonnement.service.*;
 import com.example.bilabonnement.service.CarService;
 import com.example.bilabonnement.service.ContractService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PathVariable;
-/*
-<div id="video-filter" >
-<div class="background-video" >
-<iframe width="1700" height="1000" src="https://www.youtube.com/embed/5HyDAC5bxwc?autoplay=1&mute=1&loop=100&controls=0" allowfullscreen></iframe>
-</div>
- */
+
 
 @Controller
 public class HomeController {
@@ -51,7 +43,6 @@ public class HomeController {
     ContractService contractservice;
     @Autowired
     ReviewService reviewService;
-
 
 
     @GetMapping("/")
@@ -90,7 +81,7 @@ public class HomeController {
         List<Car> cars= carService.searchSpecificCar(car_brand);
         System.out.println(cars);
         model.addAttribute("cars", cars);
-        session.getAttribute("staffmember");
+       // session.getAttribute("staffmember");
         return "home/search";
     }
 
@@ -98,7 +89,8 @@ public class HomeController {
     public String carLeasing(Model model, HttpSession session) {
         List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
-        session.getAttribute("staffmember");
+      //  session.getAttribute("staffmember");
+
         return "home/carLeasing";
     }
 
@@ -186,7 +178,6 @@ public class HomeController {
     public String finalizeWithPayment(Model model,@ModelAttribute Payment payment, @ModelAttribute Contract contract,HttpSession session) {
         paymentService.finalizeWithPayment(payment, contract);
         session.getAttribute("staffmember");
-
         return "home/homePage";
     }
 
@@ -205,7 +196,6 @@ public class HomeController {
                 return "home/ConditionReportDenied";
             }
             else {
-               // ConditionReport conditionReport = conditionReportService.findContractById(contract_id);
                 model.addAttribute("contract", contractService.findContractById(contract_id));
 
                 return "home/conditionReport";
@@ -237,20 +227,24 @@ public class HomeController {
         model.addAttribute("totalRentedCars", totalRentedCarsList);
 
         List<Car> totalavailabelCars = kpiService.totalavailabelCars();
-        model.addAttribute("totalavailabelCars",totalavailabelCars);
+        model.addAttribute("totalavailabelCars", totalavailabelCars);
 
         List<Car> orderByRentalEndDate = kpiService.orderByRentalEndDate();
-        model.addAttribute("orderByRentalEndDate",orderByRentalEndDate);
+        model.addAttribute("orderByRentalEndDate", orderByRentalEndDate);
 
         List<Contract> findRentalEndDate = kpiService.findRentalEndDate();
-        model.addAttribute("findRentalEndDate",findRentalEndDate);
+        model.addAttribute("findRentalEndDate", findRentalEndDate);
 
-        Map<Contract, Car>map = kpiService.mapOfcontractsandcar();
-        model.addAttribute("list",map);
+        Map<Contract, Car> map = kpiService.mapOfcontractsandcar();
+        model.addAttribute("list", map);
 
         session.getAttribute("staffmember");
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4)
+            return "home/KPICar";
 
-        return "home/KPICar";
+
+        return "redirect:/login";
     }
 
 

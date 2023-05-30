@@ -90,3 +90,33 @@
     z-index: 2;
 
 }
+
+
+#search-input {
+    position: absolute;
+    top: 500px;
+    right: 750px;
+    width: 600px;
+    height: 30px;
+    border: 2px solid #c1abfd;
+    padding: 24px 155px;
+    z-index: 2;
+    left: 538px;
+    background-color: white;
+
+}
+#search-input input[type="text"] {
+    width: 650px;
+    height: 30px;
+    border-radius: 9px;
+    border: 2px solid #c1abfd;
+}
+
+#search-submit{
+    position: absolute;
+    top: 31px;
+    right: 120px;
+    padding: 1px 10px;
+    border-color: #a98ce3;
+    background: #d1b8fa;
+}
