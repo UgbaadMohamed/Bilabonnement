@@ -42,7 +42,7 @@ public class HomeController {
     ContractService contractservice;
     @Autowired
     ReviewService reviewService;
-
+//kk
 
     @GetMapping("/")
     public String frontPage() {
