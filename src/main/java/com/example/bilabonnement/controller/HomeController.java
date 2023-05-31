@@ -470,17 +470,6 @@ public class HomeController {
 
 }
 
-    @GetMapping("/deleteCustumer/{customer}")
-    public String deleteCustumer(@PathVariable("customer")int customer,HttpSession session){
-        boolean deleted = customerService.deleteCustomer(customer);
-        session.getAttribute("staffmember");
-        if (deleted) {
-            return "redirect:/homePage";
-        }
-        else {
-            return "redirect:/homePage";
-        }
-    }
 
     @GetMapping("/deleteContract/{contract_id}")
     public String deleteContract(@PathVariable("contract_id")int contract_id,HttpSession session){
