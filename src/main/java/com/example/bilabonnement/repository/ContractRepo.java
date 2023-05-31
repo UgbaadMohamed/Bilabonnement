@@ -74,6 +74,9 @@ public class ContractRepo {
 
 
     public Boolean deleteContract(int contract_id){
+
+        String deletePayment = "DELETE FROM payment WHERE contract_id = ?";
+        template.update(deletePayment, contract_id);
         String sql = "DELETE FROM contract WHERE contract_id = ?";
         return template.update(sql, contract_id) > 0;
     }
