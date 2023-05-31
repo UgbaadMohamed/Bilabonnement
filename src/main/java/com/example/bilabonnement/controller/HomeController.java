@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @Controller
 public class HomeController {
 
@@ -89,11 +88,9 @@ public class HomeController {
         List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
       //  session.getAttribute("staffmember");
-
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1)
             return "home/carLeasing";
-
 
         return "redirect:/loginPage";
     }
@@ -170,11 +167,11 @@ public class HomeController {
                                @ModelAttribute Customer customer, Model model, HttpSession session) {
         session.getAttribute("staffmember");
         if (contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
-            Contract contract2 = contractService.findContractByCarId(car.getCar_id());
+            Contract con = contractService.findContractByCarId(car.getCar_id());
 
-            model.addAttribute("contract", contract2);
+            model.addAttribute("contract", con);
 
-            int sum = contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
+            int sum = contractService.totalPriceForMonthlyPayment(con.getContract_id());
             model.addAttribute("totalPriceForPayment", sum);
             return "home/payment";
         } else
@@ -320,7 +317,6 @@ public class HomeController {
         reviewService.addReview(review);
         //deklaration
         List<Car> carsInAuction;
-
         /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
             pågældende bil (gennem en join) */
         Car car = carService.findCarByContractId(review.getContract_id());
@@ -433,7 +429,7 @@ public class HomeController {
         model.addAttribute("customers", customerList);
         session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4)
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1)
             return "home/customerPage";
 
         return "redirect:/loginPage";
@@ -457,8 +453,8 @@ public class HomeController {
        model.addAttribute("list",map);
        session.getAttribute("staffmember");
        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-       //if (staffMember.getMember_type_id() )
-          // return "home/viewContracts";
+       if (staffMember.getMember_type_id() == 1 ||staffMember.getMember_type_id() == 2 ||staffMember.getMember_type_id() == 3)
+          return "home/viewContracts";
 
        return "redirect:/loginPage";
 
@@ -489,7 +485,7 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/fleet")
+    @GetMapping("/buyCar")
     public String fleet(){
         return "home/buyCar";
     }

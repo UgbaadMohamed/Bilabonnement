@@ -353,7 +353,6 @@ body {
 .submit-btn {
     margin-left: 620px;
     margin-top: 30px;
-    background-color: #ffffff;
     color:black;
 }
 
@@ -367,6 +366,99 @@ body {
     position: fixed;
     background-image: url(images/logo.png);
 }
+
+
+.kp-foto {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url(images/kpi.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    filter: blur(0.6) brightness(0.5);
+    top:83px;
+    z-index: -1;
+}
+.circle-kpi {
+    position: fixed;
+    margin-top: 27%;
+    margin-left: 62%;
+    z-index: 45;
+    font-size: 26px;
+    color: #000000;
+    font-family: monospace;
+}
+
+
+.f-foto {
+    width: 100%;
+    height: 80%;
+    font-family: sans-serif;
+    margin-top: 0px;
+    background-image: url(images/bagground.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 45;
+}
+
+#carImg {
+    position: absolute;
+    position: fixed;
+    z-index: 45;
+    top: 200px;
+    left: 510px;
+    filter: brightness(0.6);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    height: 60%;
+
+}
+
+.model-view {
+    margin-top: 300px;
+    margin-left: 120px;
+}
+
+.brand-view {
+    margin-top: 290px;
+    margin-left: 120px;
+}
+
+.car_odometer-view {
+    margin-top: 100px;
+}
+
+.car_plate-view {
+    margin-top: 90px;
+}
+
+.car_vin-view {
+    margin-top: 80px;
+}
+
+#car_location-view {
+    margin-top: -80px;
+    padding: -100px 30px;
+    position: fixed;
+    left: 110px;
+    color: black;
+    border: 2px;
+}
+
 
 
 

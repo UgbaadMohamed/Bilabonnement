@@ -81,13 +81,12 @@ public class ContractRepo {
 
 
     public int totalPriceForMonthlyPayment(int contract_id){
-        System.out.println("her " + contract_id);
+
         String sql2 = "SELECT (PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM t.contract_end_date), EXTRACT(YEAR_MONTH FROM t.contract_start_date)) + 1) * c.subscription_price AS total_price\n" +
                 "FROM contract t\n" +
                 "JOIN car c ON c.car_id = t.car_id\n" +
                 "WHERE t.contract_id = ?";
-        int sum= template.queryForObject(sql2, Integer.class, contract_id);
-        return sum;
+        return template.queryForObject(sql2, Integer.class, contract_id);
     }
 
 
