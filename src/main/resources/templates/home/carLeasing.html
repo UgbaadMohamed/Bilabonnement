@@ -16,12 +16,6 @@
     </a>
 </div>
 
-<div id="search-input" >
-    <form action="/search" method="GET">
-        <input type="text" placeholder="Søg på et brand..." name="car_brand" required>
-        <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
-    </form>
-</div>
 
 <div class="navbar">
     <div id="menuHeader" onclick="window.location.href='/homePage'">
@@ -118,28 +112,39 @@
         </div>
 
     </div>
-    <div class="scrollable-y">
-<div class="car-container" style="display: flex; flex-wrap: wrap;">
-    <div th:each="car: ${cars}" class="car-box">
-        <div class="car">
-            <p class="brand"th:text="${car.car_brand}"></p>
-            <p class="model" th:text="${car.car_model}"></p>
-            <img th:src="${car.image} "class="image"/>
+</div>
 
-            <p class="subscription"th:text="${car.subscription_price}"></p>
+<div id="search-input">
+    <form action="/search" method="GET">
+        <input type="text" placeholder="Søg på et brand..." name="car_brand" required>
+        <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+
+<br><br>
+<div class="scrollable-y">
+    <div class="car-container" style="display: flex; flex-wrap: wrap;">
+        <div th:each="car: ${cars}" class="car-box">
+            <div class="car">
+                <p class="brand">Brand: <span th:text="${car.car_brand}"></span></p>
+                <p class="model">Model: <span th:text="${car.car_model}"></span></p>
+                <img th:src="${car.image} "class="image"/>
+                <p class="subscription">
+                    Pris: <span th:text="${car.subscription_price}"></span> Kr
+                </p>
+
+            </div>
+            <a th:href="@{'/viewCar/'+${car.car_id}}">
+                <button class="view-car">SE MERE</button>
+            </a>
+
         </div>
-          <a th:href="@{'/viewCar/'+${car.car_id}}">
-         <button class="view-car"></i></button>
-     </a>
-         <a th:href="@{'/stats'}">
-              <button class="total"></i></button>
-          </a>
     </div>
 </div>
-</div>
-</div>
 
-<div class="back-foto">
-</div>
+<div class="back-foto"></div>
+
+
+
 </body>
 </html>

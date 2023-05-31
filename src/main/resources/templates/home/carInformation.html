@@ -1,69 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="/carinformation.css">
 
-    <link rel="stylesheet" type="text/css" href="/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/d17da6709b.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/header.css">
+    <link rel="stylesheet" type="text/css" href="/homepage.css">
+    <link rel="stylesheet" type="text/css" href="/carinformation.css">
 </head>
-<body>
-<div id="menuHeader">
-    Bilabonnement.dk
-</div>
-<a href="/Leasing" style="margin-top: 40px; color: black;" id="Leasing-botton">Leasing</a>
-<a href="/Skade og Udbedring" style=" color: black;" id="Skade-botton">Skade og Udbedring</a>
-<a href="/KPI" style="margin-top: 40px; color: black;" id="KPI-botton">KPI</a>
-<a href="/Ekstra" style=" color: black;" id="Ekstra-botton">Ektra</a>
-
 
 <div id="positionForlogout">
     <a href="/" class="logout-button">
-        <i class="fa-solid fa-right-from-bracket fa-xl" style="color: gray;"></i>
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
     </a>
 </div>
 
-<div class="home-foto">
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
+    </div>
+
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton" >Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation" >Opret tilstandsrapport </a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton" >Efterbehandling </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion </a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable" >Efterbehandling
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">PA
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">Lagerstatus</a>
+                <a href="/KPIEconomy">KPI</a>
+
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI
+            </button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton" >Personale
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable" >Personale
+            </button>
+        </div>
+    </div>
+
+    <div class="view-box">
+
+        <p id="car_model" ></p>
+        <div class="information" style="display: flex; flex-wrap: wrap;">
+            <!--div th:each="car: ${cars}"-->
+
+            <input class="brand-view" text="brand" th:value=" 'Brand: '+ ${car.car_model}"  readonly>
+
+            <input class="brand-view" text="brand" th:value=" 'Brand: '+ ${car.car_brand}" readonly>
+
+            <input class="car_odometer-view" th:value="'Nuværende kilometer: '+ ${car.car_odometer}"readonly>
+
+            <input class="car_plate-view" th:value="'Nummerplade: '+ ${car.car_plate}"readonly>
+
+            <input class="car_vin-view" th:value="'Steelnummer: '+${car.car_vin}"readonly>
+
+            <input class="subscription-view" th:value="'Månedligt abonnement: '+${car.subscription_price} +'kr'"readonly>
+
+
+            <form th:action="@{/carSelected/{car_id}(car_id=${car.car_id})}" method="post">
+                <div class="car-container">
+                    <label for="car_location-view" style="color:black; font-family:revert; font-size:15px;"> Se afthentinings lokation</label>
+                    <select id="car_location-view"  name="car_location"  required>
+                        <option value="køge"> Køge   </option>
+                        <option value="Nørrebro"> Nørrebro    </option>
+                        <option value="valby"> Valby    </option>
+                        <option value="Østerbro"> Østerbro    </option>
+                        <option value="Dragør"> Dragør    </option>
+                        <option value="Kongens Nytorv"> Kongens Nytorv    </option>
+                    </select>
+
+                    <button style="position: relative; left: 190px; top: -70px; position: absolute;">VIDERE</button>
+
+                    <img th:src="${car.image}" id="carImage"/>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<nav>
-    <ul>
-    </ul>
-</nav>
-
-<p id="car_model" ></p>
-<div class="information" style="display: flex; flex-wrap: wrap;">
-    <!--div th:each="car: ${cars}"-->
-
-        <h1 class="model" th:text="'Model: ' +${car.car_model}"></h1>
-
-        <input class="model" text="brand" th:value=" 'Brand: '+ ${car.car_brand}" readonly>
-
-        <input class="car_odometer" th:value="'Nuværende kilometer: '+ ${car.car_odometer}"readonly>
-
-        <input class="car_plate" th:value="'Nummerplade: '+ ${car.car_plate}"readonly>
-
-        <input class="car_vin" th:value="'Steelnummer: '+${car.car_vin}"readonly>
-
-        <input class="subscription" th:value="'Månedligt abonnement: '+${car.subscription_price} +'kr'"readonly>
-
-
-        <form th:action="@{/carSelected/{car_id}(car_id=${car.car_id})}" method="post">
-        <label for="car_location" style="color:cornflowerblue; :font-size:160%;"> See pickup locations:</label>
-        <select id="car_location"  name="car_location"  required>
-        <option value="køge"> Køge   </option>
-            <option value="Nørrebro"> Nørrebro    </option>
-            <option value="valby"> Valby    </option>
-            <option value="Østerbro"> Østerbro    </option>
-            <option value="Dragør"> Dragør    </option>
-            <option value="Kongens Nytorv"> Kongens Nytorv    </option>
-        </select>
-            <a th:href="@{'/customerForm/'+${car.car_id}}">
-                <button class="customer-form">NÆSTE</button>
-            </a>
-            <img th:src="${car.image}" id="carImg"/>
-        </form>
-
-</div>
+<div class="back-foto"></div>
 </body>
 </html>

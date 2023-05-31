@@ -35,5 +35,9 @@ import java.util.List;
     public Customer findCustomerByLicense(String license){
         return customerRepo.findCustomerByLicence(license);
     }
+
+    public boolean checkCustomer(String licence) {
+        return customerRepo.checkCustomer(licence);
+    }
    }
 

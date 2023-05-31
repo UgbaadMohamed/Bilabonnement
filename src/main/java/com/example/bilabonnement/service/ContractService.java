@@ -24,11 +24,11 @@ public class ContractService {
         //if end_date is less than 36
         if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) >= 120 &&
                 ChronoUnit.MONTHS.between(contract.getContract_start_date(), contract.getContract_end_date()) < 36) {
-            contractRepo.makeContract(contract, car_id, customer_id,1);
-            return true;
+
+            return   contractRepo.makeContract(contract, car_id, customer_id,1);
         } else if (ChronoUnit.DAYS.between(contract.getContract_start_date(), contract.getContract_end_date()) == 150) {
-            contractRepo.makeContract(contract, car_id, customer_id,0);
-            return true;
+
+            return   contractRepo.makeContract(contract, car_id, customer_id,0);
         }
         return false;
 

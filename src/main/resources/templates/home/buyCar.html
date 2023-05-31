@@ -1,41 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d17da6709b.js"></script>
+    <link rel="stylesheet" type="text/css" href="/header.css">
 </head>
 <body>
+<div id="positionForlogout">
+    <a href="/" class="logout-button">
+        <i class="fa-solid fa-right-from-bracket fa-xl" id="logout-style"></i>
+    </a>
+</div>
 
-
-<form action="/buyCar" method="post">
-    <div id="car-form" style="margin-left: 40px;">
-      <p style="display:inline-block;">Car Brand:</p>
-      <input type="text" name="car_brand" class="input-box" placeholder="Car Brand" required>
-
-      <p style="display:inline-block;">Car Model:</p>
-      <input type="text" name="car_model" class="input-box" placeholder="Car Model" required>
-
-      <p style="display:inline-block;">Car Plate:</p>
-      <input type="text" name="car_plate" class="input-box" placeholder="Car Plate" required>
-
-      <p style="display:inline-block;">Car Odometer:</p>
-      <input type="number" name="car_odometer" class="input-box" placeholder="Car Odometer" required>
-
-      <p style="display:inline-block;">Car VIN:</p>
-      <input type="number" name="car_vin" class="input-box" placeholder="Car VIN" required>
-
-      <p style="display:inline-block;">Car Location:</p>
-      <input type="text" name="car_location" class="input-box" placeholder="Car Location">
-
-      <p style="display:inline-block;">Image:</p>
-      <input type="text" name="image" class="input-box" placeholder="Image URL">
-
-      <p style="display:inline-block;">Subscription Price:</p>
-      <input type="number" name="subscription_price" class="input-box" placeholder="Subscription Price" required>
+<div class="navbar">
+    <div id="menuHeader" onclick="window.location.href='/homePage'">
+        <div class="nav-item">
+            <a href="/homePage" id="logo"></a>
+        </div>
     </div>
 
-    <input type="submit" value="Buy Car">
-  </div>
-</form>
+    <div class="links">
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Leasing-botton"> Leasing
+                </button>
+            </div>
+            <div class="dropdown-content" id="dropdown-1-placement">
+                <a href="/carLeasing">Ledige biler</a>
+                <a href="/customerPage">Alle kunder</a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 1 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Leasing-botton-disable"> Leasing
+            </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Skade-botton">Skade og Udbedring
+                </button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-2-placement">
+                <a href="/conditionReportDocumentation">Opret tilstandsrapport</a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 3 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Skade-botton-disable"> Skade og Udbedring </button>
+        </div>
+
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="After-botton">Efterbehandling</button>
+            </div>
+
+            <div class="dropdown-content" id="dropdown-3-placement">
+                <a href="/findReviewTarget">Kundeanmeldelse</a>
+                <a href="/auction">Auktion</a>
+                <a href="/viewContracts">Alle kontrakter</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="After-botton-disable">Efterbehandling</button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="KPI-botton">PA</button>
+            </div>
+            <div class="dropdown-content" id="dropdown-4-placement">
+                <a href="/KPICar">Lagerstatus</a>
+                <a href="/KPIEconomy">KPI</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="KPI-botton-disable">KPI</button>
+        </div>
+
+        <div class="dropdown nav-item">
+            <div th:if="${session.staff_member.member_type_id == 4}">
+                <button class="dropbtn" id="Staff-botton">Personale</button>
+            </div>
+            <div class="dropdown-content" id="dropdown-5-placement">
+                <a href="/createStaffMember">Opret ny medarbejder</a>
+                <a href="/allStaffMembers">Alle medarbejdere</a>
+            </div>
+        </div>
+
+        <div th:unless="${session.staff_member.member_type_id == 4}">
+            <button disabled class="dropbtn" id="Staff-botton-disable">Personale</button>
+        </div>
+    </div>
+</div>
+
+<div id="inner">
+    <form action="/buyCar" method="post">
+        <div class="basic-box">
+            <br><br>
+            <header id="cd-header">Indkøb af biler</header>
+            <div id="q1" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil mærke:</p>
+                <input type="text" name="car_brand" class="input-box" placeholder="Bil mærke" required>
+            </div>
+
+            <div id="q2" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil model:</p>
+                <input type="text" name="car_model" class="input-box" placeholder="Bil model" required>
+            </div>
+
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil nummerplade:</p>
+                <input type="text" name="car_plate" class="input-box" placeholder="Bil nummerplade" required>
+            </div>
+
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil kilometertæller:</p>
+                <input type="number" name="car_odometer" class="input-box" placeholder="Bil kilometertæller" required>
+            </div>
+
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil VIN:</p>
+                <input type="number" name="car_vin" class="input-box" placeholder="Bil VIN" required>
+            </div>
+
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Bil placering:</p>
+                <input type="text" name="car_location" class="input-box" placeholder="Bil placering">
+            </div>
+
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Billede:</p>
+                <input type="text" name="image" class="input-box" placeholder="Billede URL">
+            </div>
+            <div class="q3" style="margin-left: 40px;">
+                <p style="display:inline-block;">Abonnementspris:</p>
+                <input type="number" name="subscription_price" class="input-box" placeholder="Abonnementspris" required>
+                <button type="submit" style="margin-left: 300px;">Køb bil</button>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+<div class="back-foto">
+</div>
+
+
 </body>
 </html>

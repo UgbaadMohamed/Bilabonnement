@@ -15,11 +15,12 @@ public class CustomerRepo {
     @Autowired
     JdbcTemplate template;
 
-    public List<Customer> fetchAllCustomer(){
+    public List<Customer> fetchAllCustomer() {
         String sql = "SELECT * FROM customer";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql, rowMapper);
     }
+
     public void createCustomer(Customer c) {
         String sql = "INSERT INTO customer (customer_id, customer_first_name, customer_last_name, customer_address," +
                 " zip_code, customer_phone_number, customer_license_number, customer_age, customer_creditworthy) " +
@@ -29,32 +30,39 @@ public class CustomerRepo {
                 c.getCustomer_license_number(), c.getCustomer_age(), c.getCustomer_creditworthy());
     }
 
-    public Boolean deleteCustomer(int customer_id){
+    public Boolean deleteCustomer(int customer_id) {
         String sql = "DELETE FROM customer WHERE customer_id = ?";
-        return template.update(sql,customer_id) > 0;
+        return template.update(sql, customer_id) > 0;
     }
 
 
-
-
-
-    public void makeCustomerCreditworthy(int customer_id){
+    public void makeCustomerCreditworthy(int customer_id) {
         String sql = "UPDATE customer SET customer_creditworthy = 1 WHERE customer_id = ?";
         template.update(sql, customer_id);
     }
 
 
-    public Customer findCustomerById(int customer_id){
+    public Customer findCustomerById(int customer_id) {
         String sql = "SELECT * FROM customer WHERE customer_id = ?";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-       return template.queryForObject(sql, rowMapper, customer_id);
+        return template.queryForObject(sql, rowMapper, customer_id);
     }
 
-    public Customer findCustomerByLicence(String licence){
+    public Customer findCustomerByLicence(String licence) {
         String sql = "SELECT * FROM customer WHERE customer_license_number = ?";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return template.queryForObject(sql, rowMapper, licence);
     }
 
+    public boolean checkCustomer(String licence) {
+        String sql = "SELECT * FROM customer WHERE customer_license_number = ?";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        if (!template.query(sql, rowMapper, licence).isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
 

@@ -77,12 +77,16 @@ public class HomeController {
 
     @GetMapping("/search")
     public String searchForCar(@RequestParam("car_brand") String car_brand, HttpSession session, Model model) {
-        List<Car> cars= carService.searchSpecificCar(car_brand);
+        List<Car> cars = carService.searchSpecificCar(car_brand);
         System.out.println(cars);
+        if (cars.isEmpty()) {
+            return "redirect:/carLeasing";
+        }
         model.addAttribute("cars", cars);
-       // session.getAttribute("staffmember");
+        session.getAttribute("staffmember");
         return "home/search";
     }
+
 
     @GetMapping("/carLeasing")
     public String carLeasing(Model model, HttpSession session) {
@@ -128,7 +132,7 @@ public class HomeController {
         // brug af license kan vi finde den pågældende customer,
         // tilføje den til den nye model.addAttribute og anvende den til videre brug
 
-        if (customer.getCustomer_age() < 18) {
+        if (customer.getCustomer_age() < 18 || customerService.checkCustomer(customer.getCustomer_license_number())) {
             return "home/customerForm";
         }
             customerService.createCustomer(customer);

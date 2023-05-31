@@ -6,6 +6,7 @@
     justify-content: center;
     /* Add margin to the top */
     margin-top: 80px;
+    margin-bottom: 100px;
     cursor: pointer;
     z-index: 1;
     position: relative;
@@ -15,42 +16,39 @@
 .car-box {
     /* Set width and height */
     width: 420px;
-    height: 350px;
-    top: 60px;
+    height: 500px;
+    top: -60px;
     /* Add margin to create some space between cards */
     margin: 20px;
     /* Add rounded corners to the card */
-    border-radius: 5px;
+    border-radius: 0px;
     /* Add a box shadow for a 3D effect */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     /* Add a transition effect when hovering over the card */
     transition: 0.3s;
     cursor: pointer;
     z-index: 0;
     position: relative;
-    background-color: #b7afaf;
-    background-image: linear-gradient(180deg, #ffffff, rgba(1, 108, 247, 0.48), #c6c6ce 100%);
     /* border-radius: 20px; */
-    box-shadow:0px 0px 10px 0px rgb(0 0 0 / 75%);
+    box-shadow:0px 0px 10px 0px rgba(23, 21, 21, 0.75);
 
 }
 
 
 .car-box:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
 }
 
 .model{
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
-    margin-top: 30px;
+    margin-top: -16px;
     margin-left: 10px;
 }
 
 .brand{
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 35px;
     margin-left: 10px;
 }
 
@@ -59,57 +57,55 @@
 }
 
 .subscription{
-    font-size: 30px;
-    /* font-weight: bold; */
-    top: -10px;
-    margin-top: -340px;
-    margin-left: 310px;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: -300px;
+    font-weight: bold;
 }
 
 .image {
-    width: 418px;
-    height: 243px;
+    width: 390px;
+    height: 290px;
     object-fit: cover;
-    top: -15px;
-    margin-left: 0px;
+    top: 45px;
+    margin-left: 16px;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     transition: 0.3s;
     cursor: pointer;
     z-index: 1;
     position: relative;
+    filter: brightness(0.6);
 }
-.view-car{
-    height: 350px;
-    width: 390px;
-    top: 2px;
-    background: transparent;
-    margin-left: 1px;
-    border: none;
-    position: absolute;
-    z-index: 2;
 
+.view-car {
+    position: relative;
+    top: -40px;
+    left: 72%;
+    background: transparent;
+    z-index: 2;
+    margin-right: 20px;
+}
+
+.view-car:hover {
+    color: #96959c;
 }
 
 
 #search-input {
     position: absolute;
-    top: 500px;
+    top: 95px;
     right: 750px;
     width: 600px;
     height: 30px;
-    border: 2px solid #c1abfd;
     padding: 24px 155px;
-    z-index: 2;
-    left: 538px;
-    background-color: white;
-
+    left: 573px;
+    z-index: 0;
 }
 #search-input input[type="text"] {
     width: 650px;
     height: 30px;
-    border-radius: 9px;
-    border: 2px solid #c1abfd;
+    z-index: 0;
 }
 
 #search-submit{
@@ -117,6 +113,7 @@
     top: 31px;
     right: 120px;
     padding: 1px 10px;
-    border-color: #a98ce3;
-    background: #d1b8fa;
+    border-color: #7fa4a8;
+    background: #adb9cb;
+    z-index: 0;
 }
