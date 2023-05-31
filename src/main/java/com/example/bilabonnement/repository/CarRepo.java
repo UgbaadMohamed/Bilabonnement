@@ -114,7 +114,7 @@ public class CarRepo {
 
 
     public void buyCar(Car c) {
-        String sql = "INSERT INTO car (car_id,car_brand, car_model, car_plate, car_odometer, car_vin,car_price  image, subscription_price) VALUES (?, ?," +
+        String sql = "INSERT INTO car (car_id,car_brand, car_model, car_plate, car_odometer, car_vin, car_price, image, subscription_price) VALUES (?, ?," +
                 " ?, ?, ?, ?, ?, ?, ?)";
         template.update(sql, c.getCar_id(),c.getCar_brand(),c.getCar_model(),c.getCar_plate(),c.getCar_odometer(),c.getCar_plate(),c.getCar_price(), c.getImage(),c.getSubscription_price());
     }

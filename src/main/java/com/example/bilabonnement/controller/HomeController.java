@@ -461,8 +461,8 @@ public class HomeController {
        model.addAttribute("list",map);
        session.getAttribute("staffmember");
        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-       //if (staffMember.getMember_type_id() )
-          // return "home/viewContracts";
+       if (staffMember.getMember_type_id()== 4 ||staffMember.getMember_type_id()== 1 || staffMember.getMember_type_id()==2)
+           return "home/viewContracts";
 
        return "redirect:/loginPage";
 

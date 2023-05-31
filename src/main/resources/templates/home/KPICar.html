@@ -76,12 +76,12 @@
 
         <div class="dropdown nav-item">
             <div th:if="${session.staff_member.member_type_id == 2 || session.staff_member.member_type_id == 4}">
-                <button class="dropbtn" id="KPI-botton">KPI
+                <button class="dropbtn" id="KPI-botton">PA
                 </button>
             </div>
             <div class="dropdown-content" id="dropdown-4-placement">
-                <a href="/KPICar">KPI over biler</a>
-                <a href="#">KPI over økonomi</a>
+                <a href="/KPICar">Lagerstatus</a>
+                <a href="/KPIEconomy">KPI</a>
             </div>
         </div>
 
@@ -111,7 +111,7 @@
 </div>
 </div>
 
-    <div class="back-foto">
+<div class="back-foto">
     </div>
     <br><br><br><br><br><br><br><br><br><br><br>
     <div class="scrollable">
