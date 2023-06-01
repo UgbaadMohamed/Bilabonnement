@@ -50,7 +50,7 @@ public class CarRepo {
         return car;
     }
 
-    public void pickLocation(String car_location, int car_id) {
+    public void saveLocation(String car_location, int car_id) {
         System.out.println(car_id);
         String sql = "UPDATE car SET car_location = ? Where car_id = ?";
         template.update(sql, car_location, car_id);

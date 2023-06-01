@@ -43,8 +43,7 @@ public class HomeController {
     @Autowired
     ReviewService reviewService;
 //kk
-    //
-
+//Ugbaad
     @GetMapping("/")
     public String frontPage() {
         return "home/frontPage";
@@ -70,30 +69,31 @@ public class HomeController {
     }
 
     @GetMapping("/homePage")
-    public String homePage(HttpSession session ) {
-        session.getAttribute("staffmember");
+    public String homePage() {
         return "home/homePage";
     }
 
-
+//----------
+//----------MUNIRA og Ikhra-----
     @GetMapping("/search")
-    public String searchForCar(@RequestParam("car_brand") String car_brand, HttpSession session, Model model) {
+    public String searchForCar(@RequestParam("car_brand") String car_brand, Model model) {
         List<Car> cars = carService.searchSpecificCar(car_brand);
-        System.out.println(cars);
+
         if (cars.isEmpty()) {
             return "redirect:/carLeasing";
         }
         model.addAttribute("cars", cars);
-        session.getAttribute("staffmember");
+
         return "home/search";
     }
-
+//---------
+    //----------MUNIRA
 
     @GetMapping("/carLeasing")
     public String carLeasing(Model model, HttpSession session) {
         List<Car> cars = carService.fetchAvailableCars();
         model.addAttribute("cars", cars);
-      //  session.getAttribute("staffmember");
+        //  session.getAttribute("staffmember");
 
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1)
@@ -104,26 +104,25 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/viewCar/{car_id}")
-    public String viewCar(@PathVariable("car_id") int car_id, Model model,HttpSession session) {
+    public String viewCar(@PathVariable("car_id") int car_id, Model model) {
         Car car = carService.viewCar(car_id);
         model.addAttribute("car", car);
-        session.getAttribute("staffmember");
         return "home/carInformation";
     }
 
     @PostMapping("/carSelected/{car_id}")
-    public String pickLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model,HttpSession session) {
-        carService.location(car.getCar_location(), car_id);
+    public String saveLocation(@ModelAttribute Car car, @PathVariable("car_id") int car_id, Model model) {
+        carService.saveLocation(car.getCar_location(), car_id);
         model.addAttribute("car", carService.findCarById(car_id));
-        session.getAttribute("staffmember");
+
         return "home/customerForm";
     }
-
+//_______
+//--------- Ikhra og FREYA-----
     @PostMapping("/createCustomer")
-    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String createCustomer(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
+
         model.addAttribute("car", car);
 
         //vi bruger license number (unique) til at finde customer, da ModelAttribut customer
@@ -136,21 +135,21 @@ public class HomeController {
         if (customer.getCustomer_age() < 18 || customerService.checkCustomer(customer.getCustomer_license_number())) {
             return "home/customerForm";
         }
-            customerService.createCustomer(customer);
-            model.addAttribute("customer",
-                    customerService.findCustomerByLicense(customer.getCustomer_license_number()));
+        customerService.createCustomer(customer);
+        model.addAttribute("customer",
+                customerService.findCustomerByLicense(customer.getCustomer_license_number()));
 
         return "home/creditDocumentation";
     }
 
+    //--------- UGBAAD og FREYA-----
     @PostMapping("/receivedCreditDocuments")
     public String receivedDocuments(@RequestParam("q1") String q1,
                                     @RequestParam("q2") String q2, @ModelAttribute Car car, @ModelAttribute Customer
-                                    customer,
-                                    Model model,HttpSession session) {
+                                                customer,
+                                    Model model) {
         model.addAttribute("customer", customer);
         model.addAttribute("car", car);
-        session.getAttribute("staffmember");
 
         if (q1.equals("ja") && q2.equals("ja")) {
             return "home/creditValidation";
@@ -158,61 +157,63 @@ public class HomeController {
             return "home/creditDocumentation";
         }
     }
+
     @PostMapping("/creditValidationSuccess")
-    public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model,
-                                          HttpSession session) {
+    public String creditValidationSuccess(@ModelAttribute Customer customer, @ModelAttribute Car car, Model model) {
         customerService.makeCustomerCreditworthy(customer.getCustomer_id());
         model.addAttribute("customer", customer);
         model.addAttribute("car", car);
-        session.getAttribute("staffmember");
+
         return "home/contract";
     }
 
-
-
+//------------
+//--------- Munira-----
     @PostMapping("/contractInfo")
     public String contractInfo(@ModelAttribute Contract contract, @ModelAttribute Car car,
                                @ModelAttribute Customer customer, Model model, HttpSession session) {
         session.getAttribute("staffmember");
         if (contractService.makeContract(contract, car.getCar_id(), customer.getCustomer_id()) == true) {
-            Contract contract2 = contractService.findContractByCarId(car.getCar_id());
+            Contract con = contractService.findContractByCarId(car.getCar_id());
 
-            model.addAttribute("contract", contract2);
+            model.addAttribute("contract", con);
 
-            int sum = contractService.totalPriceForMonthlyPayment(contract2.getContract_id());
+            int sum = contractService.totalPriceForMonthlyPayment(con.getContract_id());
             model.addAttribute("totalPriceForPayment", sum);
             return "home/payment";
         } else
             return "home/contract";
     }
+    //--- Ugbaad og Munira------
 
     @PostMapping("/payment")
-    public String finalizeWithPayment(Model model,@ModelAttribute Payment payment, @ModelAttribute Contract contract,HttpSession session) {
+    public String finalizeWithPayment(Model model, @ModelAttribute Payment payment, @ModelAttribute Contract contract, HttpSession session) {
         paymentService.finalizeWithPayment(payment, contract);
         session.getAttribute("staffmember");
         return "home/homePage";
     }
 
+    //-----
+    //--- Ugbaad og Freya------
     @GetMapping("/conditionReportDocumentation")
-    public String conditionReportDocumentation(Model model,HttpSession session) {
+    public String conditionReportDocumentation(Model model, HttpSession session) {
+        session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 3)
-
             return "home/conditionReportDocumentation";
 
         return "redirect:/loginPage";
+
     }
 
-
     @PostMapping("/conditionReport")
-    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model,HttpSession session) {
+    public String conditionReport(@RequestParam("contract_id") int contract_id, Model model, HttpSession session) {
 
         session.getAttribute("staffmember");
         try {
             if (conditionReportService.checkIfAlreadyConditionReported(contract_id)) {
                 return "home/ConditionReportDenied";
-            }
-            else {
+            } else {
                 model.addAttribute("contract", contractService.findContractById(contract_id));
 
                 return "home/conditionReport";
@@ -224,19 +225,18 @@ public class HomeController {
     }
 
     @PostMapping("/saveConditionReport")
-    public String saveConditionReport(Model model,@ModelAttribute ConditionReport conditionReport,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String saveConditionReport(Model model, @ModelAttribute ConditionReport conditionReport, HttpSession session) {
+
         conditionReportService.saveConditionReport(conditionReport);
         return "home/homePage";
     }
 
 
 
-    /* @RequestParam("contract_id") int contract_id,
 
 
-
-     */
+/*-------------------------- */
+    //--- Ugbaad og Munira ------
 
     @GetMapping("/KPICar")
     public String totalRentedCars(Model model, HttpSession session) {
@@ -254,9 +254,8 @@ public class HomeController {
 
         Map<Contract, Car> map = kpiService.mapOfcontractsandcar();
         model.addAttribute("list", map);
-        session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2)
             return "home/KPICar";
 
 
@@ -264,37 +263,36 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/KPIEconomy")
-    public String payedNow(Model model,HttpSession session) {
+    public String payedNow(Model model, HttpSession session) {
         List<Payment> payedNow = kpiService.payedNow();
-        model.addAttribute("payedNow",payedNow);
+        model.addAttribute("payedNow", payedNow);
 
         List<Payment> notPayed = kpiService.notPayed();
-        model.addAttribute("notPayed",notPayed);
+        model.addAttribute("notPayed", notPayed);
 
-        int total= carService.totalMonthlyPrice();
+        int total = carService.totalMonthlyPrice();
         model.addAttribute("subscriptionPrice", total);
 
-        session.getAttribute("staffmember");
+
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2)
             return "home/KPIEconomy";
 
 
         return "redirect:/loginPage";
 
     }
+    //--------------
 
-
-    //REVIEW---------------------
+    //REVIEW--------------------- IKHRA OG FREYA
 
     @GetMapping("/findReviewTarget")
-    public String findReviewTarget(Model model,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String findReviewTarget(Model model, HttpSession session) {
+
 
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2)
             return "home/findReviewTarget";
 
 
@@ -303,47 +301,42 @@ public class HomeController {
     }
 
     @GetMapping("/review")
-    public String review(@RequestParam("contract_id") int contract_id, Model model,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String review(@RequestParam("contract_id") int contract_id, Model model, HttpSession session) {
         try {
             if (reviewService.checkIfAlreadyReviewed(contract_id)) {
                 return "home/reviewDenied";
-            }
-            else {
+            } else {
                 Contract contract = contractService.findContractById(contract_id);
                 model.addAttribute("contract", contract);
                 //contract id kommer med til review, til senere brug
                 return "home/review";
             }
         } catch (EmptyResultDataAccessException e) { //inputvalidering, hvis kontrakten ikke findes
-                return "home/reviewDenied";
+            return "home/reviewDenied";
         }
     }
 
     @PostMapping("/reviewSubmitted")
-    public String submitReview(Review review, Model model,HttpSession session) {
+    public String submitReview(Review review, Model model) {
         reviewService.addReview(review);
-        //deklaration
-        List<Car> carsInAuction;
+
 
         /* contract id er blevet overført som en hidden value, og kan nu bruges til at finde den
             pågældende bil (gennem en join) */
         Car car = carService.findCarByContractId(review.getContract_id());
         model.addAttribute("car", car);
-        session.getAttribute("staffmember");
+
 
 
         if (review.getBuying_customer() == 1)
             return "home/carSale";
         else
-            carsInAuction = carService.fetchCarsInAuction();
-            model.addAttribute("cars_in_auction", carsInAuction);
-            return "home/homePage";
+        return "home/homePage";
     }
 
     @PostMapping("/sellCar")
-    public String sellCar(Car car,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String sellCar(Car car) {
+
         carService.sellCar(car);
         return "home/homePage";
     }
@@ -351,29 +344,27 @@ public class HomeController {
     @PostMapping("/priceConverter")
     public String convertPrice(@ModelAttribute Car car, Model model,
                                @RequestParam("currency") String currency, Review review,
-                               Contract contract,HttpSession session) {
+                               Contract contractn) {
         car = carService.findCarByContractId(car.getCar_id());
         model.addAttribute("car", car);
-        session.getAttribute("staffmember");
         carService.convertPrice(car, currency);
 
         return "home/carSale";
     }
 
     @PostMapping("/carSaleDenied")
-    public String carSaleDenied(@ModelAttribute Car car,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String carSaleDenied(@ModelAttribute Car car) {
         reviewService.carSaleDenied(car);
         return "home/homePage";
     }
 
     @GetMapping("/auction")
-    public String auction(Model model,HttpSession session) {
+    public String auction(Model model, HttpSession session) {
         List<Car> carsInAuction = carService.fetchCarsInAuction();
         model.addAttribute("cars_in_auction", carsInAuction);
-        session.getAttribute("staffmember");
+
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2 )
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 2)
             return "home/auction";
 
 
@@ -384,9 +375,10 @@ public class HomeController {
 
     //------------------------------
 
+
+    //--- Ugbaad ------------
     @GetMapping("/createStaffMember")
     public String createCustomer(HttpSession session) {
-        session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4)
             return "home/createStaffMember";
@@ -394,34 +386,30 @@ public class HomeController {
         return "redirect:/loginPage";
 
 
-
     }
 
     @PostMapping("/addStaffMember")
-    public String createCustomer(@ModelAttribute StaffMember s,HttpSession session) {
-        session.getAttribute("staffmember");
+    public String createCustomer(@ModelAttribute StaffMember s) {
+
         staffMemberService.createStaff(s);
         return "home/homePage";
     }
 
     @GetMapping("/deleteStaffMember/{staff_member_id}")
-    public String deleteStaffMember(@PathVariable("staff_member_id")int staff_member_id,HttpSession session){
-        boolean deleted= staffMemberService.deleteStaffMember(staff_member_id);
-        session.getAttribute("staffmember");
+    public String deleteStaffMember(@PathVariable("staff_member_id") int staff_member_id, HttpSession session) {
+        boolean deleted = staffMemberService.deleteStaffMember(staff_member_id);
         if (deleted) {
             return "redirect:/homePage";
-        }
-        else {
+        } else {
             return "redirect:/homePage";
         }
     }
 
 
     @GetMapping("/allStaffMembers")
-    public String allStaffMembers(Model model,HttpSession session) {
+    public String allStaffMembers(Model model, HttpSession session) {
         List<StaffMember> staffMemberList = staffMemberService.allStaffMembers();
-        model.addAttribute("allStaff",staffMemberList);
-        session.getAttribute("staffmember");
+        model.addAttribute("allStaff", staffMemberList);
 
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4)
@@ -431,69 +419,66 @@ public class HomeController {
 
 
     }
+    //--------Ikhra----------
 
     @GetMapping("/customerPage")
-    public String customerPage(Model model,HttpSession session) {
+    public String customerPage(Model model, HttpSession session) {
         List<Customer> customerList = customerService.fetchAllCustomer();
         model.addAttribute("customers", customerList);
-        session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4)
             return "home/customerPage";
 
         return "redirect:/loginPage";
 
-        }
-    
+    }
+
+//----------------
+//----------------Munira
+    @GetMapping("/viewContracts")
+    public String viewContract(Model model, HttpSession session) {
+        Map<Contract, Car> map = contractService.mapOfcontractsandcar();
+        model.addAttribute("list", map);
+
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1 || staffMember.getMember_type_id() == 2)
+            return "home/viewContracts";
+
+        return "redirect:/loginPage";
 
 
-
-
-   /*@GetMapping("/viewLeasedCars/{contract_id}")
-    public String viewContract(@PathVariable("contract_id") int contract_id,Model model) {
-        List<Contract> contracts =contractService.viewLeasedCars(contract_id);
-        model.addAttribute("contracts", contracts);
-        System.out.println(contracts);
-        return "home/viewContracts";
-    }*/
-   @GetMapping("/viewContracts")
-   public String viewContract(Model model,HttpSession session) {
-       Map<Contract, Car> map = contractService.mapOfcontractsandcar();
-       model.addAttribute("list",map);
-       session.getAttribute("staffmember");
-       StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
-       if (staffMember.getMember_type_id()== 4 ||staffMember.getMember_type_id()== 1 || staffMember.getMember_type_id()==2)
-           return "home/viewContracts";
-
-       return "redirect:/loginPage";
-
-
-}
+    }
 
 
     @GetMapping("/deleteContract/{contract_id}")
-    public String deleteContract(@PathVariable("contract_id")int contract_id,HttpSession session){
-        boolean deleted= contractService.deleteContract(contract_id);
-        session.getAttribute("staffmember");
+    public String deleteContract(@PathVariable("contract_id") int contract_id) {
+        boolean deleted = contractService.deleteContract(contract_id);
         if (deleted) {
             return "redirect:/homePage";
-        }
-        else {
+        } else {
             return "redirect:/homePage";
         }
     }
 
     @GetMapping("/fleet")
-    public String fleet(){
+    public String fleet() {
         return "home/buyCar";
     }
-    @PostMapping("/buyCar")
-    public String buyCar(@ModelAttribute Car car, HttpSession session){
-        carService.buyCar(car);
-        session.getAttribute("staffmember");
-        return "redirect:/homePage";
-    }
 
+    @PostMapping("/buyCar")
+    public String buyCar(@ModelAttribute Car car, HttpSession session) {
+        carService.buyCar(car);
+
+        StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
+        if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 1 || staffMember.getMember_type_id() == 2)
+
+            return"redirect:/homePage";
+
+        return "redirect:/loginPage";
+
+}
+
+//------------------
 
 
 

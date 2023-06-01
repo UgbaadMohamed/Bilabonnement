@@ -44,13 +44,6 @@ public class ContractRepo {
     }
 
 
-   /* public List<Contract> fetchContracts(){
-        String sql = "SELECT DISTINCT contract_id, customer_id, car_id, contract_start_date, " +
-                "contract_end_date, contract_maximum_km FROM contract";
-        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
-        return template.query(sql, rowMapper);
-    }*/
-
 
         public Contract findContractById ( int contract_id){
             String sql = "SELECT contract_id, customer_id, car_id, contract_start_date, " +

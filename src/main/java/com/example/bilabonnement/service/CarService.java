@@ -22,8 +22,8 @@ public class CarService {
         return carRepo.totalMonthlyPrice();
     }
 
-    public void location(String car_location, int car_id){
-        carRepo.pickLocation(car_location,car_id);
+    public void saveLocation(String car_location, int car_id){
+        carRepo.saveLocation(car_location,car_id);
     }
     public Car findCarById(int id){
         return carRepo.findCarById(id);
