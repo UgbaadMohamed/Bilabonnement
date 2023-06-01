@@ -464,7 +464,7 @@ public class HomeController {
     public String fleet() {
         return "home/buyCar";
     }
-
+//
     @PostMapping("/buyCar")
     public String buyCar(@ModelAttribute Car car, HttpSession session) {
         carService.buyCar(car);
