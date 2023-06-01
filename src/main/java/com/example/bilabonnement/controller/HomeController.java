@@ -195,14 +195,14 @@ public class HomeController {
 
     @GetMapping("/conditionReportDocumentation")
     public String conditionReportDocumentation(Model model,HttpSession session) {
-        session.getAttribute("staffmember");
         StaffMember staffMember = (StaffMember) session.getAttribute("staff_member");
         if (staffMember.getMember_type_id() == 4 || staffMember.getMember_type_id() == 3)
+
             return "home/conditionReportDocumentation";
 
         return "redirect:/loginPage";
-
     }
+
 
     @PostMapping("/conditionReport")
     public String conditionReport(@RequestParam("contract_id") int contract_id, Model model,HttpSession session) {
