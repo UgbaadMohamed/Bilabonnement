@@ -51,3 +51,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_19943E37CE0C45AB94A821C95972BCA7 }}
           package: '*.jar'
+          retention-days: 1
+          
+     
+
